@@ -127,13 +127,13 @@ feat: add routing & dashboard layout with role-based sidebar (milestone 2)
 ### Tasks
 
 #### 3.1 — Mock Data
-- [ ] `src/api/_mock/akademik.js`:
-  - [ ] Function `mockGetPohonKurikulum(mahasiswaId)`:
-    - [ ] Return shape sesuai `api-spec.md` endpoint `GET /api/v1/akademik/saya/pohon-kurikulum`
-    - [ ] Data nodes dari `kurikulum2023Nodes.js` (file user yang udah ada)
-    - [ ] Data edges dari `kurikulum2023Edges.js`
-    - [ ] Tambah field `match` di beberapa node (simulate ada nilai)
-    - [ ] Sleep 300ms simulate network
+- [x] `src/api/_mock/akademik.js`:
+  - [x] Function `mockGetPohonKurikulum(mahasiswaId)`:
+    - [x] Return shape sesuai `api-spec.md` endpoint `GET /api/v1/akademik/saya/pohon-kurikulum`
+    - [x] Data nodes dari `kurikulum2023Nodes.js` (file user yang udah ada)
+    - [x] Data edges dari `kurikulum2023Edges.js`
+    - [x] Tambah field `match` di beberapa node (simulate ada nilai)
+    - [x] Sleep 300ms simulate network
 
 #### 3.2 — API Service Layer
 - [ ] `src/api/akademik.js`:
@@ -185,8 +185,7 @@ feat: implement pohon kurikulum with react flow (milestone 3)
 ### Tasks (per feature, ulangi pattern Milestone 3)
 
 #### 4.1 — Mahasiswa
-- [ ] Dashboard (ringkasan akademik)
-- [ ] Report (total SKS, IPK, IPS)
+- [ ] Dashboard (ringkasan akademik: SKS, IPK, IPS, periode aktif, jadwal dosen wali)
 - [ ] Perwalian Saya (list FRS per periode + detail)
 - [ ] Tambah/Edit Rencana Studi (pilih kelas, checkout)
 - [ ] Upload DPS (form upload PDF — pakai mock parsing)
@@ -235,7 +234,7 @@ Beberapa hal yang bakal dikerjakan setelah milestone 4 selesai:
 |---|---|---|---|
 | 1. Hello World | ✅ Done | 2026-04-29 | 2026-04-29 |
 | 2. Routing & Layout | ✅ Done | 2026-04-29 | 2026-04-29 |
-| 3. Pohon Kurikulum | ⏳ Not started | - | - |
+| 3. Pohon Kurikulum | 🚧 In Progress | 2026-04-29 | - |
 | 4. Replicate Pattern | ⏳ Not started | - | - |
 
 > Update kolom Status: `⏳ Not started` → `🚧 In Progress` → `✅ Done`

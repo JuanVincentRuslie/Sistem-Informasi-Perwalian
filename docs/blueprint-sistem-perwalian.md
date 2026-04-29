@@ -159,8 +159,7 @@ Halaman detail FRS dari sisi dosen wali harus rich information:
 | Page | Konten | Action |
 |---|---|---|
 | Login | Form login | Submit |
-| Dashboard | Info akademik (SKS, IPK), periode aktif, jadwal dosen wali | - |
-| Report | Total SKS, IPK, IPT | - |
+| Dashboard | Info akademik (SKS, IPK, IPS), total SKS lulus, periode aktif, jadwal dosen wali | - |
 | Progress Studi | Pohon kurikulum (visualisasi per semester) | - |
 | Perwalian Saya | List per semester (tab) + form FRS baru | Edit, Submit |
 | Pilih Matkul (checkout) | Pilih matkul + kelas | Add to FRS |
