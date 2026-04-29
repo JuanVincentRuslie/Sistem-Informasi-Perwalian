@@ -136,37 +136,41 @@ feat: add routing & dashboard layout with role-based sidebar (milestone 2)
     - [x] Sleep 300ms simulate network
 
 #### 3.2 — API Service Layer
-- [ ] `src/api/akademik.js`:
-  - [ ] Import mock function
-  - [ ] Export `getPohonKurikulum(mahasiswaId)` yang call mock (untuk sekarang)
-  - [ ] Tambah TODO comment: `// TODO: replace with real API`
+- [x] `src/api/akademik.js`:
+  - [x] Import mock function
+  - [x] Export `getPohonKurikulum(mahasiswaId)` yang call mock (untuk sekarang)
+  - [x] Tambah TODO comment: `// TODO: replace with real API`
 
 #### 3.3 — Custom Hook
-- [ ] `src/hooks/useFetch.js`:
-  - [ ] Generic hook: `useFetch(fetcher, deps)` return `{ data, loading, error }`
-  - [ ] Handle cleanup (cancelled flag biar gak setState pas unmount)
+- [x] `src/hooks/useFetch.js`:
+  - [x] Generic hook: `useFetch(fetcher, deps)` return `{ data, loading, error, refetch }`
+  - [x] Handle cleanup (cancelled flag biar gak setState pas unmount)
+  - [x] refetch via trigger counter + useCallback untuk stable reference
 
-#### 3.4 — Halaman Pohon Kurikulum
-- [ ] Install React Flow:
-  ```bash
-  npm install reactflow
-  ```
-- [ ] `src/features/mahasiswa/pohon-kurikulum/PohonKurikulumPage.jsx`:
-  - [ ] Pakai `useFetch` panggil `getPohonKurikulum`
-  - [ ] Loading state: `<CircularProgress />`
-  - [ ] Error state: `<Alert severity="error">`
-  - [ ] Success state: render React Flow dengan nodes & edges dari data
-- [ ] `src/features/mahasiswa/pohon-kurikulum/components/MatkulNode.jsx`:
-  - [ ] Custom node component
-  - [ ] Background warna sesuai `match.status`:
+#### 3.4 — Install React Flow + MatkulNode Component
+- [x] Install React Flow (`reactflow@^11.11.4`)
+- [x] `src/features/mahasiswa/pohon-kurikulum/components/MatkulNode.jsx`:
+  - [x] Custom node component
+  - [x] Background warna sesuai `match.status`:
     - `null` (belum ambil) → putih
     - `LULUS` → hijau
     - `TIDAK_LULUS` → merah
-  - [ ] Tampil: kode, nama, sks, nilai (kalau ada)
-- [ ] Layout positioning pakai field `kolom` & `semester`:
-  - [ ] `x = kolom * 200`
-  - [ ] `y = (semester - 1) * 150`
-- [ ] Edge style berbeda per `relation_type` (boleh sederhana: warna beda aja)
+  - [x] Handle source (bottom) + target (top)
+  - [x] Tampil kode, nama, SKS, nilai kalau match ada
+
+#### 3.5 — Halaman Pohon Kurikulum (Final Compose)
+- [x] `src/features/mahasiswa/pohon-kurikulum/PohonKurikulumPage.jsx`
+  - [x] Pakai `useFetch` panggil `getPohonKurikulum`
+  - [x] Loading state: `<CircularProgress />`
+  - [x] Error state: `<Alert severity="error">`
+  - [x] Success state: render React Flow
+- [x] Register MatkulNode di nodeTypes (pakai useMemo)
+- [x] Layout positioning: x = kolom * 200, y = (semester - 1) * 150
+- [x] Edge style berbeda per `relation_type` (4 warna)
+- [x] Background pakai React Flow Background component
+- [x] Controls (zoom, pan) pakai React Flow Controls component
+- [x] Summary: total_sks_lulus, ipk, ips_terakhir
+- [x] `reactflow/dist/style.css` di-import di `main.jsx` (global)
 
 ### Deliverable
 ✅ Login as Mahasiswa → klik menu "Pohon Kurikulum" → lihat pohon dengan node berwarna sesuai status nilai dummy.
@@ -234,7 +238,7 @@ Beberapa hal yang bakal dikerjakan setelah milestone 4 selesai:
 |---|---|---|---|
 | 1. Hello World | ✅ Done | 2026-04-29 | 2026-04-29 |
 | 2. Routing & Layout | ✅ Done | 2026-04-29 | 2026-04-29 |
-| 3. Pohon Kurikulum | 🚧 In Progress | 2026-04-29 | - |
+| 3. Pohon Kurikulum | ✅ Done | 2026-04-29 | 2026-04-29 |
 | 4. Replicate Pattern | ⏳ Not started | - | - |
 
 > Update kolom Status: `⏳ Not started` → `🚧 In Progress` → `✅ Done`
