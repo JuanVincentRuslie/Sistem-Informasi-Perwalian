@@ -46,7 +46,7 @@ function MatkulNode({ data }) {
       <Paper
         elevation={2}
         sx={{
-          width: 180,
+          width: 240,
           p: '12px',
           background,
           border: `2px solid ${border}`,
@@ -56,10 +56,11 @@ function MatkulNode({ data }) {
           },
         }}
       >
-        <Typography variant="caption" color="text.secondary" display="block">
+        <Typography variant="caption" color="text.secondary" display="block"
+         sx={{ fontSize: '1.2rem' }}>
           {kode_aktif}
         </Typography>
-        <Typography variant="body2" fontWeight="bold" sx={{ mt: 0.25 }}>
+        <Typography variant="body2" fontWeight="bold" sx={{ mt: 0.25,fontSize: '1.2rem' }}>
           {nama}
         </Typography>
 

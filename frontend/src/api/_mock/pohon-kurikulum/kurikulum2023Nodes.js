@@ -7,7 +7,7 @@ export const kurikulum2023Nodes = [
     label: "Matematika Dasar",
     sks: 4,
     semester: 1,
-    kolom: 5,
+    kolom: 4,
     tipe: "wajib",
   },
   {
@@ -16,7 +16,7 @@ export const kurikulum2023Nodes = [
     label: "Dasar Pemrograman",
     sks: 4,
     semester: 1,
-    kolom: 4,
+    kolom: 7,
     tipe: "wajib",
   },
   {
@@ -25,7 +25,7 @@ export const kurikulum2023Nodes = [
     label: "Matematika Diskret",
     sks: 4,
     semester: 1,
-    kolom: 6,
+    kolom: 5,
     tipe: "wajib",
   },
   {
@@ -63,7 +63,7 @@ export const kurikulum2023Nodes = [
     label: "Algoritma dan Pemrograman",
     sks: 4,
     semester: 2,
-    kolom: 4,
+    kolom: 11,
     tipe: "wajib",
   },
   {
@@ -72,7 +72,7 @@ export const kurikulum2023Nodes = [
     label: "Logika Informatika",
     sks: 3,
     semester: 2,
-    kolom: 6,
+    kolom: 4,
     tipe: "wajib",
   },
   {
@@ -81,7 +81,7 @@ export const kurikulum2023Nodes = [
     label: "Arsitektur dan Organisasi Komputer",
     sks: 4,
     semester: 2,
-    kolom: 5,
+    kolom: 6,
     tipe: "wajib",
   },
   {
@@ -90,7 +90,7 @@ export const kurikulum2023Nodes = [
     label: "Statistika untuk Komputasi",
     sks: 3,
     semester: 2,
-    kolom: 3,
+    kolom: 8,
     tipe: "wajib",
   },
   {
@@ -128,7 +128,7 @@ export const kurikulum2023Nodes = [
     label: "Pemrograman Berorientasi Objek",
     sks: 4,
     semester: 3,
-    kolom: 3,
+    kolom: 11,
     tipe: "wajib",
   },
   {
@@ -137,7 +137,7 @@ export const kurikulum2023Nodes = [
     label: "Struktur Diskret",
     sks: 3,
     semester: 3,
-    kolom: 6,
+    kolom: 5,
     tipe: "wajib",
   },
   {
@@ -146,7 +146,7 @@ export const kurikulum2023Nodes = [
     label: "Algoritma dan Struktur Data",
     sks: 4,
     semester: 3,
-    kolom: 4,
+    kolom: 9,
     tipe: "wajib",
   },
   {
@@ -155,7 +155,7 @@ export const kurikulum2023Nodes = [
     label: "Sistem Operasi",
     sks: 3,
     semester: 3,
-    kolom: 5,
+    kolom: 6,
     tipe: "wajib",
   },
   {
@@ -184,7 +184,7 @@ export const kurikulum2023Nodes = [
     label: "Analisis dan Desain Perangkat Lunak",
     sks: 2,
     semester: 4,
-    kolom: 4,
+    kolom: 12,
     tipe: "wajib",
   },
   {
@@ -193,7 +193,7 @@ export const kurikulum2023Nodes = [
     label: "Desain dan Analisis Algoritma",
     sks: 4,
     semester: 4,
-    kolom: 7,
+    kolom: 5,
     tipe: "wajib",
   },
   {
@@ -211,7 +211,7 @@ export const kurikulum2023Nodes = [
     label: "Manajemen Informasi dan Basis Data",
     sks: 4,
     semester: 4,
-    kolom: 5,
+    kolom: 10,
     tipe: "wajib",
   },
   {
@@ -240,7 +240,7 @@ export const kurikulum2023Nodes = [
     label: "Rekayasa Perangkat Lunak",
     sks: 4,
     semester: 5,
-    kolom: 4,
+    kolom: 15,
     tipe: "wajib",
   },
   {
@@ -249,7 +249,7 @@ export const kurikulum2023Nodes = [
     label: "Pengantar dan Aplikasi Data Science",
     sks: 3,
     semester: 5,
-    kolom: 5,
+    kolom: 7,
     tipe: "wajib",
   },
   {
@@ -258,7 +258,7 @@ export const kurikulum2023Nodes = [
     label: "Pengantar Sistem Informasi",
     sks: 3,
     semester: 5,
-    kolom: 6,
+    kolom: 11,
     tipe: "wajib",
   },
   {
@@ -267,7 +267,7 @@ export const kurikulum2023Nodes = [
     label: "Keamanan Informasi",
     sks: 3,
     semester: 5,
-    kolom: 7,
+    kolom: 9,
     tipe: "wajib",
   },
   {
@@ -276,7 +276,7 @@ export const kurikulum2023Nodes = [
     label: "Artificial Intelligence",
     sks: 4,
     semester: 5,
-    kolom: 8,
+    kolom: 4,
     tipe: "wajib",
   },
   {
@@ -285,7 +285,7 @@ export const kurikulum2023Nodes = [
     label: "Desain Antarmuka Grafis",
     sks: 2,
     semester: 5,
-    kolom: 3,
+    kolom: 14,
     tipe: "wajib",
   },
   {
@@ -294,7 +294,7 @@ export const kurikulum2023Nodes = [
     label: "Pemrograman Berbasis Web",
     sks: 3,
     semester: 5,
-    kolom: 1,
+    kolom: 10,
     tipe: "wajib",
   },
   {
@@ -303,7 +303,7 @@ export const kurikulum2023Nodes = [
     label: "Manajemen Proyek",
     sks: 2,
     semester: 5,
-    kolom: 2,
+    kolom: 13,
     tipe: "wajib",
   },
 
@@ -332,7 +332,7 @@ export const kurikulum2023Nodes = [
     label: "Proyek Data Science 1",
     sks: 3,
     semester: 6,
-    kolom: 2,
+    kolom: 7,
     tipe: "wajib",
   },
   {
@@ -341,7 +341,7 @@ export const kurikulum2023Nodes = [
     label: "Proyek Sistem Informasi 1",
     sks: 3,
     semester: 6,
-    kolom: 3,
+    kolom: 16,
     tipe: "wajib",
   },
 
@@ -361,7 +361,7 @@ export const kurikulum2023Nodes = [
     label: "Proyek Informatika",
     sks: 3,
     semester: 7,
-    kolom: 4,
+    kolom: 14,
     tipe: "wajib",
   },
   {
@@ -370,7 +370,7 @@ export const kurikulum2023Nodes = [
     label: "Proyek Sistem Informasi 2",
     sks: 3,
     semester: 7,
-    kolom: 3,
+    kolom: 11,
     tipe: "wajib",
   },
   {
@@ -379,7 +379,7 @@ export const kurikulum2023Nodes = [
     label: "Proyek Data Science 2",
     sks: 3,
     semester: 7,
-    kolom: 2,
+    kolom: 7,
     tipe: "wajib",
   },
 

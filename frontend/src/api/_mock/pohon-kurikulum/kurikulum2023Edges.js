@@ -167,13 +167,25 @@ export const kurikulum2023Edges = [
   {
     id: 28,
     sourceId: 37,
-    targetId: 42,
+    targetId: 40,
     relationType: EDGE_RELATION_TYPES.PRASYARAT_LULUS,
   },
   {
     id: 29,
     sourceId: 38,
     targetId: 42,
+    relationType: EDGE_RELATION_TYPES.PRASYARAT_LULUS_ATAU_TEMPUH_BERSAMA,
+  },
+  {
+    id: 30,
+    sourceId: 8,
+    targetId: 30,
+    relationType: EDGE_RELATION_TYPES.PRASYARAT_LULUS_ATAU_TEMPUH_BERSAMA,
+  },
+  {
+    id: 31,
+    sourceId: 21,
+    targetId: 30,
     relationType: EDGE_RELATION_TYPES.PRASYARAT_LULUS_ATAU_TEMPUH_BERSAMA,
   },
 ];

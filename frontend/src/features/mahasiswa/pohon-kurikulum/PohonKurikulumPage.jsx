@@ -36,10 +36,10 @@ function toFlowNodes(nodes) {
     position: {
       // spacing diperbesar supaya edges yang melintasi banyak semester
       // punya ruang routing yang cukup, ngurangin tabrakan visual
-      x: (node.kolom ?? 1) * 240,
+      x: (node.kolom ?? 1) * 300,
       y: (node.semester - 1) * 220,
     },
-  }));
+  }));  
 }
 
 function toFlowEdges(edges) {
