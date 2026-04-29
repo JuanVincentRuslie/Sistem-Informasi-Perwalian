@@ -1,0 +1,2428 @@
+{
+  "metadata": {
+    "source_file": "Template_Jadwal Ganjil 2025-2026-Prodi Informatika.xlsx",
+    "sheet": "Template",
+    "periode_id": 1,
+    "parsed_rows": 108,
+    "ignored_rows": 1,
+    "skipped_rows": 0,
+    "total_kelas": 69,
+    "total_sesi": 105
+  },
+  "kelas": [
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF231101",
+      "nama_matkul": "Matematika Dasar",
+      "sks": 4,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Luciana Abednego S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20050254",
+              "nama": "Luciana Abednego S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "kamis",
+          "jam_mulai": "15:00",
+          "jam_selesai": "17:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Luciana Abednego S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20050254",
+              "nama": "Luciana Abednego S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF231101",
+      "nama_matkul": "Matematika Dasar",
+      "sks": 4,
+      "nama_kelas": "B",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Rosa De Lima Endang Padmowati Dra., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "19850271",
+              "nama": "Rosa De Lima Endang Padmowati Dra., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "kamis",
+          "jam_mulai": "15:00",
+          "jam_selesai": "17:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Rosa De Lima Endang Padmowati Dra., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "19850271",
+              "nama": "Rosa De Lima Endang Padmowati Dra., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF231103",
+      "nama_matkul": "Dasar Pemrograman",
+      "sks": 4,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Lionov Ph.D.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20030252",
+              "nama": "Lionov Ph.D.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "rabu",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Praktikum",
+          "dosen_utama": "Lionov Ph.D.",
+          "ruangan": "Lab. Komputasi IF 9016",
+          "dosen": [
+            {
+              "nik": "20030252",
+              "nama": "Lionov Ph.D.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 3,
+          "hari": "jumat",
+          "jam_mulai": "09:00",
+          "jam_selesai": "11:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Aditya Bagoes Saputra S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20140323",
+              "nama": "Aditya Bagoes Saputra S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF231103",
+      "nama_matkul": "Dasar Pemrograman",
+      "sks": 4,
+      "nama_kelas": "B",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Husnul Hakim S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20130009",
+              "nama": "Husnul Hakim S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "rabu",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Praktikum",
+          "dosen_utama": "Adrian Aldo Bagaskara S.T.",
+          "ruangan": "Lab. Komputasi IF 9017",
+          "dosen": [
+            {
+              "nik": "20140307",
+              "nama": "Adrian Aldo Bagaskara S.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 3,
+          "hari": "jumat",
+          "jam_mulai": "09:00",
+          "jam_selesai": "11:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Husnul Hakim S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20130009",
+              "nama": "Husnul Hakim S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF231104",
+      "nama_matkul": "Algoritma dan Pemrograman",
+      "sks": 4,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Vania Natali S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20090005",
+              "nama": "Vania Natali S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "rabu",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:00",
+          "bentuk_pembelajaran": "Praktikum",
+          "dosen_utama": "Natalia S.Si., M.Si.",
+          "ruangan": "Lab. Komputasi IF 9017",
+          "dosen": [
+            {
+              "nik": "20110100",
+              "nama": "Natalia S.Si., M.Si.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 3,
+          "hari": "jumat",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Vania Natali S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20090005",
+              "nama": "Vania Natali S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF231105",
+      "nama_matkul": "Matematika Diskret",
+      "sks": 4,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "08:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Mariskha Tri Adithia S.Si., M.Sc., PDEng.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20100037",
+              "nama": "Mariskha Tri Adithia S.Si., M.Sc., PDEng.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "rabu",
+          "jam_mulai": "08:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Dr. rer. nat. Cecilia Esti Nugraheni S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "19940609",
+              "nama": "Dr. rer. nat. Cecilia Esti Nugraheni S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF231105",
+      "nama_matkul": "Matematika Diskret",
+      "sks": 4,
+      "nama_kelas": "B",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "08:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Natalia S.Si., M.Si.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20110100",
+              "nama": "Natalia S.Si., M.Si.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "rabu",
+          "jam_mulai": "08:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Natalia S.Si., M.Si.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20110100",
+              "nama": "Natalia S.Si., M.Si.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232101",
+      "nama_matkul": "Matriks dan Ruang Vektor",
+      "sks": 2,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "09:00",
+          "jam_selesai": "11:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Natalia S.Si., M.Si.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20110100",
+              "nama": "Natalia S.Si., M.Si.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "kamis",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Responsi",
+          "dosen_utama": "Natalia S.Si., M.Si.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20110100",
+              "nama": "Natalia S.Si., M.Si.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232101",
+      "nama_matkul": "Matriks dan Ruang Vektor",
+      "sks": 2,
+      "nama_kelas": "B",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "07:00",
+          "jam_selesai": "09:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Natalia S.Si., M.Si.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20110100",
+              "nama": "Natalia S.Si., M.Si.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "kamis",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:00",
+          "bentuk_pembelajaran": "Responsi",
+          "dosen_utama": "Natalia S.Si., M.Si.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20110100",
+              "nama": "Natalia S.Si., M.Si.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232101",
+      "nama_matkul": "Matriks dan Ruang Vektor",
+      "sks": 2,
+      "nama_kelas": "C",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "08:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Rosa De Lima Endang Padmowati Dra., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "19850271",
+              "nama": "Rosa De Lima Endang Padmowati Dra., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "kamis",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Responsi",
+          "dosen_utama": "Rosa De Lima Endang Padmowati Dra., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "19850271",
+              "nama": "Rosa De Lima Endang Padmowati Dra., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232103",
+      "nama_matkul": "Pemrograman Berorientasi Objek",
+      "sks": 4,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Keenan Adiwijaya Leman S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160127",
+              "nama": "Keenan Adiwijaya Leman S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "rabu",
+          "jam_mulai": "15:00",
+          "jam_selesai": "17:00",
+          "bentuk_pembelajaran": "Praktikum",
+          "dosen_utama": "Lionov Ph.D.",
+          "ruangan": "Lab. Komputasi IF 9016",
+          "dosen": [
+            {
+              "nik": "20030252",
+              "nama": "Lionov Ph.D.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 3,
+          "hari": "jumat",
+          "jam_mulai": "07:00",
+          "jam_selesai": "09:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Aditya Bagoes Saputra S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20140323",
+              "nama": "Aditya Bagoes Saputra S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232103",
+      "nama_matkul": "Pemrograman Berorientasi Objek",
+      "sks": 4,
+      "nama_kelas": "B",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Aditya Bagoes Saputra S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20140323",
+              "nama": "Aditya Bagoes Saputra S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "rabu",
+          "jam_mulai": "15:00",
+          "jam_selesai": "17:00",
+          "bentuk_pembelajaran": "Praktikum",
+          "dosen_utama": "Pascal Alfadian Nugroho S.Kom., M.Comp.",
+          "ruangan": "Lab. Komputasi IF 9017",
+          "dosen": [
+            {
+              "nik": "20120010",
+              "nama": "Pascal Alfadian Nugroho S.Kom., M.Comp.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 3,
+          "hari": "jumat",
+          "jam_mulai": "07:00",
+          "jam_selesai": "09:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Pascal Alfadian Nugroho S.Kom., M.Comp.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20120010",
+              "nama": "Pascal Alfadian Nugroho S.Kom., M.Comp.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232105",
+      "nama_matkul": "Struktur Diskret",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "15:00",
+          "jam_selesai": "18:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Dr. rer. nat. Cecilia Esti Nugraheni S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "19940609",
+              "nama": "Dr. rer. nat. Cecilia Esti Nugraheni S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232105",
+      "nama_matkul": "Struktur Diskret",
+      "sks": 3,
+      "nama_kelas": "B",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "15:00",
+          "jam_selesai": "18:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Luciana Abednego S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20050254",
+              "nama": "Luciana Abednego S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232107",
+      "nama_matkul": "Algoritma dan Struktur Data",
+      "sks": 4,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Husnul Hakim S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20130009",
+              "nama": "Husnul Hakim S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "rabu",
+          "jam_mulai": "08:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Praktikum",
+          "dosen_utama": "Husnul Hakim S.Kom., M.T.",
+          "ruangan": "Lab. Komputasi IF 9018",
+          "dosen": [
+            {
+              "nik": "20130009",
+              "nama": "Husnul Hakim S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 3,
+          "hari": "jumat",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Husnul Hakim S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20130009",
+              "nama": "Husnul Hakim S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232107",
+      "nama_matkul": "Algoritma dan Struktur Data",
+      "sks": 4,
+      "nama_kelas": "B",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Luciana Abednego S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20050254",
+              "nama": "Luciana Abednego S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "rabu",
+          "jam_mulai": "08:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Praktikum",
+          "dosen_utama": "Aditya Bagoes Saputra S.T., M.T.",
+          "ruangan": "Lab. Komputasi IF 9017",
+          "dosen": [
+            {
+              "nik": "20140323",
+              "nama": "Aditya Bagoes Saputra S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 3,
+          "hari": "jumat",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Luciana Abednego S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20050254",
+              "nama": "Luciana Abednego S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232107",
+      "nama_matkul": "Algoritma dan Struktur Data",
+      "sks": 4,
+      "nama_kelas": "C",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Aditya Bagoes Saputra S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20140323",
+              "nama": "Aditya Bagoes Saputra S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "rabu",
+          "jam_mulai": "08:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Praktikum",
+          "dosen_utama": "Adrian Aldo Bagaskara S.T.",
+          "ruangan": "Lab. Komputasi IF 9016",
+          "dosen": [
+            {
+              "nik": "20140307",
+              "nama": "Adrian Aldo Bagaskara S.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 3,
+          "hari": "jumat",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Aditya Bagoes Saputra S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20140323",
+              "nama": "Aditya Bagoes Saputra S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232108",
+      "nama_matkul": "Pengantar Artificial Intelligence",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "jumat",
+          "jam_mulai": "08:00",
+          "jam_selesai": "11:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Dr. rer. nat. Cecilia Esti Nugraheni S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "19940609",
+              "nama": "Dr. rer. nat. Cecilia Esti Nugraheni S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232109",
+      "nama_matkul": "Pemrograman Kompetitif 2",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "kamis",
+          "jam_mulai": "12:30",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Joanna Helga S.Kom., M.Sc.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20050346",
+              "nama": "Joanna Helga S.Kom., M.Sc.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232110",
+      "nama_matkul": "3D Design Using Autodesk Maya",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "rabu",
+          "jam_mulai": "12:30",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Iswan Sudaryo S.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20210012",
+              "nama": "Iswan Sudaryo S.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232112",
+      "nama_matkul": "3D Game Development Using Unity",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "07:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Riska Dewi S.Kom.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20200058",
+              "nama": "Riska Dewi S.Kom.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232113",
+      "nama_matkul": "Pemrograman C",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "kamis",
+          "jam_mulai": "15:00",
+          "jam_selesai": "18:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Joanna Helga S.Kom., M.Sc.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20050346",
+              "nama": "Joanna Helga S.Kom., M.Sc.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232114",
+      "nama_matkul": "3D Character Animation",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:30",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Mochamad Hari Rivaldi Saepudin S. Ds.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20240205",
+              "nama": "Mochamad Hari Rivaldi Saepudin S. Ds.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232116",
+      "nama_matkul": "Pemrograman Games",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "rabu",
+          "jam_mulai": "15:00",
+          "jam_selesai": "18:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Jefvin Viriya S.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20190013",
+              "nama": "Jefvin Viriya S.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232201",
+      "nama_matkul": "Sistem Operasi",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "kamis",
+          "jam_mulai": "07:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Elisati Hulu S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "19990886",
+              "nama": "Elisati Hulu S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232201",
+      "nama_matkul": "Sistem Operasi",
+      "sks": 3,
+      "nama_kelas": "B",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "kamis",
+          "jam_mulai": "07:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Aditya Bagoes Saputra S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20140323",
+              "nama": "Aditya Bagoes Saputra S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232401",
+      "nama_matkul": "Pemrograman Python untuk Data Science",
+      "sks": 2,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "08:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Luciana Abednego S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20050254",
+              "nama": "Luciana Abednego S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF232405",
+      "nama_matkul": "Sertifikasi Dasar Google Cloud Computing",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "15:00",
+          "jam_selesai": "18:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Dr. Gede Karya S.T., S.E., M.T. CISA., MPr.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "19990894",
+              "nama": "Dr. Gede Karya S.T., S.E., M.T. CISA., MPr.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233101",
+      "nama_matkul": "Rekayasa Perangkat Lunak",
+      "sks": 4,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "15:00",
+          "jam_selesai": "17:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Vania Natali S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20090005",
+              "nama": "Vania Natali S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "rabu",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Responsi",
+          "dosen_utama": "Vania Natali S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20090005",
+              "nama": "Vania Natali S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 3,
+          "hari": "jumat",
+          "jam_mulai": "09:00",
+          "jam_selesai": "11:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Vania Natali S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20090005",
+              "nama": "Vania Natali S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233101",
+      "nama_matkul": "Rekayasa Perangkat Lunak",
+      "sks": 4,
+      "nama_kelas": "B",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Raymond Chandra Putra S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20120135",
+              "nama": "Raymond Chandra Putra S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "rabu",
+          "jam_mulai": "15:00",
+          "jam_selesai": "17:00",
+          "bentuk_pembelajaran": "Responsi",
+          "dosen_utama": "Vania Natali S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20090005",
+              "nama": "Vania Natali S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 3,
+          "hari": "jumat",
+          "jam_mulai": "09:00",
+          "jam_selesai": "11:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Raymond Chandra Putra S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20120135",
+              "nama": "Raymond Chandra Putra S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233103",
+      "nama_matkul": "Keamanan Informasi",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "rabu",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:30",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Mariskha Tri Adithia S.Si., M.Sc., PDEng.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20100037",
+              "nama": "Mariskha Tri Adithia S.Si., M.Sc., PDEng.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233105",
+      "nama_matkul": "Artificial Intelligence",
+      "sks": 4,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Lionov Ph.D.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20030252",
+              "nama": "Lionov Ph.D.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "kamis",
+          "jam_mulai": "15:00",
+          "jam_selesai": "17:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Lionov Ph.D.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20030252",
+              "nama": "Lionov Ph.D.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233105",
+      "nama_matkul": "Artificial Intelligence",
+      "sks": 4,
+      "nama_kelas": "B",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "15:00",
+          "jam_selesai": "17:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Lionov Ph.D.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20030252",
+              "nama": "Lionov Ph.D.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "kamis",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Lionov Ph.D.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20030252",
+              "nama": "Lionov Ph.D.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233107",
+      "nama_matkul": "Desain Antarmuka Grafis",
+      "sks": 2,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "rabu",
+          "jam_mulai": "15:00",
+          "jam_selesai": "17:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Maria Veronica Claudia Muljana S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160065",
+              "nama": "Maria Veronica Claudia Muljana S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233107",
+      "nama_matkul": "Desain Antarmuka Grafis",
+      "sks": 2,
+      "nama_kelas": "B",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "rabu",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Maria Veronica Claudia Muljana S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160065",
+              "nama": "Maria Veronica Claudia Muljana S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233112",
+      "nama_matkul": "Pemrograman Kompetitif 5",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:30",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Joanna Helga S.Kom., M.Sc.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20050346",
+              "nama": "Joanna Helga S.Kom., M.Sc.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233113",
+      "nama_matkul": "Kerja Praktik Computing Science 1",
+      "sks": 2,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Studi/Proyek Independen",
+          "dosen_utama": "Keenan Adiwijaya Leman S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160127",
+              "nama": "Keenan Adiwijaya Leman S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233115",
+      "nama_matkul": "Kerja Praktik Computing Science 2",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "16:00",
+          "jam_selesai": "18:00",
+          "bentuk_pembelajaran": "Studi/Proyek Independen",
+          "dosen_utama": "Keenan Adiwijaya Leman S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160127",
+              "nama": "Keenan Adiwijaya Leman S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233117",
+      "nama_matkul": "Kerja Praktik Computing Science 3",
+      "sks": 4,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "16:00",
+          "jam_selesai": "18:00",
+          "bentuk_pembelajaran": "Studi/Proyek Independen",
+          "dosen_utama": "Keenan Adiwijaya Leman S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160127",
+              "nama": "Keenan Adiwijaya Leman S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233119",
+      "nama_matkul": "Kerja Praktik Computing Science 4",
+      "sks": 5,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "16:00",
+          "jam_selesai": "18:00",
+          "bentuk_pembelajaran": "Studi/Proyek Independen",
+          "dosen_utama": "Keenan Adiwijaya Leman S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160127",
+              "nama": "Keenan Adiwijaya Leman S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233121",
+      "nama_matkul": "Pemrograman Kompetitif 4",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "12:30",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Joanna Helga S.Kom., M.Sc.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20050346",
+              "nama": "Joanna Helga S.Kom., M.Sc.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233127",
+      "nama_matkul": "Proyek Pengembangan Games",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "15:00",
+          "jam_selesai": "18:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Jefvin Viriya S.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20190013",
+              "nama": "Jefvin Viriya S.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233201",
+      "nama_matkul": "Pemrograman Berbasis Web",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "07:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Raymond Chandra Putra S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20120135",
+              "nama": "Raymond Chandra Putra S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "kamis",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:00",
+          "bentuk_pembelajaran": "Praktikum",
+          "dosen_utama": "Raymond Chandra Putra S.T., M.T.",
+          "ruangan": "Lab. Komputasi IF 9017",
+          "dosen": [
+            {
+              "nik": "20120135",
+              "nama": "Raymond Chandra Putra S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233201",
+      "nama_matkul": "Pemrograman Berbasis Web",
+      "sks": 3,
+      "nama_kelas": "B",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "07:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Keenan Adiwijaya Leman S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160127",
+              "nama": "Keenan Adiwijaya Leman S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "kamis",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:00",
+          "bentuk_pembelajaran": "Praktikum",
+          "dosen_utama": "Keenan Adiwijaya Leman S.T., M.T.",
+          "ruangan": "Lab. Komputasi IF 9018",
+          "dosen": [
+            {
+              "nik": "20160127",
+              "nama": "Keenan Adiwijaya Leman S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233203",
+      "nama_matkul": "Sertifikasi Switch, Routing, and Wireless Essentials",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "07:00",
+          "jam_selesai": "09:00",
+          "bentuk_pembelajaran": "Praktikum",
+          "dosen_utama": "Raymond Chandra Putra S.T., M.T.",
+          "ruangan": "Lab. Komputasi IF 9015",
+          "dosen": [
+            {
+              "nik": "20120135",
+              "nama": "Raymond Chandra Putra S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "kamis",
+          "jam_mulai": "15:00",
+          "jam_selesai": "18:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Raymond Chandra Putra S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20120135",
+              "nama": "Raymond Chandra Putra S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233206",
+      "nama_matkul": "Pemrograman Back End",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "kamis",
+          "jam_mulai": "15:00",
+          "jam_selesai": "18:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Keenan Adiwijaya Leman S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160127",
+              "nama": "Keenan Adiwijaya Leman S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233209",
+      "nama_matkul": "Internet of Things",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "rabu",
+          "jam_mulai": "07:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Elisati Hulu S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "19990886",
+              "nama": "Elisati Hulu S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233301",
+      "nama_matkul": "Manajemen Proyek",
+      "sks": 2,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "08:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Prof. Dr. Veronica Sri Moertini Ir., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20010991",
+              "nama": "Prof. Dr. Veronica Sri Moertini Ir., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233301",
+      "nama_matkul": "Manajemen Proyek",
+      "sks": 2,
+      "nama_kelas": "B",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Prof. Dr. Veronica Sri Moertini Ir., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20010991",
+              "nama": "Prof. Dr. Veronica Sri Moertini Ir., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233303",
+      "nama_matkul": "Pengantar Sistem Informasi",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "rabu",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:30",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Dr. Gede Karya S.T., S.E., M.T. CISA., MPr.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "19990894",
+              "nama": "Dr. Gede Karya S.T., S.E., M.T. CISA., MPr.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233401",
+      "nama_matkul": "Pengantar dan Aplikasi Data Science",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "rabu",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:30",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Maria Veronica Claudia Muljana S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160065",
+              "nama": "Maria Veronica Claudia Muljana S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233403",
+      "nama_matkul": "Sistem Big Data untuk Organisasi",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "jumat",
+          "jam_mulai": "09:00",
+          "jam_selesai": "11:30",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Dr. Gede Karya S.T., S.E., M.T. CISA., MPr.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "19990894",
+              "nama": "Dr. Gede Karya S.T., S.E., M.T. CISA., MPr.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233407",
+      "nama_matkul": "Kerja Praktik Data Science 1",
+      "sks": 2,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "kamis",
+          "jam_mulai": "08:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Studi/Proyek Independen",
+          "dosen_utama": "Keenan Adiwijaya Leman S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160127",
+              "nama": "Keenan Adiwijaya Leman S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233409",
+      "nama_matkul": "Kerja Praktik Data Science 2",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "kamis",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:00",
+          "bentuk_pembelajaran": "Studi/Proyek Independen",
+          "dosen_utama": "Keenan Adiwijaya Leman S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160127",
+              "nama": "Keenan Adiwijaya Leman S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233411",
+      "nama_matkul": "Kerja Praktik Data Science 3",
+      "sks": 4,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "kamis",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Studi/Proyek Independen",
+          "dosen_utama": "Keenan Adiwijaya Leman S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160127",
+              "nama": "Keenan Adiwijaya Leman S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233413",
+      "nama_matkul": "Kerja Praktik Data Science 4",
+      "sks": 5,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "kamis",
+          "jam_mulai": "16:00",
+          "jam_selesai": "18:00",
+          "bentuk_pembelajaran": "Studi/Proyek Independen",
+          "dosen_utama": "Keenan Adiwijaya Leman S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160127",
+              "nama": "Keenan Adiwijaya Leman S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF233415",
+      "nama_matkul": "Sistem Kecerdasan Bisnis",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "10:00",
+          "jam_selesai": "13:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Lydia Mutiara Dewi S.E., M.A.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20050349",
+              "nama": "Lydia Mutiara Dewi S.E., M.A.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF234001",
+      "nama_matkul": "Tugas Akhir 1",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "kamis",
+          "jam_mulai": "09:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Mariskha Tri Adithia S.Si., M.Sc., PDEng.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20100037",
+              "nama": "Mariskha Tri Adithia S.Si., M.Sc., PDEng.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF234002",
+      "nama_matkul": "Tugas Akhir 2",
+      "sks": 6,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "kamis",
+          "jam_mulai": "09:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Mariskha Tri Adithia S.Si., M.Sc., PDEng.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20100037",
+              "nama": "Mariskha Tri Adithia S.Si., M.Sc., PDEng.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF234101",
+      "nama_matkul": "Proyek Informatika",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "15:00",
+          "jam_selesai": "18:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Pascal Alfadian Nugroho S.Kom., M.Comp.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20120010",
+              "nama": "Pascal Alfadian Nugroho S.Kom., M.Comp.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "kamis",
+          "jam_mulai": "13:00",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Responsi",
+          "dosen_utama": "Pascal Alfadian Nugroho S.Kom., M.Comp.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20120010",
+              "nama": "Pascal Alfadian Nugroho S.Kom., M.Comp.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF234103",
+      "nama_matkul": "Natural Language Processing",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:30",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Maria Veronica Claudia Muljana S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160065",
+              "nama": "Maria Veronica Claudia Muljana S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "kamis",
+          "jam_mulai": "08:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Praktikum",
+          "dosen_utama": "Maria Veronica Claudia Muljana S.T., M.T.",
+          "ruangan": "Lab. Komputasi IF 9015",
+          "dosen": [
+            {
+              "nik": "20160065",
+              "nama": "Maria Veronica Claudia Muljana S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF234105",
+      "nama_matkul": "Deep Learning",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "rabu",
+          "jam_mulai": "15:00",
+          "jam_selesai": "18:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Keenan Adiwijaya Leman S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160127",
+              "nama": "Keenan Adiwijaya Leman S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF234107",
+      "nama_matkul": "Sistem Fuzzy",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "rabu",
+          "jam_mulai": "12:30",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Husnul Hakim S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20130009",
+              "nama": "Husnul Hakim S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF234109",
+      "nama_matkul": "Sistem Multi Agen",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "07:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Dr. rer. nat. Cecilia Esti Nugraheni S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "19940609",
+              "nama": "Dr. rer. nat. Cecilia Esti Nugraheni S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF234301",
+      "nama_matkul": "Proyek Sistem Informasi 2",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "rabu",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:30",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Vania Natali S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20010991",
+              "nama": "Prof. Dr. Veronica Sri Moertini Ir., M.T.",
+              "jenis": "Dosen"
+            },
+            {
+              "nik": "20090005",
+              "nama": "Vania Natali S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "jumat",
+          "jam_mulai": "07:00",
+          "jam_selesai": "09:00",
+          "bentuk_pembelajaran": "Responsi",
+          "dosen_utama": "Vania Natali S.Kom., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20010991",
+              "nama": "Prof. Dr. Veronica Sri Moertini Ir., M.T.",
+              "jenis": "Dosen"
+            },
+            {
+              "nik": "20090005",
+              "nama": "Vania Natali S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF234303",
+      "nama_matkul": "Infrastruktur Teknologi Informasi untuk Organisasi",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "selasa",
+          "jam_mulai": "07:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Dr. Gede Karya S.T., S.E., M.T. CISA., MPr.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "19990894",
+              "nama": "Dr. Gede Karya S.T., S.E., M.T. CISA., MPr.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF234401",
+      "nama_matkul": "Proyek Data Science 2",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "rabu",
+          "jam_mulai": "07:00",
+          "jam_selesai": "10:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Prof. Dr. Veronica Sri Moertini Ir., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20010991",
+              "nama": "Prof. Dr. Veronica Sri Moertini Ir., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        },
+        {
+          "nomor_sesi": 2,
+          "hari": "jumat",
+          "jam_mulai": "09:00",
+          "jam_selesai": "11:00",
+          "bentuk_pembelajaran": "Responsi",
+          "dosen_utama": "Prof. Dr. Veronica Sri Moertini Ir., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20010991",
+              "nama": "Prof. Dr. Veronica Sri Moertini Ir., M.T.",
+              "jenis": "Dosen"
+            },
+            {
+              "nik": "20090002",
+              "nama": "Kristopher David Harjono S.Kom., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF234403",
+      "nama_matkul": "Teknologi Penyimpanan dan Pemrosesan Big Data",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "senin",
+          "jam_mulai": "12:30",
+          "jam_selesai": "15:00",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Maria Veronica Claudia Muljana S.T., M.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20160065",
+              "nama": "Maria Veronica Claudia Muljana S.T., M.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "periode_id": 1,
+      "kode_matkul": "AIF234405",
+      "nama_matkul": "Data Mining",
+      "sks": 3,
+      "nama_kelas": "A",
+      "tipe": null,
+      "sesi": [
+        {
+          "nomor_sesi": 1,
+          "hari": "kamis",
+          "jam_mulai": "10:00",
+          "jam_selesai": "12:30",
+          "bentuk_pembelajaran": "Kuliah",
+          "dosen_utama": "Adrian Aldo Bagaskara S.T.",
+          "ruangan": null,
+          "dosen": [
+            {
+              "nik": "20140307",
+              "nama": "Adrian Aldo Bagaskara S.T.",
+              "jenis": "Dosen"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    {
+      "type": "multiple_dosen_in_session",
+      "kode_matkul": "AIF234301",
+      "nama_kelas": "A",
+      "nomor_sesi": 1,
+      "hari": "rabu",
+      "jam_mulai": "10:00",
+      "message": "Sesi punya 2 dosen. dosen_utama dipilih: Vania Natali S.Kom., M.T."
+    },
+    {
+      "type": "multiple_dosen_in_session",
+      "kode_matkul": "AIF234301",
+      "nama_kelas": "A",
+      "nomor_sesi": 2,
+      "hari": "jumat",
+      "jam_mulai": "07:00",
+      "message": "Sesi punya 2 dosen. dosen_utama dipilih: Vania Natali S.Kom., M.T."
+    },
+    {
+      "type": "multiple_dosen_in_session",
+      "kode_matkul": "AIF234401",
+      "nama_kelas": "A",
+      "nomor_sesi": 2,
+      "hari": "jumat",
+      "jam_mulai": "09:00",
+      "message": "Sesi punya 2 dosen. dosen_utama dipilih: Prof. Dr. Veronica Sri Moertini Ir., M.T."
+    }
+  ]
+}
