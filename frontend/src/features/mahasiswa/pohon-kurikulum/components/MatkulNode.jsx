@@ -7,9 +7,9 @@ import Typography from '@mui/material/Typography';
 // Warna background & border node berdasarkan status nilai.
 // Disimpan di luar component supaya tidak di-recreate tiap render.
 const COLOR_BY_STATUS = {
-  LULUS: { background: '#c8e6c9', border: '#66bb6a' },
-  TIDAK_LULUS: { background: '#ffcdd2', border: '#ef9a9a' },
-  default: { background: '#ffffff', border: '#cccccc' },
+  LULUS: { background: '#c8e6c9', border: '#2e8f33' },
+  TIDAK_LULUS: { background: '#ffcdd2', border: '#e36b6b' },
+  default: { background: '#ffffff', border: '#808080' },
 };
 
 function getColors(match) {
@@ -49,7 +49,7 @@ function MatkulNode({ data }) {
           width: 240,
           p: '12px',
           background,
-          border: `2px solid ${border}`,
+          border: `4px solid ${border}`,
           cursor: 'pointer',
           '&:hover': {
             borderColor: 'primary.main',
@@ -70,10 +70,10 @@ function MatkulNode({ data }) {
           <>
             <Divider sx={{ my: 1 }} />
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Typography variant="caption">
+              <Typography variant="caption" sx={{ fontSize: '1.2rem' }}>
                 Nilai: <strong>{match.nilai_huruf}</strong>
               </Typography>
-              <Typography variant="caption">
+              <Typography variant="caption" sx={{ fontSize: '1.2rem' }}>
                 SKS: <strong>{sks}</strong>
               </Typography>
             </Box>
@@ -82,9 +82,13 @@ function MatkulNode({ data }) {
 
         {/* Tampil SKS juga kalau belum ada nilai (match=null) */}
         {!match && (
-          <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 0.5 }}>
-            {sks} SKS
+          <>
+          <Divider sx={{ my: 0.5 }} />
+          <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 0.5 , fontSize: '1.2rem' }}>
+            SKS : <strong>{sks}</strong>
           </Typography>
+          </>
+          
         )}
       </Paper>
 

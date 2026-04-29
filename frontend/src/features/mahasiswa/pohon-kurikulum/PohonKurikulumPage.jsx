@@ -37,7 +37,7 @@ function toFlowNodes(nodes) {
       // spacing diperbesar supaya edges yang melintasi banyak semester
       // punya ruang routing yang cukup, ngurangin tabrakan visual
       x: (node.kolom ?? 1) * 300,
-      y: (node.semester - 1) * 220,
+      y: (node.semester - 1) * 250,
     },
   }));  
 }
@@ -48,7 +48,7 @@ function toFlowEdges(edges) {
     source: String(edge.source_id),
     target: String(edge.target_id),
     type: 'smoothstep',
-    animated: edge.relation_type === 'prasyarat_lulus',
+    animated: false,
     style: { stroke: getEdgeColor(edge.relation_type), strokeWidth: 2 },
     // markerEnd: arrow di ujung edge (pointing ke target node).
     // ArrowClosed = arrow solid (filled triangle).

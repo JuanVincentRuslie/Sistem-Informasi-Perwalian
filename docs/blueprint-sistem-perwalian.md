@@ -160,10 +160,9 @@ Halaman detail FRS dari sisi dosen wali harus rich information:
 |---|---|---|
 | Login | Form login | Submit |
 | Dashboard | Info akademik (SKS, IPK, IPS), total SKS lulus, periode aktif, jadwal dosen wali | - |
-| Progress Studi | Pohon kurikulum (visualisasi per semester) | - |
+| Pohon Kurikulum | Tab 1: visualisasi pohon kurikulum per semester; Tab 2: Upload DPS (PDF + preview + confirm) | Upload, Confirm |
 | Perwalian Saya | List per semester (tab) + form FRS baru | Edit, Submit |
 | Pilih Matkul (checkout) | Pilih matkul + kelas | Add to FRS |
-| Upload DPS | Upload PDF + preview + edit row | Confirm & Save |
 
 ### Dosen Wali
 | Page | Konten | Action |
@@ -177,7 +176,8 @@ Halaman detail FRS dari sisi dosen wali harus rich information:
 | Page | Konten | Action |
 |---|---|---|
 | Login | Form login | Submit |
-| Dashboard | Set & aktivasi periode + upload jadwal + upload catalog matkul | CRUD periode |
+| Dashboard | Overview ringkasan: jumlah dosen aktif, total mahasiswa, status periode | - |
+| Periode | CRUD periode (set tanggal, aktifkan/nonaktifkan) + upload Excel jadwal kelas + upload Excel master matkul | CRUD, Upload |
 | List Dosen Wali | List semua dosen wali | Tambah, Edit, Hapus |
 | Detail Dosen Wali | List mahasiswa bimbingan + status | Reassign mahasiswa |
 | List Mahasiswa | List semua mahasiswa | Tambah, Edit, Hapus |
