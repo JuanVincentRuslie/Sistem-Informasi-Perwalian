@@ -1,17 +1,112 @@
-import Typography from '@mui/material/Typography';
+import { useEffect, useState } from 'react';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
-import PageHeader from '../../../shared/components/PageHeader.jsx';
+import useFetch from '../../../hooks/useFetch.js';
+import { getRencanaStudiSaya, getRiwayatRencanaStudiSaya, submitRencanaStudi } from '../../../api/rencanaStudi.js';
+import CatatanDosenModal from './components/CatatanDosenModal.jsx';
+import FrsContentPanel from './components/FrsContentPanel.jsx';
+import FrsPeriodeTabs from './components/FrsPeriodeTabs.jsx';
 
 function PerwalianPage() {
+  // useState: index tab yang aktif (0 = periode terbaru, urutan dari riwayat)
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
+  // useState: toggle modal catatan dosen wali
+  const [catatanOpen, setCatatanOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // useFetch: ambil riwayat ringkasan FRS (untuk render tab-tab periode).
+  // [] sebagai deps = hanya fetch sekali saat mount.
+  const { data: riwayat, loading: loadingTabs } = useFetch(getRiwayatRencanaStudiSaya, []);
+
+  // Derive info periode yang aktif dari tab index + riwayat yang sudah diload.
+  const activePeriodeId = riwayat?.[activeTabIndex]?.periode?.id ?? null;
+  const periodeNama = riwayat?.[activeTabIndex]?.periode?.nama ?? '';
+  const periodeAktif = riwayat?.[activeTabIndex]?.periode?.is_active ?? false;
+
+  // useFetch: detail FRS (items + catatan) untuk tab yang aktif.
+  // activePeriodeId di deps: re-fetch otomatis tiap ganti tab.
+  // Guard fetcher: kalau activePeriodeId null (riwayat belum loaded), skip call asli.
+  const { data: frs, loading: loadingFrs, error: frsError, refetch } = useFetch(
+    () => activePeriodeId
+      ? getRencanaStudiSaya({ periode_id: activePeriodeId })
+      : Promise.resolve({ data: null }),
+    [activePeriodeId]
+  );
+
+  // useEffect: refetch detail FRS setelah kembali dari TambahMatkulPage.
+  // location.state.refreshed di-set oleh TambahMatkulPage sebelum navigate kembali.
+  useEffect(() => {
+    if (location.state?.refreshed) {
+      refetch();
+      navigate(location.pathname, { replace: true, state: null });
+    }
+  }, [location.state?.refreshed, refetch, navigate, location.pathname]);
+
+  const handleKirim = async () => {
+    if (!frs) return;
+    try {
+      await submitRencanaStudi(frs.id);
+      refetch();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  const handleTambah = () => navigate('/dashboard/perwalian/tambah', {
+    state: { frsId: frs?.id, periodeId: activePeriodeId, periodeNama },
+  });
+
+  const handleJadwal = () => navigate('/dashboard/perwalian/jadwal', { state: { frs } });
+
+  if (loadingTabs) {
+    return (
+      <PageContainer>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}>
+          <CircularProgress />
+        </Box>
+      </PageContainer>
+    );
+  }
+
   return (
     <PageContainer>
-      <PageHeader
-        title="Perwalian Saya"
-        subtitle="Daftar rencana studi per periode perwalian"
+      <FrsPeriodeTabs
+        riwayat={riwayat ?? []}
+        activeTabIndex={activeTabIndex}
+        onChange={setActiveTabIndex}
       />
-      <Typography color="text.secondary">
-        Konten perwalian akan diisi di milestone 4.
-      </Typography>
+
+      {loadingFrs && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+          <CircularProgress />
+        </Box>
+      )}
+
+      {frsError && !loadingFrs && (
+        <Alert severity="error" sx={{ mt: 2 }}>{frsError.message}</Alert>
+      )}
+
+      {!loadingFrs && !frsError && frs && (
+        <FrsContentPanel
+          frs={frs}
+          periodeNama={periodeNama}
+          periodeAktif={periodeAktif}
+          onCatatan={() => setCatatanOpen(true)}
+          onTambah={handleTambah}
+          onJadwal={handleJadwal}
+          onKirim={handleKirim}
+        />
+      )}
+
+      <CatatanDosenModal
+        open={catatanOpen}
+        catatan={frs?.catatan_dosen}
+        onClose={() => setCatatanOpen(false)}
+      />
     </PageContainer>
   );
 }

@@ -191,11 +191,15 @@ feat: implement pohon kurikulum with react flow (milestone 3)
 #### 4.A.1 — Dashboard
 - [x] Dashboard (ringkasan akademik: SKS, IPK, IPS, periode aktif, jadwal dosen wali)
 
-#### 4.A.2 — Perwalian Saya
-- [ ] Perwalian Saya (list FRS per periode + detail)
-- [ ] Tambah/Edit Rencana Studi (pilih kelas, checkout)
+#### 4.A.2 — Report (Progres Studi)
+- [x] Halaman Report: pohon kurikulum React Flow + summary SKS lulus + IPK card + IPS card
 
-#### 4.A.3 — Pohon Kurikulum (Extended)
+#### 4.A.3 — Perwalian Saya
+- [x] Perwalian Saya (tab per periode, detail FRS: matkul list + jadwal + status + catatan dosen modal)
+- [x] Tambah Matkul (accordion per matkul, pilih kelas, bottom bar count, checkout flow)
+- [x] Jadwal page (view jadwal FRS aktif)
+
+#### 4.A.4 — Pohon Kurikulum (Extended)
 - [ ] Tab Upload DPS dalam Pohon Kurikulum (upload PDF + preview + confirm flow)
 
 ### Deliverable
