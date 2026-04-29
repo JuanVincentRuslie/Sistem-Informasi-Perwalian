@@ -1,0 +1,98 @@
+// Service layer untuk domain rencana studi.
+// Component hanya import dari file ini supaya mock API mudah diganti backend asli nanti.
+import {
+  mockAddRencanaStudiItem,
+  mockCreateRencanaStudi,
+  mockDeleteRencanaStudiItem,
+  mockGetKelas,
+  mockGetRencanaStudiSaya,
+  mockGetRiwayatRencanaStudiSaya,
+  mockSubmitRencanaStudi,
+} from './_mock/rencanaStudi.js';
+
+/**
+ * Get detail FRS mahasiswa yang login untuk periode tertentu atau periode aktif.
+ * @param {{ periode_id?: number }} params
+ * @returns {Promise<{success: boolean, data: object, message: string}>}
+ */
+export async function getRencanaStudiSaya(params = {}) {
+  // TODO: replace with real API call when backend ready:
+  // return await fetch(`/api/v1/rencana-studi/saya?periode_id=${params.periode_id}`)
+  //   .then(res => res.json());
+  return mockGetRencanaStudiSaya(params);
+}
+
+/**
+ * Get riwayat FRS mahasiswa yang login untuk selector periode.
+ * @returns {Promise<{success: boolean, data: object[], message: string}>}
+ */
+export async function getRiwayatRencanaStudiSaya() {
+  // TODO: replace with real API call when backend ready
+  // return await fetch('/api/v1/rencana-studi/saya/riwayat').then(res => res.json());
+  return mockGetRiwayatRencanaStudiSaya();
+}
+
+/**
+ * Get kelas yang ditawarkan pada periode tertentu.
+ * @param {{ periode_id?: number, search?: string, kode_matkul?: string }} params
+ * @returns {Promise<{success: boolean, data: object[], message: string}>}
+ */
+export async function getKelas(params = {}) {
+  // TODO: replace with real API call when backend ready
+  // return await fetch(`/api/v1/kelas?periode_id=${params.periode_id}`).then(res => res.json());
+  return mockGetKelas(params);
+}
+
+/**
+ * Create FRS baru untuk periode aktif.
+ * @param {{ periode_id?: number }} payload
+ * @returns {Promise<{success: boolean, data: object, message: string}>}
+ */
+export async function createRencanaStudi(payload = {}) {
+  // TODO: replace with real API call when backend ready
+  // return await fetch('/api/v1/rencana-studi', { method: 'POST', body: JSON.stringify(payload) })
+  //   .then(res => res.json());
+  return mockCreateRencanaStudi(payload);
+}
+
+/**
+ * Tambah kelas ke FRS.
+ * @param {number} rencanaStudiId
+ * @param {{ kelas_id: number }} payload
+ * @returns {Promise<{success: boolean, data: object, message: string}>}
+ */
+export async function addRencanaStudiItem(rencanaStudiId, payload) {
+  // TODO: replace with real API call when backend ready
+  // return await fetch(`/api/v1/rencana-studi/${rencanaStudiId}/items`, {
+  //   method: 'POST',
+  //   body: JSON.stringify(payload),
+  // }).then(res => res.json());
+  return mockAddRencanaStudiItem(rencanaStudiId, payload);
+}
+
+/**
+ * Hapus kelas dari FRS.
+ * @param {number} rencanaStudiId
+ * @param {number} itemId
+ * @returns {Promise<{success: boolean, data: object, message: string}>}
+ */
+export async function deleteRencanaStudiItem(rencanaStudiId, itemId) {
+  // TODO: replace with real API call when backend ready
+  // return await fetch(`/api/v1/rencana-studi/${rencanaStudiId}/items/${itemId}`, {
+  //   method: 'DELETE',
+  // }).then(res => res.json());
+  return mockDeleteRencanaStudiItem(rencanaStudiId, itemId);
+}
+
+/**
+ * Submit FRS untuk review dosen wali.
+ * @param {number} rencanaStudiId
+ * @returns {Promise<{success: boolean, data: object, message: string}>}
+ */
+export async function submitRencanaStudi(rencanaStudiId) {
+  // TODO: replace with real API call when backend ready
+  // return await fetch(`/api/v1/rencana-studi/${rencanaStudiId}/submit`, {
+  //   method: 'POST',
+  // }).then(res => res.json());
+  return mockSubmitRencanaStudi(rencanaStudiId);
+}

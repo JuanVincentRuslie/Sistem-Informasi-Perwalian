@@ -23,6 +23,34 @@ function getDummyMatch(nodeId, semester) {
   return null;
 }
 
+export async function mockGetRingkasanAkademik() {
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  return {
+    success: true,
+    data: {
+      ipk: 3.42,
+      ips_terakhir: 3.55,
+      total_sks_lulus: 87,
+      total_sks_wajib_lulus: 70,
+      total_sks_pilihan_lulus: 17,
+      periode_aktif: {
+        id: 3,
+        nama: 'Ganjil 2025/2026',
+        tanggal_mulai: '2025-09-01',
+        tanggal_selesai: '2026-01-31',
+      },
+      dosen_wali: {
+        id: 5,
+        nama: 'Dr. Sari Wijaya',
+        email: 'sari@kampus.ac.id',
+        jadwal_perwalian: 'Senin 14:00 - 16:00',
+      },
+      rencana_studi_status: 'APPROVED',
+    },
+    message: 'OK',
+  };
+}
+
 export async function mockGetPohonKurikulum(mahasiswaId) {
   // Simulate network latency supaya loading state di component bisa ditest
   await new Promise((resolve) => setTimeout(resolve, 300));

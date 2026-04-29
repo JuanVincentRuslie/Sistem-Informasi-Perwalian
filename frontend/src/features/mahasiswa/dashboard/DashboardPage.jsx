@@ -1,22 +1,49 @@
-import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
-import PageHeader from '../../../shared/components/PageHeader.jsx';
-import { useAuth } from '../../../contexts/AuthContext.jsx';
+import useFetch from '../../../hooks/useFetch.js';
+import { getRingkasanAkademik } from '../../../api/akademik.js';
+import IpkCard from './components/IpkCard.jsx';
+import PeriodePerwalianCard from './components/PeriodePerwalianCard.jsx';
+import SksMetricRow from './components/SksMetricRow.jsx';
 
 function DashboardPage() {
-  // useAuth: ambil data user dari context global.
-  // Component ini re-render otomatis kalau user berubah (misal setelah logout).
-  const { user } = useAuth();
+  // useFetch: panggil getRingkasanAkademik sekali saat komponen mount.
+  // [] sebagai deps = tidak re-fetch kecuali component unmount+remount.
+  // useFetch otomatis unwrap response.data, jadi `data` langsung berisi payload-nya.
+  const { data, loading, error } = useFetch(() => getRingkasanAkademik(), []);
+
+  if (loading) {
+    return (
+      <PageContainer>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}>
+          <CircularProgress />
+        </Box>
+      </PageContainer>
+    );
+  }
+
+  if (error) {
+    return (
+      <PageContainer>
+        <Alert severity="error">{error.message}</Alert>
+      </PageContainer>
+    );
+  }
 
   return (
     <PageContainer>
-      <PageHeader
-        title="Dashboard Mahasiswa"
-        subtitle={`Halo, ${user?.nama}`}
+      <SksMetricRow
+        totalLulus={data.total_sks_lulus}
+        totalWajib={data.total_sks_wajib_lulus}
+        totalPilihan={data.total_sks_pilihan_lulus}
       />
-      <Typography color="text.secondary">
-        Konten dashboard mahasiswa akan diisi di milestone 3–4.
-      </Typography>
+      <IpkCard ipk={data.ipk} />
+      <PeriodePerwalianCard
+        periodeAktif={data.periode_aktif}
+        dosenWali={data.dosen_wali}
+      />
     </PageContainer>
   );
 }

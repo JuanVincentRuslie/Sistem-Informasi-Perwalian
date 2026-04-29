@@ -182,39 +182,86 @@ feat: implement pohon kurikulum with react flow (milestone 3)
 
 ---
 
-## 🎯 Milestone 4: Replicate Pattern ke Feature Lain
+## 🎯 Milestone 4.A: Mahasiswa Features
 
-**Goal**: Apply pattern dari Milestone 3 ke feature lain. Semua halaman fungsional dengan mock data.
+**Goal**: Semua halaman mahasiswa fungsional dengan mock data.
 
-### Tasks (per feature, ulangi pattern Milestone 3)
+### Tasks
 
-#### 4.1 — Mahasiswa
-- [ ] Dashboard (ringkasan akademik: SKS, IPK, IPS, periode aktif, jadwal dosen wali)
+#### 4.A.1 — Dashboard
+- [x] Dashboard (ringkasan akademik: SKS, IPK, IPS, periode aktif, jadwal dosen wali)
+
+#### 4.A.2 — Perwalian Saya
 - [ ] Perwalian Saya (list FRS per periode + detail)
 - [ ] Tambah/Edit Rencana Studi (pilih kelas, checkout)
-- [ ] Upload DPS (form upload PDF — pakai mock parsing)
 
-#### 4.2 — Dosen Wali
+#### 4.A.3 — Pohon Kurikulum (Extended)
+- [ ] Tab Upload DPS dalam Pohon Kurikulum (upload PDF + preview + confirm flow)
+
+### Deliverable
+✅ Semua halaman mahasiswa sudah bisa di-demo dengan dummy data.
+
+### Commit message saran
+```
+feat: complete mahasiswa feature pages (milestone 4.A)
+```
+
+---
+
+## 🎯 Milestone 4.B: Dosen Wali Features
+
+**Goal**: Semua halaman dosen wali fungsional dengan mock data.
+
+### Tasks
+
+#### 4.B.1 — Dashboard
 - [ ] Dashboard (list mahasiswa bimbingan + status warna)
+
+#### 4.B.2 — Detail Mahasiswa
 - [ ] Detail Mahasiswa (Report + Progress + Perwalian — tab)
 - [ ] Approve/Revisi Rencana Studi mahasiswa
+
+#### 4.B.3 — Jadwal Perwalian
 - [ ] Set Jadwal Perwalian Pribadi
 
-#### 4.3 — Kaprodi
-- [ ] Dashboard (set & aktifkan periode)
-- [ ] Upload Excel jadwal kelas (preview + confirm)
-- [ ] Upload Excel master matkul (preview + confirm)
+### Deliverable
+✅ Semua halaman dosen wali sudah bisa di-demo dengan dummy data.
+
+### Commit message saran
+```
+feat: complete dosen wali feature pages (milestone 4.B)
+```
+
+---
+
+## 🎯 Milestone 4.C: Kaprodi Features
+
+**Goal**: Semua halaman kaprodi fungsional dengan mock data.
+
+### Tasks
+
+#### 4.C.1 — Dashboard Kaprodi
+- [ ] Dashboard Kaprodi (overview: jumlah dosen aktif, mahasiswa, status periode)
+
+#### 4.C.2 — Periode
+- [ ] Periode (CRUD: tambah, edit, aktifkan/nonaktifkan)
+- [ ] Upload Excel jadwal kelas (preview + confirm) — dalam halaman Periode
+- [ ] Upload Excel master matkul (preview + confirm) — dalam halaman Periode
+
+#### 4.C.3 — Dosen Wali
 - [ ] List Dosen Wali (CRUD)
 - [ ] Detail Dosen Wali (lihat bimbingan + reassign)
+
+#### 4.C.4 — Mahasiswa
 - [ ] List Mahasiswa (CRUD)
 
 ### Deliverable
-✅ Semua flow di blueprint udah bisa di-demo dengan dummy data.  
+✅ Semua halaman kaprodi sudah bisa di-demo dengan dummy data.  
 ✅ Frontend siap untuk integrate ke real backend (tinggal swap mock → fetch).
 
 ### Commit message saran
 ```
-feat: complete all feature pages with mock data (milestone 4)
+feat: complete kaprodi feature pages (milestone 4.C)
 ```
 
 ---
@@ -239,6 +286,8 @@ Beberapa hal yang bakal dikerjakan setelah milestone 4 selesai:
 | 1. Hello World | ✅ Done | 2026-04-29 | 2026-04-29 |
 | 2. Routing & Layout | ✅ Done | 2026-04-29 | 2026-04-29 |
 | 3. Pohon Kurikulum | ✅ Done | 2026-04-29 | 2026-04-29 |
-| 4. Replicate Pattern | ⏳ Not started | - | - |
+| 4.A. Mahasiswa Features | 🚧 In Progress | 2026-04-30 | - |
+| 4.B. Dosen Wali Features | ⏳ Not started | - | - |
+| 4.C. Kaprodi Features | ⏳ Not started | - | - |
 
 > Update kolom Status: `⏳ Not started` → `🚧 In Progress` → `✅ Done`
