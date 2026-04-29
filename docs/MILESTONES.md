@@ -66,44 +66,49 @@ feat: setup vite + MUI + placeholder login page (milestone 1)
 ### Tasks
 
 #### 2.1 — Auth Context & Mock Login
-- [ ] `src/contexts/AuthContext.jsx`:
-  - [ ] `AuthProvider` dengan state `{ user, login, logout }`
-  - [ ] `useAuth()` custom hook
-  - [ ] User shape: `{ id, nama, email, role, avatar_url }` (sesuai api-spec)
-  - [ ] Persist ke localStorage (key: `auth_user`)
-- [ ] Update `LoginPage.jsx`:
-  - [ ] Sementara: ganti tombol Google jadi 3 tombol: "Login as Mahasiswa", "Login as Dosen Wali", "Login as Kaprodi"
-  - [ ] Click → `login()` dengan dummy user data sesuai role → redirect ke `/dashboard`
+- [x] `src/contexts/AuthContext.jsx`:
+  - [x] `AuthProvider` dengan state `{ user, login, logout }`
+  - [x] `useAuth()` custom hook
+  - [x] User shape: `{ id, nama, email, role, avatar_url }` (sesuai api-spec)
+  - [x] Persist ke localStorage (key: `auth_user`)
+- [x] Update `LoginPage.jsx`:
+  - [x] Sementara: ganti tombol Google jadi 3 tombol: "Login as Mahasiswa", "Login as Dosen Wali", "Login as Kaprodi"
+  - [x] Click → `login()` dengan dummy user data sesuai role → redirect ke `/dashboard` *(redirect deferred ke section 2.2)*
 
 #### 2.2 — Routing
-- [ ] `src/app/router.jsx`:
-  - [ ] Route `/` → redirect ke `/login` atau `/dashboard` (cek auth)
-  - [ ] Route `/login` → `LoginPage`
-  - [ ] Route `/dashboard` → `DashboardLayout` (protected)
+- [x] `src/app/router.jsx`:
+  - [x] Route `/` → redirect ke `/login` atau `/dashboard` (cek auth)
+  - [x] Route `/login` → `LoginPage`
+  - [x] Route `/dashboard` → `DashboardLayout` (protected) *(placeholder dulu, layout di section 2.3)*
   - [ ] Sub-routes per role di-handle dynamic (lihat 2.3)
-- [ ] Update `App.jsx` pakai `<RouterProvider>`
+- [x] Update `App.jsx` pakai `<RouterProvider>`
 
 #### 2.3 — DashboardLayout dengan Sidebar Role-Based
-- [ ] `src/shared/layouts/DashboardLayout.jsx`:
-  - [ ] AppBar (header) dengan: judul aplikasi, nama user, avatar, menu logout
-  - [ ] Drawer (sidebar permanent) dengan menu sesuai role:
+- [x] `src/shared/layouts/DashboardLayout.jsx`:
+  - [x] AppBar (header) dengan: judul aplikasi, nama user, avatar, menu logout
+  - [x] Drawer (sidebar permanent) dengan menu sesuai role:
     - **Mahasiswa**: Dashboard, Report, Perwalian Saya, Pohon Kurikulum
-    - **Dosen Wali**: Dashboard, (jadwal Perwalian)
+    - **Dosen Wali**: Dashboard, Jadwal Perwalian
     - **Kaprodi**: Dashboard, Dosen Wali, Mahasiswa, Periode
-  - [ ] Main content area pakai `<Outlet />` dari React Router
-- [ ] Logic: `useAuth()` untuk dapetin role → render menu sesuai
+  - [x] Main content area pakai `<Outlet />` dari React Router
+- [x] Logic: `useAuth()` untuk dapetin role → render menu sesuai
+- [x] Menu config di `src/shared/layouts/menuConfig.js` (icon import langsung)
 
 #### 2.4 — Empty Pages
-- [ ] Bikin placeholder page (cuma `<Typography>Halaman X</Typography>`) untuk:
-  - [ ] `MahasiswaDashboard.jsx`
-  - [ ] `MahasiswaReport.jsx`
-  - [ ] `MahasiswaPerwalian.jsx`
-  - [ ] `MahasiswaPohonKurikulum.jsx`
-  - [ ] `DosenDashboard.jsx`
-  - [ ] `KaprodiDashboard.jsx`
-  - [ ] `KaprodiDosenWali.jsx`
-  - [ ] `KaprodiMahasiswa.jsx`
-  - [ ] `KaprodiPeriode.jsx`
+- [x] Shared components: `PageContainer.jsx`, `PageHeader.jsx`
+- [x] Bikin placeholder page dengan pattern `PageContainer + PageHeader` untuk:
+  - [x] `mahasiswa/dashboard/DashboardPage.jsx`
+  - [x] `mahasiswa/report/ReportPage.jsx`
+  - [x] `mahasiswa/perwalian/PerwalianPage.jsx`
+  - [x] `mahasiswa/pohon-kurikulum/PohonKurikulumPage.jsx`
+  - [x] `dosen-wali/dashboard/DosenDashboardPage.jsx`
+  - [x] `dosen-wali/jadwal-perwalian/JadwalPerwalianPage.jsx`
+  - [x] `kaprodi/dashboard/KaprodiDashboardPage.jsx`
+  - [x] `kaprodi/dosen-wali/DosenWaliPage.jsx`
+  - [x] `kaprodi/mahasiswa/MahasiswaPage.jsx`
+  - [x] `kaprodi/periode/PeriodePage.jsx`
+- [x] `src/app/DashboardIndex.jsx` — role-based index route switcher
+- [x] Router diupdate dengan semua child routes
 
 ### Deliverable
 ✅ Login as Mahasiswa → masuk dashboard mahasiswa, sidebar menampilkan menu mahasiswa, klik menu = navigate ke halaman placeholder. Sama untuk dosen & kaprodi.
@@ -229,7 +234,7 @@ Beberapa hal yang bakal dikerjakan setelah milestone 4 selesai:
 | Milestone | Status | Started | Completed |
 |---|---|---|---|
 | 1. Hello World | ✅ Done | 2026-04-29 | 2026-04-29 |
-| 2. Routing & Layout | ⏳ Not started | - | - |
+| 2. Routing & Layout | ✅ Done | 2026-04-29 | 2026-04-29 |
 | 3. Pohon Kurikulum | ⏳ Not started | - | - |
 | 4. Replicate Pattern | ⏳ Not started | - | - |
 

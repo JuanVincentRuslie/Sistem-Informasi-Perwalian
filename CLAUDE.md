@@ -59,34 +59,155 @@ src/
 │   └── theme.js          # MUI theme
 │
 ├── api/                  # API client + mock layer
-│   ├── client.js         # base config (placeholder, kosong dulu)
+│   ├── client.js
 │   ├── auth.js
 │   ├── akademik.js
 │   ├── rencanaStudi.js
-│   └── _mock/            # mock data per domain
+│   └── _mock/
 │       ├── auth.js
 │       ├── akademik.js
 │       └── rencanaStudi.js
 │
 ├── hooks/
-│   └── useFetch.js       # generic hook untuk handle fetch state
+│   └── useFetch.js
 │
 ├── contexts/
-│   └── AuthContext.jsx   # current user + role
+│   └── AuthContext.jsx
 │
 ├── shared/               # reusable across features
-│   ├── components/
+│   ├── components/       # shared UI components (lihat aturan di bawah)
 │   └── layouts/
 │
 ├── features/             # per-feature pages
 │   ├── auth/
 │   ├── mahasiswa/
+│   │   ├── dashboard/
+│   │   │   ├── DashboardPage.jsx
+│   │   │   └── components/   # sub-components khusus dashboard
+│   │   └── perwalian/
+│   │       ├── PerwalianPage.jsx
+│   │       └── components/
 │   ├── dosen-wali/
 │   └── kaprodi/
 │
 ├── utils/
 ├── main.jsx
 └── index.css
+```
+
+---
+
+## 🎨 Component-Based Design Rules (PENTING UNTUK SKRIPSI!)
+
+Salah satu **nilai jual utama React** adalah component composition. Karena ini skripsi, penguji akan tanya "kenapa React?" — jawaban kuat: **reusability + maintainability lewat komponen**.
+
+### Rule 1 — Atomic Design Mindset
+
+Pikirkan komponen dalam 3 level:
+
+| Level | Lokasi | Contoh | Sifat |
+|---|---|---|---|
+| **Atoms** | `shared/components/atoms/` | Button (custom), StatusChip, Loading, EmptyState | Reusable di seluruh app, tidak tau context bisnis |
+| **Molecules** | `shared/components/molecules/` | MetricCard, SearchBar, MahasiswaListItem | Gabungan atoms, masih reusable |
+| **Page-specific components** | `features/.../components/` | RencanaStudiCard, PohonKurikulumNode | Hanya dipakai di feature itu |
+
+> Untuk MVP awal, **Atoms** dan **Molecules** boleh ditaruh sama di `shared/components/` saja. Pisahin atomic level kalau folder mulai padat (>15 file).
+
+### Rule 2 — Page = Composition, BUKAN Implementation
+
+Halaman (file `*Page.jsx`) HARUS jadi **orchestrator komponen kecil**, bukan tempat semua logic & JSX ditumpuk.
+
+❌ **JANGAN** seperti ini:
+```jsx
+// DashboardPage.jsx — 500 baris semua di sini
+function DashboardPage() {
+  return (
+    <div>
+      <div style={{...}}>... 100 baris header ...</div>
+      <div style={{...}}>... 150 baris stat cards ...</div>
+      <div style={{...}}>... 200 baris list mahasiswa ...</div>
+    </div>
+  );
+}
+```
+
+✅ **HARUS** seperti ini:
+```jsx
+// DashboardPage.jsx — 30-50 baris, tinggal compose
+function DashboardPage() {
+  const { user } = useAuth();
+  const { data, loading } = useFetch(() => getDashboardData(), []);
+  
+  if (loading) return <Loading />;
+  
+  return (
+    <PageContainer>
+      <PageHeader title="Dashboard" subtitle={`Halo, ${user.nama}`} />
+      <StatCardGrid stats={data.stats} />
+      <MahasiswaList items={data.mahasiswa} />
+    </PageContainer>
+  );
+}
+```
+
+### Rule 3 — Component File Size Limits
+
+| File type | Max baris | Action kalau lewat |
+|---|---|---|
+| Page (`*Page.jsx`) | 100 | Ekstrak section ke sub-component di `components/` |
+| Sub-component | 200 | Pecah lagi atau evaluasi apa terlalu banyak responsibility |
+| Atom/Molecule | 100 | Single-responsibility, harusnya pendek |
+
+Kalau Claude Code generate page > 100 baris, **proaktif suruh refactor jadi sub-components**.
+
+### Rule 4 — Naming yang Jelas
+
+Komponen nama harus **deskriptif & spesifik**:
+
+❌ Generic: `Card`, `List`, `Item`, `Container`, `Wrapper`  
+✅ Spesifik: `MetricCard`, `MahasiswaListItem`, `RencanaStudiCard`, `PageContainer`
+
+Generic name boleh **hanya untuk atoms paling dasar** (Button, Input). Sisanya wajib deskriptif.
+
+### Rule 5 — Props yang Sehat
+
+- Props maksimal **5-7**. Lebih dari itu = signal komponen perlu dipecah atau pakai `props spreading object`.
+- **JANGAN** pass `style` props kalau bisa di-control via variant: `variant="primary"` lebih baik daripada `style={{color: 'red'}}`.
+- Komentar JSDoc untuk komponen yang dipake banyak tempat:
+  ```jsx
+  /**
+   * Card untuk display 1 metric (angka + label)
+   * @param {string} label - Label di atas angka
+   * @param {string|number} value - Angka utama
+   * @param {string} [icon] - Optional icon name
+   */
+  function MetricCard({ label, value, icon }) { ... }
+  ```
+
+### Rule 6 — Reusability Check
+
+Sebelum bikin komponen baru, **cek dulu** apakah:
+1. Ada komponen mirip di `shared/components/`? → reuse / extend
+2. Komponen ini bakal dipake > 1 tempat? → letakkan di `shared/components/`
+3. Cuma untuk 1 page? → letakkan di `features/.../components/`
+
+### Rule 7 — Komentar Edukatif untuk Hooks
+
+User adalah pemula React Hooks. Setiap penggunaan hook **harus ada komentar 1-2 baris** yang menjelaskan WHY (bukan WHAT).
+
+✅ Komentar bagus:
+```jsx
+// useState: simpan list mahasiswa yang udah di-filter. Re-render saat filter berubah.
+const [filtered, setFiltered] = useState([]);
+
+// useEffect dengan [searchQuery]: jalanin filter tiap kali user ngetik. Empty [] = sekali.
+useEffect(() => { ... }, [searchQuery]);
+```
+
+❌ Komentar trivial:
+```jsx
+// set state
+const [filtered, setFiltered] = useState([]);
 ```
 
 ---
@@ -134,13 +255,13 @@ export const mockGetRencanaStudi = async () => {
 - Domain term: **bahasa Indonesia** (mahasiswa, dosen-wali, rencana-studi)
 - Technical term: **bahasa Inggris** (api, hooks, utils)
 
-### 4. Component size limit
-Component file > 200 baris = signal untuk pecah jadi sub-components.  
-Pecah ke folder `components/` di feature yang sama.
-
-### 5. Tidak ada premature abstraction
+### 4. Tidak ada premature abstraction
 JANGAN bikin "generic component library" sebelum ada 3+ use case yang sama.  
 Duplikasi kecil di awal LEBIH BAIK daripada abstraction yang salah.
+
+**Cara aplikasi rule ini**:
+- Bikin halaman dulu, lihat duplikasi yang muncul, baru ekstrak.
+- Kalau sebuah komponen udah dipake 3+ tempat → ekstrak ke `shared/components/`.
 
 ---
 
@@ -148,22 +269,23 @@ Duplikasi kecil di awal LEBIH BAIK daripada abstraction yang salah.
 
 Lihat `docs/MILESTONES.md` untuk detail task per milestone.
 
-**Aktif sekarang**: Milestone 1 — Setup foundation
-
 ---
 
 ## 💡 Tips untuk Claude Code
 
 1. **Selalu konfirmasi task scope** sebelum mulai. Jangan langsung generate banyak file.
 2. **Tanya kalau ada ambiguity** dengan dokumen di `docs/`. Lebih baik tanya daripada salah asumsi.
-3. **Update `docs/MILESTONES.md`** setiap kali selesai sub-task — checkbox `[ ]` jadi `[x]`.
+3. **Update `docs/MILESTONES.md`** setiap kali selesai sub-task.
 4. **Jangan refactor file yang gak diminta**. Stay in scope.
-5. **Run aplikasi setelah setiap perubahan signifikan** untuk verify gak breaking. Pakai `npm run dev`.
+5. **Run aplikasi setelah setiap perubahan signifikan** (`npm run dev`).
+6. **Component-based design** — selalu pikirkan: "ini bisa dipecah jadi sub-component?". Page > 100 baris = signal pecah.
+7. **Komentar edukatif untuk hooks** — user pemula, jelaskan WHY (bukan WHAT) di setiap hook usage.
 
 ---
 
-## 🔗 Konteks tambahan dari user
+## 🔗 Konteks tambahan
 
-- User adalah mahasiswa skripsi. Kasih penjelasan yang clear, jangan asumsikan dia tahu pattern advanced.
-- Project ini sebelumnya pernah dibikin tapi "kacau" karena scope creep — itulah kenapa sekarang ada CLAUDE.md & MILESTONES.md.
-- Refactor gagal karena scope terlalu besar sekaligus → **prioritaskan small wins** dan jalan dulu, baru rapi.
+- User adalah mahasiswa skripsi yang **pemula React Hooks**. Kasih komentar edukatif di code.
+- Project ini sebelumnya pernah dibikin tapi "kacau" karena scope creep.
+- Component-based architecture adalah **value proposition utama** di skripsi — penguji akan tanya kenapa React, jawaban: reusability + composition.
+- Refactor gagal karena scope terlalu besar sekaligus → **prioritaskan small wins**.
