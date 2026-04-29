@@ -1,5 +1,4 @@
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import AssessmentIcon from '@mui/icons-material/Assessment';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import EventIcon from '@mui/icons-material/Event';
@@ -10,7 +9,6 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 export const MENU_BY_ROLE = {
   mahasiswa: [
     { label: 'Dashboard', path: '/dashboard', icon: DashboardIcon },
-    { label: 'Report', path: '/dashboard/report', icon: AssessmentIcon },
     { label: 'Pohon Kurikulum', path: '/dashboard/pohon-kurikulum', icon: AccountTreeIcon },
     { label: 'Perwalian Saya', path: '/dashboard/perwalian', icon: EventNoteIcon },
   ],

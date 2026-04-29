@@ -5,7 +5,6 @@ import DashboardIndex from './DashboardIndex.jsx';
 import { useAuth } from '../contexts/AuthContext.jsx';
 
 // Mahasiswa
-import ReportPage from '../features/mahasiswa/report/ReportPage.jsx';
 import PohonKurikulumPage from '../features/mahasiswa/pohon-kurikulum/PohonKurikulumPage.jsx';
 import PerwalianPage from '../features/mahasiswa/perwalian/PerwalianPage.jsx';
 
@@ -51,7 +50,6 @@ const router = createBrowserRouter([
           { index: true, element: <DashboardIndex /> },
 
           // Mahasiswa routes
-          { path: 'report', element: <ReportPage /> },
           { path: 'pohon-kurikulum', element: <PohonKurikulumPage /> },
           { path: 'perwalian', element: <PerwalianPage /> },
 
