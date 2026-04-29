@@ -87,7 +87,7 @@ feat: setup vite + MUI + placeholder login page (milestone 1)
 - [x] `src/shared/layouts/DashboardLayout.jsx`:
   - [x] AppBar (header) dengan: judul aplikasi, nama user, avatar, menu logout
   - [x] Drawer (sidebar permanent) dengan menu sesuai role:
-    - **Mahasiswa**: Dashboard, Report, Perwalian Saya, Pohon Kurikulum
+    - **Mahasiswa**: Dashboard, Pohon Kurikulum, Perwalian Saya
     - **Dosen Wali**: Dashboard, Jadwal Perwalian
     - **Kaprodi**: Dashboard, Dosen Wali, Mahasiswa, Periode
   - [x] Main content area pakai `<Outlet />` dari React Router
@@ -98,7 +98,6 @@ feat: setup vite + MUI + placeholder login page (milestone 1)
 - [x] Shared components: `PageContainer.jsx`, `PageHeader.jsx`
 - [x] Bikin placeholder page dengan pattern `PageContainer + PageHeader` untuk:
   - [x] `mahasiswa/dashboard/DashboardPage.jsx`
-  - [x] `mahasiswa/report/ReportPage.jsx`
   - [x] `mahasiswa/perwalian/PerwalianPage.jsx`
   - [x] `mahasiswa/pohon-kurikulum/PohonKurikulumPage.jsx`
   - [x] `dosen-wali/dashboard/DosenDashboardPage.jsx`
@@ -191,8 +190,8 @@ feat: implement pohon kurikulum with react flow (milestone 3)
 #### 4.A.1 — Dashboard
 - [x] Dashboard (ringkasan akademik: SKS, IPK, IPS, periode aktif, jadwal dosen wali)
 
-#### 4.A.2 — Report (Progres Studi)
-- [x] Halaman Report: pohon kurikulum React Flow + summary SKS lulus + IPK card + IPS card
+#### 4.A.2 — Progres Studi
+- [x] Halaman Pohon Kurikulum: React Flow + summary SKS lulus + IPK card + IPS card
 
 #### 4.A.3 — Perwalian Saya
 - [x] Perwalian Saya (tab per periode, detail FRS: matkul list + jadwal + status + catatan dosen modal)
@@ -200,7 +199,7 @@ feat: implement pohon kurikulum with react flow (milestone 3)
 - [x] Jadwal page (view jadwal FRS aktif)
 
 #### 4.A.4 — Pohon Kurikulum (Extended)
-- [ ] Tab Upload DPS dalam Pohon Kurikulum (upload PDF + preview + confirm flow)
+- [x] Tab Upload DPS dalam Pohon Kurikulum (upload PDF + preview + confirm flow)
 
 ### Deliverable
 ✅ Semua halaman mahasiswa sudah bisa di-demo dengan dummy data.
@@ -290,7 +289,7 @@ Beberapa hal yang bakal dikerjakan setelah milestone 4 selesai:
 | 1. Hello World | ✅ Done | 2026-04-29 | 2026-04-29 |
 | 2. Routing & Layout | ✅ Done | 2026-04-29 | 2026-04-29 |
 | 3. Pohon Kurikulum | ✅ Done | 2026-04-29 | 2026-04-29 |
-| 4.A. Mahasiswa Features | 🚧 In Progress | 2026-04-30 | - |
+| 4.A. Mahasiswa Features | ✅ Done | 2026-04-30 | 2026-04-30 |
 | 4.B. Dosen Wali Features | ⏳ Not started | - | - |
 | 4.C. Kaprodi Features | ⏳ Not started | - | - |
 

@@ -14,7 +14,7 @@ function isPdfFile(file) {
   return file?.type === 'application/pdf' || file?.name?.toLowerCase().endsWith('.pdf');
 }
 
-function DpsUploadPanel() {
+function DpsUploadPanel({ onConfirmed }) {
   // useState [selectedFile]: file disimpan di state supaya UI bisa langsung
   // menampilkan nama file dan enable tombol preview setelah user memilih PDF.
   const [selectedFile, setSelectedFile] = useState(null);
@@ -98,6 +98,9 @@ function DpsUploadPanel() {
       }
 
       setSuccessMessage(response.message);
+      if (typeof onConfirmed === 'function') {
+        onConfirmed(response.data);
+      }
     } catch (err) {
       setErrorMessage(err instanceof Error ? err.message : 'Konfirmasi DPS gagal.');
     } finally {
