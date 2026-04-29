@@ -11,6 +11,7 @@ import TambahMatkulPage from '../features/mahasiswa/perwalian/TambahMatkulPage.j
 import JadwalPage from '../features/mahasiswa/perwalian/JadwalPage.jsx';
 
 // Dosen Wali
+import DetailMahasiswaPage from '../features/dosen-wali/detail-mahasiswa/DetailMahasiswaPage.jsx';
 import JadwalPerwalianPage from '../features/dosen-wali/jadwal-perwalian/JadwalPerwalianPage.jsx';
 
 // Kaprodi
@@ -58,6 +59,7 @@ const router = createBrowserRouter([
           { path: 'perwalian/jadwal', element: <JadwalPage /> },
 
           // Dosen Wali routes
+          { path: 'mahasiswa-bimbingan/:mahasiswaId', element: <DetailMahasiswaPage /> },
           { path: 'jadwal-perwalian', element: <JadwalPerwalianPage /> },
 
           // Kaprodi routes

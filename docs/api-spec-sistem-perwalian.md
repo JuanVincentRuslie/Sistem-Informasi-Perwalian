@@ -729,6 +729,60 @@ List FRS mahasiswa bimbingan dosen yang login (untuk dashboard dosen).
 }
 ```
 
+### `GET /api/v1/rencana-studi/dosen/mahasiswa/:mahasiswa_id/profil`
+
+Profil akademik mahasiswa bimbingan untuk halaman detail dosen wali.
+
+**Auth:** dosen_wali (mahasiswa bimbingannya)
+
+**Response 200:**
+```json
+{
+  "success": true,
+  "data": {
+    "mahasiswa": {
+      "id": 12,
+      "nim": "10120001",
+      "nama": "Budi Santoso",
+      "angkatan": 2020,
+      "ipk": 3.42,
+      "ips_terakhir": 3.55,
+      "total_sks_lulus": 87,
+      "total_sks_wajib_lulus": 70,
+      "total_sks_pilihan_lulus": 17
+    },
+    "periode_aktif": { "id": 3, "nama": "Ganjil 2025/2026" }
+  }
+}
+```
+
+### `GET /api/v1/rencana-studi/dosen/mahasiswa/:mahasiswa_id/riwayat`
+
+List histori FRS mahasiswa bimbingan untuk tab Rencana Studi di halaman detail dosen wali.
+
+**Auth:** dosen_wali (mahasiswa bimbingannya)
+
+**Response 200:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": 25,
+      "periode": { "id": 3, "nama": "Ganjil 2025/2026" },
+      "status": "SUBMITTED",
+      "total_sks": 18,
+      "submitted_at": "2025-08-15T10:30:00Z",
+      "mahasiswa": {
+        "id": 12,
+        "nim": "10120001",
+        "nama": "Budi Santoso"
+      }
+    }
+  ]
+}
+```
+
 ### `GET /api/v1/rencana-studi/:id`
 
 Detail FRS — rich info untuk dosen wali review.

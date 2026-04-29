@@ -229,8 +229,8 @@ feat: complete mahasiswa feature pages (milestone 4.A)
 - [x] Dashboard (list mahasiswa bimbingan + status warna)
 
 #### 4.B.2 — Detail Mahasiswa
-- [ ] Detail Mahasiswa (Report + Progress + Perwalian — tab)
-- [ ] Approve/Revisi Rencana Studi mahasiswa
+- [x] Detail Mahasiswa (Report + Progress + Perwalian — tab)
+- [x] Approve/Revisi Rencana Studi mahasiswa
 
 #### 4.B.3 — Jadwal Perwalian
 - [ ] Set Jadwal Perwalian Pribadi

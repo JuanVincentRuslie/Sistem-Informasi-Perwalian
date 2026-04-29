@@ -339,6 +339,185 @@ const dosenBimbinganRencanaStudi = [
   },
 ];
 
+const mahasiswaBimbinganAkademik = {
+  201: {
+    angkatan: 2021,
+    ips_terakhir: 3.18,
+    total_sks_lulus: 100,
+    total_sks_wajib_lulus: 80,
+    total_sks_pilihan_lulus: 20,
+  },
+  202: {
+    angkatan: 2021,
+    ips_terakhir: 2.95,
+    total_sks_lulus: 76,
+    total_sks_wajib_lulus: 64,
+    total_sks_pilihan_lulus: 12,
+  },
+  203: {
+    angkatan: 2022,
+    ips_terakhir: 3.04,
+    total_sks_lulus: 70,
+    total_sks_wajib_lulus: 61,
+    total_sks_pilihan_lulus: 9,
+  },
+  204: {
+    angkatan: 2021,
+    ips_terakhir: 3.65,
+    total_sks_lulus: 108,
+    total_sks_wajib_lulus: 84,
+    total_sks_pilihan_lulus: 24,
+  },
+  205: {
+    angkatan: 2021,
+    ips_terakhir: 3.36,
+    total_sks_lulus: 96,
+    total_sks_wajib_lulus: 78,
+    total_sks_pilihan_lulus: 18,
+  },
+  206: {
+    angkatan: 2020,
+    ips_terakhir: 3.59,
+    total_sks_lulus: 118,
+    total_sks_wajib_lulus: 92,
+    total_sks_pilihan_lulus: 26,
+  },
+  207: {
+    angkatan: 2022,
+    ips_terakhir: 2.88,
+    total_sks_lulus: 64,
+    total_sks_wajib_lulus: 58,
+    total_sks_pilihan_lulus: 6,
+  },
+  208: {
+    angkatan: 2020,
+    ips_terakhir: 3.42,
+    total_sks_lulus: 112,
+    total_sks_wajib_lulus: 88,
+    total_sks_pilihan_lulus: 24,
+  },
+  209: {
+    angkatan: 2021,
+    ips_terakhir: 3.11,
+    total_sks_lulus: 92,
+    total_sks_wajib_lulus: 74,
+    total_sks_pilihan_lulus: 18,
+  },
+};
+
+const dosenDetailRencanaStudi = [
+  {
+    id: 101,
+    mahasiswa_id: 201,
+    periode: periodeAktif,
+    status: 'SUBMITTED',
+    catatan_dosen: null,
+    submitted_at: '2025-08-15T10:30:00Z',
+    reviewed_at: null,
+    items: [
+      { id: 1001, kelas_id: 10 },
+      { id: 1002, kelas_id: 12 },
+      { id: 1003, kelas_id: 13 },
+    ],
+  },
+  {
+    id: 10001,
+    mahasiswa_id: 201,
+    periode: periodeSebelumnya[0],
+    status: 'APPROVED',
+    catatan_dosen: 'Rencana studi semester lalu sudah sesuai.',
+    submitted_at: '2025-02-03T09:30:00Z',
+    reviewed_at: '2025-02-04T02:10:00Z',
+    items: [
+      { id: 1004, kelas_id: 21 },
+      { id: 1005, kelas_id: 22 },
+    ],
+  },
+  {
+    id: 10002,
+    mahasiswa_id: 201,
+    periode: periodeSebelumnya[1],
+    status: 'APPROVED',
+    catatan_dosen: null,
+    submitted_at: '2024-08-12T07:00:00Z',
+    reviewed_at: '2024-08-13T03:45:00Z',
+    items: [
+      { id: 1006, kelas_id: 31 },
+    ],
+  },
+  {
+    id: 104,
+    mahasiswa_id: 204,
+    periode: periodeAktif,
+    status: 'APPROVED',
+    catatan_dosen: 'Silakan lanjut, komposisi wajib dan pilihan sudah seimbang.',
+    submitted_at: '2025-08-13T08:30:00Z',
+    reviewed_at: '2025-08-13T10:30:00Z',
+    items: [
+      { id: 1007, kelas_id: 10 },
+      { id: 1008, kelas_id: 11 },
+      { id: 1009, kelas_id: 14 },
+    ],
+  },
+  {
+    id: 105,
+    mahasiswa_id: 205,
+    periode: periodeAktif,
+    status: 'APPROVED',
+    catatan_dosen: null,
+    submitted_at: '2025-08-12T07:00:00Z',
+    reviewed_at: '2025-08-12T09:00:00Z',
+    items: [
+      { id: 1010, kelas_id: 10 },
+      { id: 1011, kelas_id: 12 },
+      { id: 1012, kelas_id: 14 },
+    ],
+  },
+  {
+    id: 106,
+    mahasiswa_id: 206,
+    periode: periodeAktif,
+    status: 'APPROVED',
+    catatan_dosen: 'Perhatikan beban praktikum mingguannya.',
+    submitted_at: '2025-08-11T09:00:00Z',
+    reviewed_at: '2025-08-11T11:30:00Z',
+    items: [
+      { id: 1013, kelas_id: 11 },
+      { id: 1014, kelas_id: 12 },
+      { id: 1015, kelas_id: 13 },
+      { id: 1016, kelas_id: 14 },
+    ],
+  },
+  {
+    id: 108,
+    mahasiswa_id: 208,
+    periode: periodeAktif,
+    status: 'APPROVED',
+    catatan_dosen: null,
+    submitted_at: '2025-08-10T11:15:00Z',
+    reviewed_at: '2025-08-10T14:00:00Z',
+    items: [
+      { id: 1017, kelas_id: 10 },
+      { id: 1018, kelas_id: 11 },
+      { id: 1019, kelas_id: 13 },
+    ],
+  },
+  {
+    id: 109,
+    mahasiswa_id: 209,
+    periode: periodeAktif,
+    status: 'REJECTED',
+    catatan_dosen: 'Tolong ganti kelas karena jadwalnya bentrok dengan praktikum.',
+    submitted_at: '2025-08-14T13:20:00Z',
+    reviewed_at: '2025-08-14T15:00:00Z',
+    items: [
+      { id: 1020, kelas_id: 10 },
+      { id: 1021, kelas_id: 12 },
+      { id: 1022, kelas_id: 14 },
+    ],
+  },
+];
+
 function sleep(duration) {
   return new Promise((resolve) => {
     setTimeout(resolve, duration);
@@ -387,11 +566,47 @@ function getRencanaStudiById(rencanaStudiId) {
   return found;
 }
 
+function getDosenBimbinganByMahasiswaId(mahasiswaId) {
+  const found = dosenBimbinganRencanaStudi.find(
+    (item) => item.mahasiswa.id === Number(mahasiswaId)
+  );
+
+  if (!found) {
+    throw createMockError(404, 'Mahasiswa bimbingan tidak ditemukan.');
+  }
+
+  return found;
+}
+
+function getDosenRencanaStudiById(rencanaStudiId) {
+  const found = dosenDetailRencanaStudi.find((item) => item.id === Number(rencanaStudiId));
+
+  if (!found) {
+    throw createMockError(404, 'Rencana studi mahasiswa bimbingan tidak ditemukan.');
+  }
+
+  return found;
+}
+
 function hitungTotalSks(record) {
   return record.items.reduce((total, item) => {
     const kelasItem = findKelasById(item.kelas_id);
     return total + (kelasItem?.sks ?? 0);
   }, 0);
+}
+
+function toMahasiswaBimbinganProfile(mahasiswaId) {
+  const bimbingan = getDosenBimbinganByMahasiswaId(mahasiswaId);
+  const akademik = mahasiswaBimbinganAkademik[bimbingan.mahasiswa.id] ?? {};
+
+  return {
+    ...bimbingan.mahasiswa,
+    angkatan: akademik.angkatan ?? 2021,
+    ips_terakhir: akademik.ips_terakhir ?? 0,
+    total_sks_lulus: akademik.total_sks_lulus ?? 0,
+    total_sks_wajib_lulus: akademik.total_sks_wajib_lulus ?? 0,
+    total_sks_pilihan_lulus: akademik.total_sks_pilihan_lulus ?? 0,
+  };
 }
 
 function toRencanaStudiDetail(record) {
@@ -418,6 +633,45 @@ function toRencanaStudiSummary(record) {
     total_sks: hitungTotalSks(record),
     submitted_at: record.submitted_at,
   };
+}
+
+function toDosenRencanaStudiSummary(record) {
+  return {
+    ...toRencanaStudiSummary(record),
+    mahasiswa: toMahasiswaBimbinganProfile(record.mahasiswa_id),
+  };
+}
+
+function toDosenRencanaStudiDetail(record) {
+  return {
+    ...toRencanaStudiDetail(record),
+    mahasiswa: toMahasiswaBimbinganProfile(record.mahasiswa_id),
+    items: record.items.map((item) => {
+      const kelasItem = findKelasById(item.kelas_id);
+
+      return {
+        id: item.id,
+        kelas: kelasItem,
+        is_mengulang: kelasItem?.kode_matkul === 'AIF231103' && record.mahasiswa_id === 209,
+        tags: [kelasItem?.tipe ?? 'wajib'],
+      };
+    }),
+  };
+}
+
+function syncDosenBimbinganFromRencanaStudi(record) {
+  if (record.periode.id !== periodeAktif.id) return;
+
+  const current = dosenBimbinganRencanaStudi.find(
+    (item) => item.mahasiswa.id === record.mahasiswa_id
+  );
+
+  if (!current) return;
+
+  current.id = record.id;
+  current.status = record.status;
+  current.total_sks = hitungTotalSks(record);
+  current.submitted_at = record.submitted_at;
 }
 
 function buildDosenBimbinganSummary(items) {
@@ -484,6 +738,93 @@ export async function mockGetRencanaStudiDosenBimbingan(params = {}) {
     summary: buildDosenBimbinganSummary(filtered),
     message: 'OK',
   };
+}
+
+export async function mockGetMahasiswaBimbinganProfile(mahasiswaId) {
+  await sleep(NETWORK_DELAY_MS.get);
+
+  return wrap({
+    mahasiswa: toMahasiswaBimbinganProfile(mahasiswaId),
+    periode_aktif: periodeAktif,
+  });
+}
+
+export async function mockGetRencanaStudiDosenRiwayatMahasiswa(mahasiswaId) {
+  await sleep(NETWORK_DELAY_MS.get);
+
+  const riwayat = dosenDetailRencanaStudi
+    .filter((record) => record.mahasiswa_id === Number(mahasiswaId))
+    .map(toDosenRencanaStudiSummary);
+
+  return wrap(riwayat);
+}
+
+export async function mockGetRencanaStudiDetail(rencanaStudiId) {
+  await sleep(NETWORK_DELAY_MS.get);
+
+  const dosenRecord = dosenDetailRencanaStudi.find(
+    (record) => record.id === Number(rencanaStudiId)
+  );
+
+  if (dosenRecord) {
+    return wrap(toDosenRencanaStudiDetail(dosenRecord));
+  }
+
+  return wrap(toRencanaStudiDetail(getRencanaStudiById(rencanaStudiId)));
+}
+
+export async function mockSetujuiRencanaStudi(rencanaStudiId, payload = {}) {
+  await sleep(NETWORK_DELAY_MS.mutation);
+
+  const record = getDosenRencanaStudiById(rencanaStudiId);
+  if (record.status !== 'SUBMITTED') {
+    throw createMockError(422, 'Hanya FRS menunggu persetujuan yang bisa disetujui.');
+  }
+
+  record.status = 'APPROVED';
+  record.catatan_dosen = payload.catatan?.trim() || null;
+  record.reviewed_at = new Date().toISOString();
+  syncDosenBimbinganFromRencanaStudi(record);
+
+  return wrap(
+    {
+      id: record.id,
+      status: record.status,
+      catatan_dosen: record.catatan_dosen,
+      reviewed_at: record.reviewed_at,
+    },
+    'FRS berhasil disetujui.',
+  );
+}
+
+export async function mockRevisiRencanaStudi(rencanaStudiId, payload = {}) {
+  await sleep(NETWORK_DELAY_MS.mutation);
+
+  const record = getDosenRencanaStudiById(rencanaStudiId);
+  const catatan = payload.catatan?.trim();
+
+  if (record.status !== 'SUBMITTED') {
+    throw createMockError(422, 'Hanya FRS menunggu persetujuan yang bisa direvisi.');
+  }
+
+  if (!catatan) {
+    throw createMockError(422, 'Catatan revisi wajib diisi.');
+  }
+
+  record.status = 'REJECTED';
+  record.catatan_dosen = catatan;
+  record.reviewed_at = new Date().toISOString();
+  syncDosenBimbinganFromRencanaStudi(record);
+
+  return wrap(
+    {
+      id: record.id,
+      status: record.status,
+      catatan_dosen: record.catatan_dosen,
+      reviewed_at: record.reviewed_at,
+    },
+    'FRS berhasil dikembalikan untuk revisi.',
+  );
 }
 
 export async function mockGetKelas(params = {}) {

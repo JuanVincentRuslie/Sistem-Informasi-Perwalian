@@ -35,7 +35,6 @@ function MahasiswaBimbinganList({ items }) {
     >
       <Box sx={{ display: 'grid', gap: 2 }}>
         {items.map((item) => (
-          // TODO 4.B.2: arahkan row ini ke halaman detail mahasiswa.
           <MahasiswaBimbinganRow key={item.mahasiswa.id} item={item} />
         ))}
       </Box>

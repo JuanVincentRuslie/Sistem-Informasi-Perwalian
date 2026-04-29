@@ -5,9 +5,14 @@ import {
   mockCreateRencanaStudi,
   mockDeleteRencanaStudiItem,
   mockGetKelas,
+  mockGetMahasiswaBimbinganProfile,
+  mockGetRencanaStudiDetail,
   mockGetRencanaStudiSaya,
   mockGetRencanaStudiDosenBimbingan,
+  mockGetRencanaStudiDosenRiwayatMahasiswa,
   mockGetRiwayatRencanaStudiSaya,
+  mockRevisiRencanaStudi,
+  mockSetujuiRencanaStudi,
   mockSubmitRencanaStudi,
 } from './_mock/rencanaStudi.js';
 
@@ -54,6 +59,41 @@ export async function getRencanaStudiDosenBimbingan(params = {}) {
     },
     message: response.message,
   };
+}
+
+/**
+ * Get profil akademik mahasiswa bimbingan untuk halaman detail dosen wali.
+ * @param {number} mahasiswaId
+ * @returns {Promise<{success: boolean, data: object, message: string}>}
+ */
+export async function getMahasiswaBimbinganProfile(mahasiswaId) {
+  // TODO: replace with real API call:
+  // return await fetch(`/api/v1/rencana-studi/dosen/mahasiswa/${mahasiswaId}/profil`)
+  //   .then(res => res.json());
+  return mockGetMahasiswaBimbinganProfile(mahasiswaId);
+}
+
+/**
+ * Get riwayat FRS mahasiswa bimbingan untuk tab Rencana Studi dosen wali.
+ * @param {number} mahasiswaId
+ * @returns {Promise<{success: boolean, data: object[], message: string}>}
+ */
+export async function getRencanaStudiDosenRiwayatMahasiswa(mahasiswaId) {
+  // TODO: replace with real API call:
+  // return await fetch(`/api/v1/rencana-studi/dosen/mahasiswa/${mahasiswaId}/riwayat`)
+  //   .then(res => res.json());
+  return mockGetRencanaStudiDosenRiwayatMahasiswa(mahasiswaId);
+}
+
+/**
+ * Get detail FRS berdasarkan ID.
+ * @param {number} rencanaStudiId
+ * @returns {Promise<{success: boolean, data: object, message: string}>}
+ */
+export async function getRencanaStudiDetail(rencanaStudiId) {
+  // TODO: replace with real API call:
+  // return await fetch(`/api/v1/rencana-studi/${rencanaStudiId}`).then(res => res.json());
+  return mockGetRencanaStudiDetail(rencanaStudiId);
 }
 
 /**
@@ -119,4 +159,34 @@ export async function submitRencanaStudi(rencanaStudiId) {
   //   method: 'POST',
   // }).then(res => res.json());
   return mockSubmitRencanaStudi(rencanaStudiId);
+}
+
+/**
+ * Setujui FRS mahasiswa bimbingan.
+ * @param {number} rencanaStudiId
+ * @param {{ catatan?: string }} payload
+ * @returns {Promise<{success: boolean, data: object, message: string}>}
+ */
+export async function setujuiRencanaStudi(rencanaStudiId, payload = {}) {
+  // TODO: replace with real API call:
+  // return await fetch(`/api/v1/rencana-studi/${rencanaStudiId}/setujui`, {
+  //   method: 'POST',
+  //   body: JSON.stringify(payload),
+  // }).then(res => res.json());
+  return mockSetujuiRencanaStudi(rencanaStudiId, payload);
+}
+
+/**
+ * Kembalikan FRS mahasiswa bimbingan untuk revisi.
+ * @param {number} rencanaStudiId
+ * @param {{ catatan: string }} payload
+ * @returns {Promise<{success: boolean, data: object, message: string}>}
+ */
+export async function revisiRencanaStudi(rencanaStudiId, payload = {}) {
+  // TODO: replace with real API call:
+  // return await fetch(`/api/v1/rencana-studi/${rencanaStudiId}/revisi`, {
+  //   method: 'POST',
+  //   body: JSON.stringify(payload),
+  // }).then(res => res.json());
+  return mockRevisiRencanaStudi(rencanaStudiId, payload);
 }
