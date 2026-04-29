@@ -226,7 +226,7 @@ feat: complete mahasiswa feature pages (milestone 4.A)
 ### Tasks
 
 #### 4.B.1 — Dashboard
-- [ ] Dashboard (list mahasiswa bimbingan + status warna)
+- [x] Dashboard (list mahasiswa bimbingan + status warna)
 
 #### 4.B.2 — Detail Mahasiswa
 - [ ] Detail Mahasiswa (Report + Progress + Perwalian — tab)
@@ -298,7 +298,7 @@ Beberapa hal yang bakal dikerjakan setelah milestone 4 selesai:
 | 2. Routing & Layout | ✅ Done | 2026-04-29 | 2026-04-29 |
 | 3. Pohon Kurikulum | ✅ Done | 2026-04-29 | 2026-04-29 |
 | 4.A. Mahasiswa Features | ✅ Done | 2026-04-30 | 2026-04-30 |
-| 4.B. Dosen Wali Features | ⏳ Not started | - | - |
+| 4.B. Dosen Wali Features | 🚧 In Progress | 2026-04-30 | - |
 | 4.C. Kaprodi Features | ⏳ Not started | - | - |
 
 > Update kolom Status: `⏳ Not started` → `🚧 In Progress` → `✅ Done`

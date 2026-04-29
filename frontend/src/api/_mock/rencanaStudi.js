@@ -264,6 +264,81 @@ const rencanaStudi = [
   },
 ];
 
+const dosenBimbinganRencanaStudi = [
+  {
+    id: 101,
+    mahasiswa: { id: 201, nim: '6180000001', nama: 'Mahasiswa A', ipk: 3.31 },
+    periode: periodeAktif,
+    status: 'SUBMITTED',
+    total_sks: 20,
+    submitted_at: '2025-08-15T10:30:00Z',
+  },
+  {
+    id: null,
+    mahasiswa: { id: 202, nim: '6180000002', nama: 'Mahasiswa B', ipk: 3.05 },
+    periode: periodeAktif,
+    status: 'DRAFT',
+    total_sks: 0,
+    submitted_at: null,
+  },
+  {
+    id: null,
+    mahasiswa: { id: 203, nim: '6180000003', nama: 'Mahasiswa C', ipk: 3.18 },
+    periode: periodeAktif,
+    status: 'DRAFT',
+    total_sks: 0,
+    submitted_at: null,
+  },
+  {
+    id: 104,
+    mahasiswa: { id: 204, nim: '6180000004', nama: 'Mahasiswa D', ipk: 3.72 },
+    periode: periodeAktif,
+    status: 'APPROVED',
+    total_sks: 18,
+    submitted_at: '2025-08-13T08:30:00Z',
+  },
+  {
+    id: 105,
+    mahasiswa: { id: 205, nim: '6180000005', nama: 'Mahasiswa E', ipk: 3.44 },
+    periode: periodeAktif,
+    status: 'APPROVED',
+    total_sks: 21,
+    submitted_at: '2025-08-12T07:00:00Z',
+  },
+  {
+    id: 106,
+    mahasiswa: { id: 206, nim: '6180000006', nama: 'Mahasiswa F', ipk: 3.67 },
+    periode: periodeAktif,
+    status: 'APPROVED',
+    total_sks: 20,
+    submitted_at: '2025-08-11T09:00:00Z',
+  },
+  {
+    id: null,
+    mahasiswa: { id: 207, nim: '6180000007', nama: 'Mahasiswa G', ipk: 2.91 },
+    periode: periodeAktif,
+    status: 'DRAFT',
+    total_sks: 0,
+    submitted_at: null,
+  },
+  {
+    id: 108,
+    mahasiswa: { id: 208, nim: '6180000008', nama: 'Mahasiswa H', ipk: 3.51 },
+    periode: periodeAktif,
+    status: 'APPROVED',
+    total_sks: 19,
+    submitted_at: '2025-08-10T11:15:00Z',
+  },
+  {
+    id: 109,
+    mahasiswa: { id: 209, nim: '6180000009', nama: 'Mahasiswa I', ipk: 3.22 },
+    periode: periodeAktif,
+    status: 'REJECTED',
+    total_sks: 18,
+    submitted_at: '2025-08-14T13:20:00Z',
+  },
+];
+
 function sleep(duration) {
   return new Promise((resolve) => {
     setTimeout(resolve, duration);
@@ -345,6 +420,16 @@ function toRencanaStudiSummary(record) {
   };
 }
 
+function buildDosenBimbinganSummary(items) {
+  return {
+    total: items.length,
+    approved: items.filter((item) => item.status === 'APPROVED').length,
+    submitted: items.filter((item) => item.status === 'SUBMITTED').length,
+    rejected: items.filter((item) => item.status === 'REJECTED').length,
+    draft_or_empty: items.filter((item) => !item.id || item.status === 'DRAFT').length,
+  };
+}
+
 function getTargetPeriodeId(params = {}) {
   return Number(params.periode_id ?? params.periodeId ?? periodeAktif.id);
 }
@@ -367,6 +452,25 @@ export async function mockGetRiwayatRencanaStudiSaya() {
   await sleep(NETWORK_DELAY_MS.get);
 
   return wrap(rencanaStudi.map(toRencanaStudiSummary));
+}
+
+export async function mockGetRencanaStudiDosenBimbingan(params = {}) {
+  await sleep(NETWORK_DELAY_MS.get);
+
+  const periodeId = getTargetPeriodeId(params);
+  const status = params.status?.trim()?.toUpperCase();
+  const filtered = dosenBimbinganRencanaStudi.filter((item) => {
+    if (item.periode.id !== periodeId) return false;
+    if (status && item.status !== status) return false;
+    return true;
+  });
+
+  return {
+    success: true,
+    data: clone(filtered),
+    summary: buildDosenBimbinganSummary(filtered),
+    message: 'OK',
+  };
 }
 
 export async function mockGetKelas(params = {}) {

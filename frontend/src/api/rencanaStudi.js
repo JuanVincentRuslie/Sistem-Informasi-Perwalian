@@ -6,6 +6,7 @@ import {
   mockDeleteRencanaStudiItem,
   mockGetKelas,
   mockGetRencanaStudiSaya,
+  mockGetRencanaStudiDosenBimbingan,
   mockGetRiwayatRencanaStudiSaya,
   mockSubmitRencanaStudi,
 } from './_mock/rencanaStudi.js';
@@ -30,6 +31,29 @@ export async function getRiwayatRencanaStudiSaya() {
   // TODO: replace with real API call when backend ready
   // return await fetch('/api/v1/rencana-studi/saya/riwayat').then(res => res.json());
   return mockGetRiwayatRencanaStudiSaya();
+}
+
+/**
+ * Get list FRS mahasiswa bimbingan dosen wali yang login.
+ * Service menormalisasi summary sidecar API supaya mudah dipakai useFetch.
+ * @param {{ periode_id?: number, status?: string }} params
+ * @returns {Promise<{success: boolean, data: {items: object[], summary: object}, message: string}>}
+ */
+export async function getRencanaStudiDosenBimbingan(params = {}) {
+  // TODO: replace with real API call when backend ready:
+  // const query = new URLSearchParams(params).toString();
+  // const response = await fetch(`/api/v1/rencana-studi/dosen/bimbingan?${query}`)
+  //   .then(res => res.json());
+  // return { success: response.success, data: { items: response.data, summary: response.summary }, message: response.message };
+  const response = await mockGetRencanaStudiDosenBimbingan(params);
+  return {
+    success: response.success,
+    data: {
+      items: response.data,
+      summary: response.summary,
+    },
+    message: response.message,
+  };
 }
 
 /**
