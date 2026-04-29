@@ -1037,6 +1037,10 @@ Get data pohon kurikulum (nodes + edges + match status untuk render React Flow).
 > - `match.status = LULUS` → hijau
 > - `match.status = TIDAK_LULUS` → merah
 
+> **Note — Render node dengan multi-kode**: frontend tidak membuat node terpisah untuk `kode_alias`.  
+> Endpoint pohon kurikulum selalu mengembalikan 1 node per row `master_matkul`.  
+> Jika nilai DPS mahasiswa cocok dengan `kode_aktif` atau salah satu `kode_alias`, backend mengisi `node.match`, lalu frontend cukup mewarnai node tersebut dan menampilkan nilai yang cocok.
+
 ---
 
 ### `GET /api/v1/akademik/mahasiswa/:id/ringkasan`

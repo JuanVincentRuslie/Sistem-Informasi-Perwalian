@@ -2,8 +2,10 @@ const sleep = () => new Promise((resolve) => setTimeout(resolve, 300));
 
 const NILAI_BOBOT = {
   A: 4,
+  'A-': 3.7,
   'B+': 3.5,
   B: 3,
+  'B-': 2.7,
   'C+': 2.5,
   C: 2,
   D: 1,
@@ -78,12 +80,12 @@ const previewStore = new Map();
 function toRiwayatNilaiItem(row, index, periode) {
   return {
     id: index + 1,
-    kode_matkul: row.kode_matkul,
-    nama_matkul: row.nama_matkul,
-    sks: row.sks,
+    kode_matkul: row.kode_matkul.trim().toUpperCase(),
+    nama_matkul: row.nama_matkul.trim(),
+    sks: Number(row.sks),
     periode,
     nilai_huruf: row.nilai_huruf,
-    nilai_angka: row.nilai_angka,
+    nilai_angka: row.nilai_angka === null || row.nilai_angka === '' ? null : Number(row.nilai_angka),
     status: row.status,
   };
 }
@@ -113,17 +115,62 @@ function buildRowsForFile(file) {
 }
 
 function calculateSummary(rows) {
-  const validRows = rows.filter((row) => row.valid);
+  const validRows = rows.filter((row) => row.valid !== false);
   const totalBobot = validRows.reduce((sum, row) => {
     const bobot = NILAI_BOBOT[row.nilai_huruf] ?? 0;
-    return sum + bobot * row.sks;
+    return sum + bobot * Number(row.sks);
   }, 0);
-  const totalSks = validRows.reduce((sum, row) => sum + row.sks, 0);
+  const totalSks = validRows.reduce((sum, row) => sum + Number(row.sks), 0);
+  const totalSksLulus = validRows
+    .filter((row) => row.status === 'LULUS')
+    .reduce((sum, row) => sum + Number(row.sks), 0);
 
   return {
     total_rows: rows.length,
     valid_rows: validRows.length,
     ipk_terhitung: totalSks === 0 ? 0 : Number((totalBobot / totalSks).toFixed(2)),
+    total_sks_lulus: totalSksLulus,
+  };
+}
+
+function normalizeConfirmItem(item) {
+  return {
+    kode_matkul: String(item.kode_matkul ?? '').trim().toUpperCase(),
+    nama_matkul: String(item.nama_matkul ?? '').trim(),
+    sks: Number(item.sks),
+    periode_id: Number(item.periode_id),
+    nilai_huruf: item.nilai_huruf,
+    nilai_angka: item.nilai_angka === null || item.nilai_angka === '' ? null : Number(item.nilai_angka),
+    status: item.status,
+  };
+}
+
+function isConfirmItemValid(item) {
+  return (
+    item.kode_matkul.length > 0
+    && item.nama_matkul.length > 0
+    && Number.isFinite(item.sks)
+    && item.sks > 0
+    && Number.isFinite(item.periode_id)
+    && Object.hasOwn(NILAI_BOBOT, item.nilai_huruf)
+    && ['LULUS', 'TIDAK_LULUS'].includes(item.status)
+  );
+}
+
+export function getSavedRiwayatNilai() {
+  return savedRiwayatNilai.map((item) => ({
+    ...item,
+    periode: { ...item.periode },
+  }));
+}
+
+export function getRiwayatNilaiSummary() {
+  const summary = calculateSummary(savedRiwayatNilai);
+
+  return {
+    ipk: summary.ipk_terhitung,
+    ips_terakhir: summary.ipk_terhitung,
+    total_sks_lulus: summary.total_sks_lulus,
   };
 }
 
@@ -176,17 +223,18 @@ export async function mockConfirmUploadDps({ upload_token, mode = 'replace', ite
     };
   }
 
-  const invalidRows = items.filter((item) => item.valid === false);
+  const normalizedItems = items.map(normalizeConfirmItem);
+  const invalidRows = normalizedItems.filter((item) => !isConfirmItemValid(item));
 
   if (invalidRows.length > 0) {
     return {
       success: false,
       data: null,
-      message: 'Masih ada baris DPS yang belum valid',
+      message: 'Masih ada item DPS yang belum sesuai format API',
     };
   }
 
-  savedRiwayatNilai = items.map((item, index) => (
+  savedRiwayatNilai = normalizedItems.map((item, index) => (
     toRiwayatNilaiItem(item, index, previewPayload.periode_terdeteksi)
   ));
 
@@ -198,12 +246,7 @@ export async function mockConfirmUploadDps({ upload_token, mode = 'replace', ite
       mode,
       periode: previewPayload.periode_terdeteksi,
       saved_rows: savedRiwayatNilai.length,
-      summary: {
-        ...calculateSummary(items),
-        total_sks_lulus: items
-          .filter((item) => item.status === 'LULUS')
-          .reduce((sum, item) => sum + item.sks, 0),
-      },
+      summary: calculateSummary(savedRiwayatNilai),
       cache_updated: true,
     },
     message: 'Riwayat nilai berhasil diperbarui',

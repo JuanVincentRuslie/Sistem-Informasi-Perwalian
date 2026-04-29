@@ -306,6 +306,10 @@ CREATE INDEX idx_matkul_semester ON master_matkul(semester);
 > WHERE kode_aktif = 'AIF231103' OR 'AIF231103' = ANY(kode_alias);
 > ```
 
+> **Note — Multi-kode di pohon kurikulum**: satu row `master_matkul` mewakili satu node mata kuliah di pohon kurikulum.  
+> Jika mata kuliah punya kode lama dan kode baru, simpan kode utama di `kode_aktif` dan kode lain di `kode_alias`.  
+> Saat render pohon, sistem tetap menampilkan **1 node saja**, lalu mencocokkan `riwayat_nilai.kode_matkul` ke `kode_aktif` atau salah satu `kode_alias`.
+
 #### `master_matkul_edge`
 
 ```sql

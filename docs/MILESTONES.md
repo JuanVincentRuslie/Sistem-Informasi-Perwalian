@@ -201,6 +201,14 @@ feat: implement pohon kurikulum with react flow (milestone 3)
 #### 4.A.4 — Pohon Kurikulum (Extended)
 - [x] Tab Upload DPS dalam Pohon Kurikulum (upload PDF + preview + confirm flow)
 
+##### Small Fix — Alignment dengan API Spec + Blueprint
+- [x] Tambah manual edit row di preview DPS sebagai fallback kalau parser salah baca
+- [x] Tambah dialog konfirmasi replace sebelum simpan DPS
+- [x] Normalize payload confirm supaya `items` sesuai API spec:
+  - [x] Kirim `kode_matkul`, `nama_matkul`, `sks`, `periode_id`, `nilai_huruf`, `nilai_angka`, `status`
+  - [x] Jangan kirim field UI-only seperti `valid` dan `errors`
+- [x] Hubungkan mock pohon kurikulum ke hasil `savedRiwayatNilai` supaya warna node berubah setelah confirm upload DPS
+
 ### Deliverable
 ✅ Semua halaman mahasiswa sudah bisa di-demo dengan dummy data.
 

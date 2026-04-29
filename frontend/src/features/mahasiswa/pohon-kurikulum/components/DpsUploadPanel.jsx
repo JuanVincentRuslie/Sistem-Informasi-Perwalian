@@ -8,7 +8,13 @@ import { confirmUploadDps, uploadDps } from '../../../../api/riwayatNilai.js';
 import DpsConfirmActions from './DpsConfirmActions.jsx';
 import DpsFileControls from './DpsFileControls.jsx';
 import DpsPreviewTable from './DpsPreviewTable.jsx';
+import DpsReplaceConfirmDialog from './DpsReplaceConfirmDialog.jsx';
 import DpsSummaryGrid from './DpsSummaryGrid.jsx';
+import {
+  calculatePreviewSummary,
+  toConfirmItems,
+  validatePreviewRow,
+} from './dps-preview-utils.js';
 
 function isPdfFile(file) {
   return file?.type === 'application/pdf' || file?.name?.toLowerCase().endsWith('.pdf');
@@ -35,6 +41,10 @@ function DpsUploadPanel({ onConfirmed }) {
   // useState [inputKey]: mengubah key memaksa React membuat ulang input file.
   // Ini cara sederhana untuk mengosongkan value input file setelah reset.
   const [inputKey, setInputKey] = useState(0);
+
+  // useState [replaceDialogOpen]: simpan keputusan replace di dialog terpisah
+  // supaya tombol confirm tidak langsung menimpa data DPS.
+  const [replaceDialogOpen, setReplaceDialogOpen] = useState(false);
 
   const previewRows = previewData?.preview ?? [];
   const invalidRows = previewRows.filter((row) => !row.valid);
@@ -70,7 +80,12 @@ function DpsUploadPanel({ onConfirmed }) {
         throw new Error(response.message);
       }
 
-      setPreviewData(response.data);
+      const preview = response.data.preview.map(validatePreviewRow);
+      setPreviewData({
+        ...response.data,
+        preview,
+        summary: calculatePreviewSummary(preview),
+      });
     } catch (err) {
       setPreviewData(null);
       setErrorMessage(err instanceof Error ? err.message : 'Preview DPS gagal dibuat.');
@@ -79,7 +94,29 @@ function DpsUploadPanel({ onConfirmed }) {
     }
   }
 
-  async function handleConfirm() {
+  function handlePreviewRowChange(rowIndex, field, value) {
+    setSuccessMessage('');
+    setPreviewData((currentData) => {
+      if (!currentData) return currentData;
+
+      const preview = currentData.preview.map((row, index) => (
+        index === rowIndex ? validatePreviewRow({ ...row, [field]: value }) : row
+      ));
+
+      return {
+        ...currentData,
+        preview,
+        summary: calculatePreviewSummary(preview),
+      };
+    });
+  }
+
+  function handleConfirmRequest() {
+    if (!canConfirm) return;
+    setReplaceDialogOpen(true);
+  }
+
+  async function handleConfirmReplace() {
     if (!previewData || invalidRows.length > 0) return;
 
     setLoadingAction('confirm');
@@ -90,18 +127,20 @@ function DpsUploadPanel({ onConfirmed }) {
       const response = await confirmUploadDps({
         upload_token: previewData.upload_token,
         mode: 'replace',
-        items: previewData.preview,
+        items: toConfirmItems(previewData),
       });
 
       if (!response.success) {
         throw new Error(response.message);
       }
 
+      setReplaceDialogOpen(false);
       setSuccessMessage(response.message);
       if (typeof onConfirmed === 'function') {
         onConfirmed(response.data);
       }
     } catch (err) {
+      setReplaceDialogOpen(false);
       setErrorMessage(err instanceof Error ? err.message : 'Konfirmasi DPS gagal.');
     } finally {
       setLoadingAction(null);
@@ -114,19 +153,12 @@ function DpsUploadPanel({ onConfirmed }) {
     setErrorMessage('');
     setSuccessMessage('');
     setLoadingAction(null);
+    setReplaceDialogOpen(false);
     setInputKey((currentKey) => currentKey + 1);
   }
 
   return (
-    <Paper
-      elevation={0}
-      sx={{
-        p: 2.5,
-        border: '1px solid',
-        borderColor: 'divider',
-        borderRadius: 1,
-      }}
-    >
+    <Paper elevation={0} sx={{ p: 2.5, border: '1px solid', borderColor: 'divider', borderRadius: 1 }}>
       <Stack spacing={2.5}>
         <Box>
           <Typography variant="h6" fontWeight={700}>
@@ -157,20 +189,8 @@ function DpsUploadPanel({ onConfirmed }) {
         )}
 
         {!previewData && (
-          <Box
-            sx={{
-              py: 5,
-              px: 2,
-              border: '1px dashed',
-              borderColor: 'divider',
-              borderRadius: 1,
-              textAlign: 'center',
-              color: 'text.secondary',
-            }}
-          >
-            <Typography variant="body2">
-              Belum ada preview DPS.
-            </Typography>
+          <Box sx={{ py: 5, px: 2, border: '1px dashed', borderColor: 'divider', borderRadius: 1, textAlign: 'center', color: 'text.secondary' }}>
+            <Typography variant="body2">Belum ada preview DPS.</Typography>
           </Box>
         )}
 
@@ -180,11 +200,11 @@ function DpsUploadPanel({ onConfirmed }) {
 
             {invalidRows.length > 0 && (
               <Alert severity="warning">
-                Ada {invalidRows.length} baris belum valid. Konfirmasi dibuka setelah semua baris valid.
+                Ada {invalidRows.length} baris belum valid. Edit baris tersebut sebelum konfirmasi.
               </Alert>
             )}
 
-            <DpsPreviewTable rows={previewRows} />
+            <DpsPreviewTable rows={previewRows} onRowChange={handlePreviewRowChange} />
           </>
         )}
 
@@ -193,9 +213,17 @@ function DpsUploadPanel({ onConfirmed }) {
           canConfirm={canConfirm}
           resetDisabled={resetDisabled}
           onReset={handleReset}
-          onConfirm={handleConfirm}
+          onConfirm={handleConfirmRequest}
         />
       </Stack>
+
+      <DpsReplaceConfirmDialog
+        open={replaceDialogOpen}
+        periodeName={previewData?.periode_terdeteksi?.nama ?? '-'}
+        loading={loadingAction === 'confirm'}
+        onCancel={() => setReplaceDialogOpen(false)}
+        onConfirm={handleConfirmReplace}
+      />
     </Paper>
   );
 }
