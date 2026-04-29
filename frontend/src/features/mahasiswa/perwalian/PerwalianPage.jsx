@@ -5,7 +5,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
 import useFetch from '../../../hooks/useFetch.js';
-import { getRencanaStudiSaya, getRiwayatRencanaStudiSaya, submitRencanaStudi } from '../../../api/rencanaStudi.js';
+import {
+  deleteRencanaStudiItem,
+  getRencanaStudiSaya,
+  getRiwayatRencanaStudiSaya,
+  submitRencanaStudi,
+} from '../../../api/rencanaStudi.js';
 import CatatanDosenModal from './components/CatatanDosenModal.jsx';
 import FrsContentPanel from './components/FrsContentPanel.jsx';
 import FrsPeriodeTabs from './components/FrsPeriodeTabs.jsx';
@@ -16,6 +21,8 @@ function PerwalianPage() {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   // useState: toggle modal catatan dosen wali
   const [catatanOpen, setCatatanOpen] = useState(false);
+  const [resetting, setResetting] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -63,11 +70,33 @@ function PerwalianPage() {
 
   const handleKirim = async () => {
     if (!frs) return;
+    setSubmitting(true);
     try {
       await submitRencanaStudi(frs.id);
       refetch();
     } catch (err) {
       alert(err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleReset = async () => {
+    if (!frs || frs.items.length === 0) return;
+
+    const confirmed = window.confirm('Reset FRS akan menghapus semua mata kuliah di rencana studi ini. Lanjutkan?');
+    if (!confirmed) return;
+
+    setResetting(true);
+    try {
+      for (const item of frs.items) {
+        await deleteRencanaStudiItem(frs.id, item.id);
+      }
+      refetch();
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setResetting(false);
     }
   };
 
@@ -114,6 +143,9 @@ function PerwalianPage() {
           onTambah={handleTambah}
           onJadwal={handleJadwal}
           onKirim={handleKirim}
+          onReset={handleReset}
+          resetting={resetting}
+          submitting={submitting}
         />
       )}
 

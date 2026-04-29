@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import FrsActionButtons from './FrsActionButtons.jsx';
 import FrsStatusBar from './FrsStatusBar.jsx';
 import JadwalFrsList from './JadwalFrsList.jsx';
@@ -18,8 +19,24 @@ import TotalSksCard from './TotalSksCard.jsx';
  * @param {Function} onTambah
  * @param {Function} onJadwal
  * @param {Function} onKirim
+ * @param {Function} onReset
  */
-function FrsContentPanel({ frs, periodeNama, periodeAktif, onCatatan, onTambah, onJadwal, onKirim }) {
+function FrsContentPanel({
+  frs,
+  periodeNama,
+  periodeAktif,
+  onCatatan,
+  onTambah,
+  onJadwal,
+  onKirim,
+  onReset,
+  resetting = false,
+  submitting = false,
+}) {
+  const canSubmit = periodeAktif && frs.items.length > 0 && frs.status !== 'APPROVED' && !resetting && !submitting;
+  const canReset = periodeAktif && frs.items.length > 0 && !resetting && !submitting;
+  const submitLabel = frs.status === 'SUBMITTED' ? 'Kirim Ulang' : 'Kirim';
+
   return (
     <>
       <Typography variant="h6" fontWeight="bold" sx={{ mt: 2, mb: 2 }}>
@@ -46,9 +63,27 @@ function FrsContentPanel({ frs, periodeNama, periodeAktif, onCatatan, onTambah, 
         <FrsStatusBar status={frs.status} />
       </Box>
 
-      <Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}>
-        <Button variant="contained" size="large" onClick={onKirim} disabled={!periodeAktif}>
-          Kirim
+      <Box
+        sx={{
+          mt: 2,
+          display: 'flex',
+          justifyContent: 'space-between',
+          gap: 2,
+          flexWrap: 'wrap',
+        }}
+      >
+        <Button
+          variant="outlined"
+          color="error"
+          size="large"
+          startIcon={<RestartAltIcon />}
+          onClick={onReset}
+          disabled={!canReset}
+        >
+          {resetting ? 'Mereset...' : 'Reset'}
+        </Button>
+        <Button variant="contained" size="large" onClick={onKirim} disabled={!canSubmit}>
+          {submitting ? 'Mengirim...' : submitLabel}
         </Button>
       </Box>
     </>

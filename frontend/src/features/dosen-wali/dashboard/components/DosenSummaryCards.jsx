@@ -10,19 +10,19 @@ const SUMMARY_ITEMS = [
     key: 'approved',
     label: 'Sudah Disetujui',
     icon: CheckCircleIcon,
-    color: 'success.main',
+    statusColor: 'approved',
   },
   {
     key: 'waiting',
     label: 'Menunggu Persetujuan',
     icon: HourglassTopIcon,
-    color: 'warning.main',
+    statusColor: 'waiting',
   },
   {
     key: 'empty',
     label: 'Belum Mengisi',
     icon: AssignmentLateIcon,
-    color: 'error.main',
+    statusColor: 'empty',
   },
 ];
 
@@ -42,7 +42,7 @@ function DosenSummaryCards({ summary }) {
         mb: 4,
       }}
     >
-      {SUMMARY_ITEMS.map(({ key, label, icon: Icon, color }) => (
+      {SUMMARY_ITEMS.map(({ key, label, icon: Icon, statusColor }) => (
         <Paper
           key={key}
           elevation={0}
@@ -61,8 +61,8 @@ function DosenSummaryCards({ summary }) {
               width: 52,
               height: 52,
               borderRadius: 1,
-              bgcolor: color,
-              color: 'common.white',
+              bgcolor: (theme) => theme.palette.frsStatus[statusColor].main,
+              color: (theme) => theme.palette.frsStatus[statusColor].contrastText,
               display: 'grid',
               placeItems: 'center',
               flexShrink: 0,

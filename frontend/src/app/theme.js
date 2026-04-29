@@ -16,6 +16,24 @@ const theme = createTheme({
       primary: '#1F2937',
       secondary: '#6B7280',
     },
+    frsStatus: {
+      approved: {
+        main: '#22C55E',
+        contrastText: '#FFFFFF',
+      },
+      waiting: {
+        main: '#FDD835',
+        contrastText: '#1F2937',
+      },
+      empty: {
+        main: '#EF4444',
+        contrastText: '#FFFFFF',
+      },
+      neutral: {
+        main: '#FFFFFF',
+        contrastText: '#1F2937',
+      },
+    },
   },
   typography: {
     fontFamily: 'Roboto, Arial, sans-serif',

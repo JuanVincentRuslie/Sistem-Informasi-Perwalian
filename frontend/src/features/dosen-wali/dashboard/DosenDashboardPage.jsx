@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
+import { useSearchParams } from 'react-router-dom';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
 import PageHeader from '../../../shared/components/PageHeader.jsx';
 import { getRencanaStudiDosenBimbingan } from '../../../api/rencanaStudi.js';
@@ -11,17 +12,45 @@ import useFetch from '../../../hooks/useFetch.js';
 import DosenSummaryCards from './components/DosenSummaryCards.jsx';
 import MahasiswaBimbinganFilters from './components/MahasiswaBimbinganFilters.jsx';
 import MahasiswaBimbinganList from './components/MahasiswaBimbinganList.jsx';
-import { getDosenStatusCategory } from './components/statusConfig.js';
+import {
+  getDosenStatusCategory,
+  normalizeDosenStatusFilter,
+} from './components/statusConfig.js';
 
 function DosenDashboardPage() {
   // useAuth: ambil nama dosen untuk greeting personal di header dashboard.
   // Context menjaga halaman otomatis update kalau user berubah.
   const { user } = useAuth();
 
-  // useState [searchQuery/statusFilter]: simpan kontrol filter lokal.
-  // Filtering cukup di client karena dashboard mock masih kecil dan frontend-first.
-  const [searchQuery, setSearchQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
+  // useSearchParams: query URL jadi state filter, sehingga search/filter bisa di-bookmark.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get('q') ?? '';
+  const statusFilter = normalizeDosenStatusFilter(searchParams.get('status'));
+
+  function handleSearchChange(nextQuery) {
+    const nextParams = new URLSearchParams(searchParams);
+
+    if (nextQuery.trim()) {
+      nextParams.set('q', nextQuery);
+    } else {
+      nextParams.delete('q');
+    }
+
+    setSearchParams(nextParams, { replace: true });
+  }
+
+  function handleStatusFilterChange(nextStatus) {
+    const nextParams = new URLSearchParams(searchParams);
+    const normalizedStatus = normalizeDosenStatusFilter(nextStatus);
+
+    if (normalizedStatus === 'all') {
+      nextParams.delete('status');
+    } else {
+      nextParams.set('status', normalizedStatus);
+    }
+
+    setSearchParams(nextParams, { replace: true });
+  }
 
   // useFetch: ambil list FRS mahasiswa bimbingan dari service layer.
   // Component tidak fetch langsung supaya nanti mudah diganti backend asli.
@@ -74,8 +103,8 @@ function DosenDashboardPage() {
       <MahasiswaBimbinganFilters
         searchQuery={searchQuery}
         statusFilter={statusFilter}
-        onSearchChange={setSearchQuery}
-        onStatusFilterChange={setStatusFilter}
+        onSearchChange={handleSearchChange}
+        onStatusFilterChange={handleStatusFilterChange}
       />
 
       <MahasiswaBimbinganList items={filteredItems} />

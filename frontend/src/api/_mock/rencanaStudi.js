@@ -434,6 +434,19 @@ function getTargetPeriodeId(params = {}) {
   return Number(params.periode_id ?? params.periodeId ?? periodeAktif.id);
 }
 
+function markRencanaStudiEdited(record) {
+  if (record.status === 'APPROVED') {
+    record.status = 'SUBMITTED';
+    record.submitted_at = new Date().toISOString();
+    record.reviewed_at = null;
+  }
+
+  if (record.status === 'REJECTED') {
+    record.status = 'DRAFT';
+    record.reviewed_at = null;
+  }
+}
+
 export async function mockGetRencanaStudiSaya(params = {}) {
   await sleep(NETWORK_DELAY_MS.get);
 
@@ -541,20 +554,11 @@ export async function mockAddRencanaStudiItem(rencanaStudiId, payload = {}) {
     throw createMockError(404, 'Kelas tidak ditemukan.');
   }
 
-  if (record.status === 'SUBMITTED') {
-    throw createMockError(422, 'FRS yang sudah disubmit tidak bisa diubah.');
-  }
-
   if (record.items.some((item) => item.kelas_id === kelasItem.id)) {
     throw createMockError(409, 'Kelas sudah ada di FRS.');
   }
 
-  if (record.status === 'APPROVED') {
-    record.status = 'SUBMITTED';
-    record.submitted_at = new Date().toISOString();
-    record.reviewed_at = null;
-  }
-
+  markRencanaStudiEdited(record);
   record.items.push({
     id: nextItemId,
     kelas_id: kelasItem.id,
@@ -569,16 +573,13 @@ export async function mockDeleteRencanaStudiItem(rencanaStudiId, itemId) {
 
   const record = getRencanaStudiById(rencanaStudiId);
 
-  if (record.status === 'SUBMITTED' || record.status === 'APPROVED') {
-    throw createMockError(422, 'FRS yang sedang/selesai direview tidak bisa diubah.');
-  }
-
   const itemIndex = record.items.findIndex((item) => item.id === Number(itemId));
 
   if (itemIndex < 0) {
     throw createMockError(404, 'Item FRS tidak ditemukan.');
   }
 
+  markRencanaStudiEdited(record);
   record.items.splice(itemIndex, 1);
 
   return wrap(toRencanaStudiDetail(record), 'Kelas berhasil dihapus dari FRS.');
@@ -589,8 +590,8 @@ export async function mockSubmitRencanaStudi(rencanaStudiId) {
 
   const record = getRencanaStudiById(rencanaStudiId);
 
-  if (record.status !== 'DRAFT' && record.status !== 'REJECTED') {
-    throw createMockError(422, 'Hanya FRS draft atau revisi yang bisa disubmit.');
+  if (record.status !== 'DRAFT' && record.status !== 'REJECTED' && record.status !== 'SUBMITTED') {
+    throw createMockError(422, 'Hanya FRS draft, revisi, atau menunggu persetujuan yang bisa disubmit ulang.');
   }
 
   if (!record.periode.is_active) {
