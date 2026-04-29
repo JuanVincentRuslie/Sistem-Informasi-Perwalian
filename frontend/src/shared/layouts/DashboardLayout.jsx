@@ -46,7 +46,13 @@ function DashboardLayout() {
   return (
     <Box sx={{ display: 'flex' }}>
       {/* AppBar: fixed di atas, z-index lebih tinggi dari Drawer biar tidak ketutupan */}
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <AppBar position="fixed" 
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 ,
+      bgcolor: 'primary.main',
+      color: 'primary.contrastText',
+
+
+      }}>
         <Toolbar>
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
             Sistem Informasi Perwalian

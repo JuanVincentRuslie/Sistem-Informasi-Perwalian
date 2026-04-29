@@ -3,7 +3,7 @@ import Tabs from '@mui/material/Tabs';
 
 /**
  * Tab row untuk memilih periode FRS yang ingin dilihat.
- * @param {object[]} riwayat - List ringkasan FRS (sudah di-sort terbaru duluan)
+ * @param {object[]} riwayat - List ringkasan FRS (sudah di-sort lama ke baru)
  * @param {number} activeTabIndex
  * @param {Function} onChange - callback(newIndex)
  */
