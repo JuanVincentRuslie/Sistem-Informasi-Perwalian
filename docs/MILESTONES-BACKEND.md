@@ -34,6 +34,10 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 - Periode yang sudah berakhir **tidak bisa diaktifkan lagi**
 - Kaprodi boleh **hapus periode** untuk koreksi input
 - Detail mahasiswa dari sisi kaprodi bersifat **read-only** untuk approval FRS
+- Parser yang sudah tersedia di repo saat ini:
+  - `parser_for_backend/Jadwal_excel_parser/parse-jadwal.js`
+  - `parser_for_backend/Dps_parser/index.js`
+- Detail teknis pemakaian parser dicatat di `docs/PARSER-INTEGRATION.md`
 
 ---
 
@@ -168,7 +172,8 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 - [ ] Implement `GET /api/v1/kelas/:id`
 - [ ] Implement `POST /api/v1/kelas/upload` preview
 - [ ] Implement confirm replace mode untuk upload jadwal kelas
-- [ ] Parser Excel untuk kelas + sesi kelas
+- [ ] Integrasikan parser dari `parser_for_backend/Jadwal_excel_parser/parse-jadwal.js`
+- [ ] Parser Excel mengembalikan struktur kelas + sesi kelas yang siap dipreview
 - [ ] Validation kolom template upload
 - [ ] Replace data `kelas` + `sesi_kelas` per `periode_id`
 - [ ] Logging error upload yang mudah dibaca
@@ -177,6 +182,8 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 - **Tidak** perlu membuat upload UI/API baru untuk catalog mata kuliah FRS
 - `master_matkul` tetap masuk lewat seed / import backend terkontrol
+- Parser jadwal adalah komponen internal backend, bukan endpoint terpisah
+- Flow wajib: upload -> parse -> preview -> confirm -> simpan ke DB
 
 ### Deliverable
 
@@ -244,20 +251,28 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 ### Tasks
 
 - [ ] Implement `GET /api/v1/riwayat-nilai/me`
-- [ ] Implement `POST /api/v1/riwayat-nilai/upload`
+- [ ] Implement `POST /api/v1/riwayat-nilai/upload-dps`
+- [ ] Implement `POST /api/v1/riwayat-nilai/upload-dps/confirm`
 - [ ] Implement preview hasil parse / input manual
 - [ ] Implement confirm save
 - [ ] Replace riwayat nilai per periode sesuai kontrak API
 - [ ] Recalculate IPK, IPS terakhir, total SKS lulus, total SKS wajib, total SKS pilihan
+- [ ] Integrasikan parser dari `parser_for_backend/Dps_parser/index.js`
+- [ ] Mapping hasil parser DPS ke format API `riwayat_nilai`
+- [ ] Gunakan `transcript` parser sebagai sumber utama item siap simpan
+- [ ] Simpan `courses` + `unparsedCourseLines` sebagai bahan preview/manual edit
 
 ### Catatan Sinkronisasi
 
-- Parser PDF dosen masih boleh ditunda di awal implementasi
+- Parser DPS sekarang **sudah ada di repo**, jadi backend tidak mulai dari nol
+- Parser PDF dosen masih boleh diintegrasikan bertahap
 - Minimal flow awal boleh:
   - [ ] upload
   - [ ] preview
   - [ ] manual edit
   - [ ] save
+- Parser DPS adalah komponen internal backend, bukan service publik terpisah
+- Flow wajib: upload PDF -> parse -> preview -> manual edit bila perlu -> confirm -> replace `riwayat_nilai` -> update cache akademik
 
 ### Deliverable
 

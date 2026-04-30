@@ -1,0 +1,835 @@
+{
+  "profile": {
+    "npm": "6182201039",
+    "name": "JUAN VINCENT RUSLIE",
+    "email": "6182201039@student.unpar.ac.id"
+  },
+  "academic": {
+    "ipk": {
+      "periode": "2025-1",
+      "sks": 130,
+      "nilai": 3.17
+    },
+    "ips": {
+      "periode": "2025-1",
+      "sks": 15,
+      "nilai": 3.6
+    },
+    "sks": {
+      "ditempuh": 130,
+      "lulusWajib": 98,
+      "lulusPilihan": 29,
+      "lulusWajibPeminatan": 0,
+      "lulusPilihanPeminatan": 0,
+      "totalLulus": 127,
+      "ditempuhSemesterIni": 15,
+      "diizinkanUntukSemesterYad": 24,
+      "cutiStudi": 0,
+      "akhirMasaStudi": "SEMESTER GENAP 2028/2029"
+    }
+  },
+  "stats": {
+    "totalCourses": 55,
+    "gradedCourses": 44,
+    "ungradedCourses": 11,
+    "transcriptEntries": 44,
+    "unparsedCourseLines": 0
+  },
+  "courses": [
+    {
+      "semester": 1,
+      "kode": "AIF181101",
+      "nama": "Pemodelan untuk Komputasi",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20221"
+    },
+    {
+      "semester": 1,
+      "kode": "AIF181107",
+      "nama": "Matematika Diskret",
+      "nilai": "A-",
+      "scoreId": 9,
+      "tahunSemester": "20221"
+    },
+    {
+      "semester": 1,
+      "kode": "AIF231101",
+      "nama": "Matematika Dasar",
+      "nilai": "A-",
+      "scoreId": 9,
+      "tahunSemester": "20221"
+    },
+    {
+      "semester": 1,
+      "kode": "AIF231103",
+      "nama": "Dasar Pemrograman",
+      "nilai": null,
+      "scoreId": null,
+      "tahunSemester": null
+    },
+    {
+      "semester": 1,
+      "kode": "AIF231105",
+      "nama": "Matematika Diskret",
+      "nilai": null,
+      "scoreId": null,
+      "tahunSemester": null
+    },
+    {
+      "semester": 1,
+      "kode": "MKU230110",
+      "nama": "Pendidikan Kewarganegaraan",
+      "nilai": "B+",
+      "scoreId": 8,
+      "tahunSemester": "20221"
+    },
+    {
+      "semester": 1,
+      "kode": "MKU230120",
+      "nama": "Bahasa Indonesia",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20221"
+    },
+    {
+      "semester": 1,
+      "kode": "MKU230130",
+      "nama": "Logika",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20221"
+    },
+    {
+      "semester": 2,
+      "kode": "AIF231104",
+      "nama": "Algoritma dan Pemrograman",
+      "nilai": "B+",
+      "scoreId": 8,
+      "tahunSemester": "20222"
+    },
+    {
+      "semester": 2,
+      "kode": "AIF231106",
+      "nama": "Logika Informatika",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20222"
+    },
+    {
+      "semester": 2,
+      "kode": "AIF231202",
+      "nama": "Arsitektur dan Organisasi Komputer",
+      "nilai": "B+",
+      "scoreId": 8,
+      "tahunSemester": "20222"
+    },
+    {
+      "semester": 2,
+      "kode": "AIF231402",
+      "nama": "Statistika untuk Komputasi",
+      "nilai": "D",
+      "scoreId": 2,
+      "tahunSemester": "20231"
+    },
+    {
+      "semester": 2,
+      "kode": "MKU230140",
+      "nama": "Pendidikan Pancasila",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20222"
+    },
+    {
+      "semester": 2,
+      "kode": "MKU230150",
+      "nama": "Etika Dasar",
+      "nilai": "B+",
+      "scoreId": 8,
+      "tahunSemester": "20222"
+    },
+    {
+      "semester": 3,
+      "kode": "AIF181106",
+      "nama": "Matriks dan Ruang Vektor",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20222"
+    },
+    {
+      "semester": 3,
+      "kode": "AIF232101",
+      "nama": "Matriks dan Ruang Vektor",
+      "nilai": null,
+      "scoreId": null,
+      "tahunSemester": null
+    },
+    {
+      "semester": 3,
+      "kode": "AIF232103",
+      "nama": "Pemrograman Berorientasi Objek",
+      "nilai": "B",
+      "scoreId": 7,
+      "tahunSemester": "20231"
+    },
+    {
+      "semester": 3,
+      "kode": "AIF232105",
+      "nama": "Struktur Diskret",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20231"
+    },
+    {
+      "semester": 3,
+      "kode": "AIF232107",
+      "nama": "Algoritma dan Struktur Data",
+      "nilai": "C",
+      "scoreId": 4,
+      "tahunSemester": "20231"
+    },
+    {
+      "semester": 3,
+      "kode": "AIF232201",
+      "nama": "Sistem Operasi",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20231"
+    },
+    {
+      "semester": 3,
+      "kode": "MKU230180",
+      "nama": "Estetika",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20231"
+    },
+    {
+      "semester": 4,
+      "kode": "AIF232002",
+      "nama": "Teknik Presentasi",
+      "nilai": "A-",
+      "scoreId": 9,
+      "tahunSemester": "20232"
+    },
+    {
+      "semester": 4,
+      "kode": "AIF232102",
+      "nama": "Analisis dan Desain Perangkat Lunak",
+      "nilai": "B+",
+      "scoreId": 8,
+      "tahunSemester": "20232"
+    },
+    {
+      "semester": 4,
+      "kode": "AIF232104",
+      "nama": "Desain dan Analisis Algoritma",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20232"
+    },
+    {
+      "semester": 4,
+      "kode": "AIF232202",
+      "nama": "Jaringan Komputer",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20232"
+    },
+    {
+      "semester": 4,
+      "kode": "AIF232301",
+      "nama": "Manajemen Informasi dan Basis Data",
+      "nilai": "B-",
+      "scoreId": 6,
+      "tahunSemester": "20232"
+    },
+    {
+      "semester": 4,
+      "kode": "MKU230160",
+      "nama": "Pendidikan Agama Katolik",
+      "nilai": null,
+      "scoreId": null,
+      "tahunSemester": null
+    },
+    {
+      "semester": 4,
+      "kode": "MKU230170",
+      "nama": "Fenomenologi Agama",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20232"
+    },
+    {
+      "semester": 5,
+      "kode": "AIF233101",
+      "nama": "Rekayasa Perangkat Lunak",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20241"
+    },
+    {
+      "semester": 5,
+      "kode": "AIF233103",
+      "nama": "Keamanan Informasi",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20241"
+    },
+    {
+      "semester": 5,
+      "kode": "AIF233105",
+      "nama": "Artificial Intelligence",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20241"
+    },
+    {
+      "semester": 5,
+      "kode": "AIF233107",
+      "nama": "Desain Antarmuka Grafis",
+      "nilai": "A-",
+      "scoreId": 9,
+      "tahunSemester": "20241"
+    },
+    {
+      "semester": 5,
+      "kode": "AIF233201",
+      "nama": "Pemrograman Berbasis Web",
+      "nilai": "A-",
+      "scoreId": 9,
+      "tahunSemester": "20241"
+    },
+    {
+      "semester": 5,
+      "kode": "AIF233301",
+      "nama": "Manajemen Proyek",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20241"
+    },
+    {
+      "semester": 6,
+      "kode": "AIF233002",
+      "nama": "Sosioinformatika dan Profesionalisme",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20242"
+    },
+    {
+      "semester": 6,
+      "kode": "AIF233102",
+      "nama": "Machine Learning",
+      "nilai": null,
+      "scoreId": null,
+      "tahunSemester": null
+    },
+    {
+      "semester": 7,
+      "kode": "AIF234001",
+      "nama": "Tugas Akhir 1",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20251"
+    },
+    {
+      "semester": 7,
+      "kode": "AIF234101",
+      "nama": "Proyek Informatika",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20251"
+    },
+    {
+      "semester": 7,
+      "kode": "AIF234102",
+      "nama": "Proyek Artificial Intelligence",
+      "nilai": null,
+      "scoreId": null,
+      "tahunSemester": null
+    },
+    {
+      "semester": 7,
+      "kode": "AIF234401",
+      "nama": "Proyek Data Science 2",
+      "nilai": null,
+      "scoreId": null,
+      "tahunSemester": null
+    },
+    {
+      "semester": 8,
+      "kode": "AIF234002",
+      "nama": "Tugas Akhir 2",
+      "nilai": null,
+      "scoreId": null,
+      "tahunSemester": null
+    },
+    {
+      "semester": 9,
+      "kode": "AIF181105",
+      "nama": "Pengantar Informatika",
+      "nilai": "A-",
+      "scoreId": 9,
+      "tahunSemester": "20221"
+    },
+    {
+      "semester": 9,
+      "kode": "AIF231108",
+      "nama": "Pemrograman Kompetitif 1",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20231"
+    },
+    {
+      "semester": 9,
+      "kode": "AIF232106",
+      "nama": "Pemrograman Kompetitif 3",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20242"
+    },
+    {
+      "semester": 9,
+      "kode": "AIF232109",
+      "nama": "Pemrograman Kompetitif 2",
+      "nilai": "B-",
+      "scoreId": 6,
+      "tahunSemester": "20241"
+    },
+    {
+      "semester": 9,
+      "kode": "AIF232112",
+      "nama": "3D Game Development Using Unity",
+      "nilai": null,
+      "scoreId": null,
+      "tahunSemester": null
+    },
+    {
+      "semester": 9,
+      "kode": "AIF233104",
+      "nama": "Permasalahan dan Teknik Optimasi",
+      "nilai": "B",
+      "scoreId": 7,
+      "tahunSemester": "20242"
+    },
+    {
+      "semester": 9,
+      "kode": "AIF233125",
+      "nama": "Pemodelan Formal",
+      "nilai": "B",
+      "scoreId": 7,
+      "tahunSemester": "20242"
+    },
+    {
+      "semester": 9,
+      "kode": "AIF233206",
+      "nama": "Pemrograman Back End",
+      "nilai": "A-",
+      "scoreId": 9,
+      "tahunSemester": "20251"
+    },
+    {
+      "semester": 9,
+      "kode": "AIF233304",
+      "nama": "Teknologi Basis Data",
+      "nilai": null,
+      "scoreId": null,
+      "tahunSemester": null
+    },
+    {
+      "semester": 9,
+      "kode": "AIF233308",
+      "nama": "Fundamental dan Aplikasi Intelijen Bisnis",
+      "nilai": "E",
+      "scoreId": 1,
+      "tahunSemester": "20242"
+    },
+    {
+      "semester": 9,
+      "kode": "AIF233310",
+      "nama": "Manajemen Proses Bisnis",
+      "nilai": null,
+      "scoreId": null,
+      "tahunSemester": null
+    },
+    {
+      "semester": 9,
+      "kode": "AIF233314",
+      "nama": "Kewirausahaan Berbasis Teknologi",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20242"
+    },
+    {
+      "semester": 9,
+      "kode": "AIF234105",
+      "nama": "Deep Learning",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20251"
+    },
+    {
+      "semester": 9,
+      "kode": "AIF234109",
+      "nama": "Sistem Multi Agen",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20251"
+    }
+  ],
+  "transcript": [
+    {
+      "kode": "AIF181101",
+      "nama": "Pemodelan untuk Komputasi",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20221",
+      "semester": 1
+    },
+    {
+      "kode": "AIF181107",
+      "nama": "Matematika Diskret",
+      "nilai": "A-",
+      "scoreId": 9,
+      "tahunSemester": "20221",
+      "semester": 1
+    },
+    {
+      "kode": "AIF231101",
+      "nama": "Matematika Dasar",
+      "nilai": "A-",
+      "scoreId": 9,
+      "tahunSemester": "20221",
+      "semester": 1
+    },
+    {
+      "kode": "MKU230110",
+      "nama": "Pendidikan Kewarganegaraan",
+      "nilai": "B+",
+      "scoreId": 8,
+      "tahunSemester": "20221",
+      "semester": 1
+    },
+    {
+      "kode": "MKU230120",
+      "nama": "Bahasa Indonesia",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20221",
+      "semester": 1
+    },
+    {
+      "kode": "MKU230130",
+      "nama": "Logika",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20221",
+      "semester": 1
+    },
+    {
+      "kode": "AIF231104",
+      "nama": "Algoritma dan Pemrograman",
+      "nilai": "B+",
+      "scoreId": 8,
+      "tahunSemester": "20222",
+      "semester": 2
+    },
+    {
+      "kode": "AIF231106",
+      "nama": "Logika Informatika",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20222",
+      "semester": 2
+    },
+    {
+      "kode": "AIF231202",
+      "nama": "Arsitektur dan Organisasi Komputer",
+      "nilai": "B+",
+      "scoreId": 8,
+      "tahunSemester": "20222",
+      "semester": 2
+    },
+    {
+      "kode": "AIF231402",
+      "nama": "Statistika untuk Komputasi",
+      "nilai": "D",
+      "scoreId": 2,
+      "tahunSemester": "20231",
+      "semester": 2
+    },
+    {
+      "kode": "MKU230140",
+      "nama": "Pendidikan Pancasila",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20222",
+      "semester": 2
+    },
+    {
+      "kode": "MKU230150",
+      "nama": "Etika Dasar",
+      "nilai": "B+",
+      "scoreId": 8,
+      "tahunSemester": "20222",
+      "semester": 2
+    },
+    {
+      "kode": "AIF181106",
+      "nama": "Matriks dan Ruang Vektor",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20222",
+      "semester": 3
+    },
+    {
+      "kode": "AIF232103",
+      "nama": "Pemrograman Berorientasi Objek",
+      "nilai": "B",
+      "scoreId": 7,
+      "tahunSemester": "20231",
+      "semester": 3
+    },
+    {
+      "kode": "AIF232105",
+      "nama": "Struktur Diskret",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20231",
+      "semester": 3
+    },
+    {
+      "kode": "AIF232107",
+      "nama": "Algoritma dan Struktur Data",
+      "nilai": "C",
+      "scoreId": 4,
+      "tahunSemester": "20231",
+      "semester": 3
+    },
+    {
+      "kode": "AIF232201",
+      "nama": "Sistem Operasi",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20231",
+      "semester": 3
+    },
+    {
+      "kode": "MKU230180",
+      "nama": "Estetika",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20231",
+      "semester": 3
+    },
+    {
+      "kode": "AIF232002",
+      "nama": "Teknik Presentasi",
+      "nilai": "A-",
+      "scoreId": 9,
+      "tahunSemester": "20232",
+      "semester": 4
+    },
+    {
+      "kode": "AIF232102",
+      "nama": "Analisis dan Desain Perangkat Lunak",
+      "nilai": "B+",
+      "scoreId": 8,
+      "tahunSemester": "20232",
+      "semester": 4
+    },
+    {
+      "kode": "AIF232104",
+      "nama": "Desain dan Analisis Algoritma",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20232",
+      "semester": 4
+    },
+    {
+      "kode": "AIF232202",
+      "nama": "Jaringan Komputer",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20232",
+      "semester": 4
+    },
+    {
+      "kode": "AIF232301",
+      "nama": "Manajemen Informasi dan Basis Data",
+      "nilai": "B-",
+      "scoreId": 6,
+      "tahunSemester": "20232",
+      "semester": 4
+    },
+    {
+      "kode": "MKU230170",
+      "nama": "Fenomenologi Agama",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20232",
+      "semester": 4
+    },
+    {
+      "kode": "AIF233101",
+      "nama": "Rekayasa Perangkat Lunak",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20241",
+      "semester": 5
+    },
+    {
+      "kode": "AIF233103",
+      "nama": "Keamanan Informasi",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20241",
+      "semester": 5
+    },
+    {
+      "kode": "AIF233105",
+      "nama": "Artificial Intelligence",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20241",
+      "semester": 5
+    },
+    {
+      "kode": "AIF233107",
+      "nama": "Desain Antarmuka Grafis",
+      "nilai": "A-",
+      "scoreId": 9,
+      "tahunSemester": "20241",
+      "semester": 5
+    },
+    {
+      "kode": "AIF233201",
+      "nama": "Pemrograman Berbasis Web",
+      "nilai": "A-",
+      "scoreId": 9,
+      "tahunSemester": "20241",
+      "semester": 5
+    },
+    {
+      "kode": "AIF233301",
+      "nama": "Manajemen Proyek",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20241",
+      "semester": 5
+    },
+    {
+      "kode": "AIF233002",
+      "nama": "Sosioinformatika dan Profesionalisme",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20242",
+      "semester": 6
+    },
+    {
+      "kode": "AIF234001",
+      "nama": "Tugas Akhir 1",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20251",
+      "semester": 7
+    },
+    {
+      "kode": "AIF234101",
+      "nama": "Proyek Informatika",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20251",
+      "semester": 7
+    },
+    {
+      "kode": "AIF181105",
+      "nama": "Pengantar Informatika",
+      "nilai": "A-",
+      "scoreId": 9,
+      "tahunSemester": "20221",
+      "semester": 9
+    },
+    {
+      "kode": "AIF231108",
+      "nama": "Pemrograman Kompetitif 1",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20231",
+      "semester": 9
+    },
+    {
+      "kode": "AIF232106",
+      "nama": "Pemrograman Kompetitif 3",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20242",
+      "semester": 9
+    },
+    {
+      "kode": "AIF232109",
+      "nama": "Pemrograman Kompetitif 2",
+      "nilai": "B-",
+      "scoreId": 6,
+      "tahunSemester": "20241",
+      "semester": 9
+    },
+    {
+      "kode": "AIF233104",
+      "nama": "Permasalahan dan Teknik Optimasi",
+      "nilai": "B",
+      "scoreId": 7,
+      "tahunSemester": "20242",
+      "semester": 9
+    },
+    {
+      "kode": "AIF233125",
+      "nama": "Pemodelan Formal",
+      "nilai": "B",
+      "scoreId": 7,
+      "tahunSemester": "20242",
+      "semester": 9
+    },
+    {
+      "kode": "AIF233206",
+      "nama": "Pemrograman Back End",
+      "nilai": "A-",
+      "scoreId": 9,
+      "tahunSemester": "20251",
+      "semester": 9
+    },
+    {
+      "kode": "AIF233308",
+      "nama": "Fundamental dan Aplikasi Intelijen Bisnis",
+      "nilai": "E",
+      "scoreId": 1,
+      "tahunSemester": "20242",
+      "semester": 9
+    },
+    {
+      "kode": "AIF233314",
+      "nama": "Kewirausahaan Berbasis Teknologi",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20242",
+      "semester": 9
+    },
+    {
+      "kode": "AIF234105",
+      "nama": "Deep Learning",
+      "nilai": "A",
+      "scoreId": 10,
+      "tahunSemester": "20251",
+      "semester": 9
+    },
+    {
+      "kode": "AIF234109",
+      "nama": "Sistem Multi Agen",
+      "nilai": "C+",
+      "scoreId": 5,
+      "tahunSemester": "20251",
+      "semester": 9
+    }
+  ],
+  "unparsedCourseLines": []
+}
