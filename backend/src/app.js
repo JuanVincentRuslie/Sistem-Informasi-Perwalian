@@ -4,6 +4,7 @@ const dosenWaliRouter = require('./modules/dosen-wali/dosen-wali.router');
 const mahasiswaRouter = require('./modules/mahasiswa/mahasiswa.router');
 const periodeRouter = require('./modules/periode/periode.router');
 const kelasRouter = require('./modules/kelas/kelas.router');
+const rencanaStudiRouter = require('./modules/rencana-studi/rencana-studi.router');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use('/api/v1/dosen-wali', dosenWaliRouter);
 app.use('/api/v1/mahasiswa', mahasiswaRouter);
 app.use('/api/v1/periode', periodeRouter);
 app.use('/api/v1/kelas', kelasRouter);
+app.use('/api/v1/rencana-studi', rencanaStudiRouter);
 
 // 404 fallback
 app.use((_req, res) => {

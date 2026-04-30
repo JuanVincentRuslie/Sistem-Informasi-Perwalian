@@ -169,15 +169,15 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 ### Tasks
 
-- [ ] Implement `GET /api/v1/kelas`
-- [ ] Implement `GET /api/v1/kelas/:id`
-- [ ] Implement `POST /api/v1/kelas/upload` preview
-- [ ] Implement confirm replace mode untuk upload jadwal kelas
-- [ ] Integrasikan parser dari `parser_for_backend/Jadwal_excel_parser/parse-jadwal.js`
-- [ ] Parser Excel mengembalikan struktur kelas + sesi kelas yang siap dipreview
-- [ ] Validation kolom template upload
-- [ ] Replace data `kelas` + `sesi_kelas` per `periode_id`
-- [ ] Logging error upload yang mudah dibaca
+- [x] Implement `GET /api/v1/kelas`
+- [x] Implement `GET /api/v1/kelas/:id`
+- [x] Implement `POST /api/v1/kelas/upload` preview
+- [x] Implement confirm replace mode untuk upload jadwal kelas
+- [x] Integrasikan parser dari `parser_for_backend/Jadwal_excel_parser/parse-jadwal.js`
+- [x] Parser Excel mengembalikan struktur kelas + sesi kelas yang siap dipreview
+- [x] Validation kolom template upload
+- [x] Replace data `kelas` + `sesi_kelas` per `periode_id`
+- [x] Logging error upload yang mudah dibaca
 
 ### Catatan Sinkronisasi
 
@@ -188,8 +188,8 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 ### Deliverable
 
-- [ ] Upload jadwal kelas bisa menggantikan mock kaprodi periode
-- [ ] Endpoint pemilihan kelas untuk FRS sudah punya data nyata
+- [x] Upload jadwal kelas bisa menggantikan mock kaprodi periode
+- [x] Endpoint pemilihan kelas untuk FRS sudah punya data nyata
 
 ---
 
@@ -199,24 +199,26 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 ### Tasks
 
-- [ ] Implement `GET /api/v1/rencana-studi/me`
-- [ ] Implement `GET /api/v1/rencana-studi/me/riwayat`
-- [ ] Implement `POST /api/v1/rencana-studi`
-- [ ] Implement `POST /api/v1/rencana-studi/:id/items`
-- [ ] Implement `DELETE /api/v1/rencana-studi/:id/items/:itemId`
-- [ ] Implement `POST /api/v1/rencana-studi/:id/submit`
-- [ ] Implement `GET /api/v1/rencana-studi/dosen/bimbingan`
-- [ ] Implement `GET /api/v1/rencana-studi/dosen/:id`
-- [ ] Implement `POST /api/v1/rencana-studi/:id/setujui`
-- [ ] Implement `POST /api/v1/rencana-studi/:id/revisi`
-- [ ] Implement state machine FRS
-- [ ] Implement ownership checks mahasiswa
-- [ ] Implement ownership checks dosen wali
-- [ ] Enforce write action hanya saat periode aktif
+- [x] Implement `GET /api/v1/rencana-studi/saya`
+- [x] Implement `GET /api/v1/rencana-studi/saya/riwayat`
+- [x] Implement `POST /api/v1/rencana-studi`
+- [x] Implement `POST /api/v1/rencana-studi/:id/items`
+- [x] Implement `DELETE /api/v1/rencana-studi/:id/items/:item_id`
+- [x] Implement `POST /api/v1/rencana-studi/:id/submit`
+- [x] Implement `GET /api/v1/rencana-studi/dosen/bimbingan`
+- [x] Implement `GET /api/v1/rencana-studi/dosen/mahasiswa/:id/profil`
+- [x] Implement `GET /api/v1/rencana-studi/dosen/mahasiswa/:id/riwayat`
+- [x] Implement `GET /api/v1/rencana-studi/:id` (multi-role detail)
+- [x] Implement `POST /api/v1/rencana-studi/:id/setujui`
+- [x] Implement `POST /api/v1/rencana-studi/:id/revisi`
+- [x] Implement state machine FRS (DRAFT → SUBMITTED → APPROVED/REJECTED, auto-change saat edit)
+- [x] Implement ownership checks mahasiswa
+- [x] Implement ownership checks dosen wali
+- [x] Enforce write action hanya saat periode aktif
 
 ### Deliverable
 
-- [ ] Frontend mahasiswa dan dosen wali bisa swap dari mock ke API nyata untuk flow FRS utama
+- [x] Frontend mahasiswa dan dosen wali bisa swap dari mock ke API nyata untuk flow FRS utama
 
 ---
 
@@ -334,8 +336,8 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 | 2. Database Schema & Seeds | ✅ Done | 2026-04-30 | 2026-04-30 |
 | 3. User Management | ✅ Done | 2026-04-30 | 2026-04-30 |
 | 4. Periode | ✅ Done | 2026-04-30 | 2026-04-30 |
-| 5. Kelas & Upload Jadwal Excel | ⏳ Not started | - | - |
-| 6. Core Rencana Studi Flow | ⏳ Not started | - | - |
+| 5. Kelas & Upload Jadwal Excel | ✅ Done | 2026-04-30 | 2026-04-30 |
+| 6. Core Rencana Studi Flow | ✅ Done | 2026-05-01 | 2026-05-01 |
 | 7. Akademik & Pohon Kurikulum | ⏳ Not started | - | - |
 | 8. Riwayat Nilai / DPS | ⏳ Not started | - | - |
 | 9. Integrasi Frontend | ⏳ Not started | - | - |
