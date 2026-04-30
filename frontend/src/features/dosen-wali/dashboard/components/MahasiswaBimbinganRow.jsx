@@ -4,15 +4,28 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import { getDosenStatusCategory, getDosenStatusColor } from './statusConfig.js';
 
-function MahasiswaBimbinganRow({ item }) {
+function MahasiswaBimbinganRow({ item, getNavigationTarget }) {
   const category = getDosenStatusCategory(item.status);
   // useNavigate: row dashboard dosen adalah pintu masuk ke detail mahasiswa.
   // Route pakai mahasiswa.id agar tetap bisa dibuka langsung via URL.
   const navigate = useNavigate();
 
+  function handleClick() {
+    const target = getNavigationTarget
+      ? getNavigationTarget(item)
+      : { pathname: `/dashboard/mahasiswa-bimbingan/${item.mahasiswa.id}` };
+
+    if (typeof target === 'string') {
+      navigate(target);
+      return;
+    }
+
+    navigate(target.pathname, target.options);
+  }
+
   return (
     <ButtonBase
-      onClick={() => navigate(`/dashboard/mahasiswa-bimbingan/${item.mahasiswa.id}`)}
+      onClick={handleClick}
       aria-label={`Buka detail ${item.mahasiswa.nama}`}
       sx={{
         borderRadius: 2,

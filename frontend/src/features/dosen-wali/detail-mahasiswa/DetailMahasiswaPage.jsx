@@ -4,7 +4,7 @@ import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getMahasiswaBimbinganProfile } from '../../../api/rencanaStudi.js';
 import useFetch from '../../../hooks/useFetch.js';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
@@ -14,9 +14,14 @@ import DetailMahasiswaPohonTab from './components/DetailMahasiswaPohonTab.jsx';
 import DetailMahasiswaRencanaStudiTab from './components/DetailMahasiswaRencanaStudiTab.jsx';
 import DetailMahasiswaTabs from './components/DetailMahasiswaTabs.jsx';
 
-function DetailMahasiswaPage() {
+function DetailMahasiswaPage({
+  readOnly = false,
+  defaultBackTo = '/dashboard',
+  subtitle = 'Detail mahasiswa bimbingan',
+}) {
   const { mahasiswaId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   // useState: simpan tab utama yang sedang dibuka dosen.
   // Satu halaman menampung tiga konteks agar dosen tidak bolak-balik route.
@@ -30,6 +35,13 @@ function DetailMahasiswaPage() {
   );
 
   function handleBack() {
+    const backTo = location.state?.backTo ?? defaultBackTo;
+
+    if (backTo) {
+      navigate(backTo);
+      return;
+    }
+
     if (window.history.length > 1) navigate(-1);
     else navigate('/dashboard');
   }
@@ -62,14 +74,16 @@ function DetailMahasiswaPage() {
 
       <PageHeader
         title={`${mahasiswa.nama} - ${mahasiswa.nim}`}
-        subtitle="Detail mahasiswa bimbingan"
+        subtitle={subtitle}
       />
 
       <DetailMahasiswaTabs activeTab={activeTab} onChange={setActiveTab} />
 
       {activeTab === 0 && <DetailMahasiswaDashboardTab profile={profile} />}
       {activeTab === 1 && <DetailMahasiswaPohonTab mahasiswa={mahasiswa} />}
-      {activeTab === 2 && <DetailMahasiswaRencanaStudiTab mahasiswa={mahasiswa} />}
+      {activeTab === 2 && (
+        <DetailMahasiswaRencanaStudiTab mahasiswa={mahasiswa} reviewEnabled={!readOnly} />
+      )}
     </PageContainer>
   );
 }

@@ -8,7 +8,7 @@ import TotalSksCard from '../../../mahasiswa/perwalian/components/TotalSksCard.j
 import DosenRencanaStudiMatkulList from './DosenRencanaStudiMatkulList.jsx';
 import DosenRencanaStudiReviewPanel from './DosenRencanaStudiReviewPanel.jsx';
 
-function DosenRencanaStudiDetailView({ rencanaStudi, onReview }) {
+function DosenRencanaStudiDetailView({ rencanaStudi, onReview, reviewEnabled = true }) {
   return (
     <Stack spacing={2}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2, flexWrap: 'wrap' }}>
@@ -27,7 +27,13 @@ function DosenRencanaStudiDetailView({ rencanaStudi, onReview }) {
       <DosenRencanaStudiMatkulList items={rencanaStudi.items} />
       <JadwalFrsList items={rencanaStudi.items} />
       <FrsStatusBar status={rencanaStudi.status} />
-      <DosenRencanaStudiReviewPanel rencanaStudi={rencanaStudi} onReview={onReview} />
+      {reviewEnabled ? (
+        <DosenRencanaStudiReviewPanel rencanaStudi={rencanaStudi} onReview={onReview} />
+      ) : (
+        <Alert severity="info">
+          Kaprodi hanya dapat melihat histori rencana studi. Persetujuan dan revisi tetap dilakukan oleh dosen wali.
+        </Alert>
+      )}
     </Stack>
   );
 }

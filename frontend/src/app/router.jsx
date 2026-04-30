@@ -16,7 +16,10 @@ import JadwalPerwalianPage from '../features/dosen-wali/jadwal-perwalian/JadwalP
 
 // Kaprodi
 import DosenWaliPage from '../features/kaprodi/dosen-wali/DosenWaliPage.jsx';
+import DosenWaliDetailPage from '../features/kaprodi/dosen-wali/DosenWaliDetailPage.jsx';
+import DosenWaliAssignPage from '../features/kaprodi/dosen-wali/DosenWaliAssignPage.jsx';
 import MahasiswaPage from '../features/kaprodi/mahasiswa/MahasiswaPage.jsx';
+import KaprodiMahasiswaDetailPage from '../features/kaprodi/mahasiswa/KaprodiMahasiswaDetailPage.jsx';
 import PeriodePage from '../features/kaprodi/periode/PeriodePage.jsx';
 
 function ProtectedRoute() {
@@ -64,7 +67,10 @@ const router = createBrowserRouter([
 
           // Kaprodi routes
           { path: 'dosen-wali', element: <DosenWaliPage /> },
+          { path: 'dosen-wali/:dosenWaliId', element: <DosenWaliDetailPage /> },
+          { path: 'dosen-wali/:dosenWaliId/assign', element: <DosenWaliAssignPage /> },
           { path: 'mahasiswa', element: <MahasiswaPage /> },
+          { path: 'mahasiswa/:mahasiswaId', element: <KaprodiMahasiswaDetailPage /> },
           { path: 'periode', element: <PeriodePage /> },
         ],
       },

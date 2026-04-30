@@ -1,11 +1,7 @@
 import { getMockPeriodeAktif, mockGetPeriodeManagement } from './periode.js';
+import { getKaprodiManagementSnapshot } from './kaprodiManagement.js';
 
 const kaprodiDashboardData = {
-  summary: {
-    total_dosen_wali: 18,
-    total_mahasiswa: 286,
-    mahasiswa_tanpa_dosen_wali: 7,
-  },
   overview: {
     status_label: 'Periode aktif berjalan',
     status_deskripsi: 'Mahasiswa dapat mengisi FRS dan dosen wali dapat melakukan review.',
@@ -34,9 +30,11 @@ export async function mockGetKaprodiDashboard() {
   await sleep(300);
   const periodeManagementResponse = await mockGetPeriodeManagement();
   const periodeAktif = getMockPeriodeAktif();
+  const managementSnapshot = getKaprodiManagementSnapshot();
 
   return wrap({
     ...kaprodiDashboardData,
+    summary: managementSnapshot.summary,
     periode_aktif: periodeAktif,
     overview: {
       ...kaprodiDashboardData.overview,

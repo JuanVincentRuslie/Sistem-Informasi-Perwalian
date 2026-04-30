@@ -260,11 +260,13 @@ feat: complete dosen wali feature pages (milestone 4.B)
 - [x] Upload Excel master matkul — dibatalkan, master matkul akan di-hardcode di sistem
 
 #### 4.C.3 — Dosen Wali
-- [ ] List Dosen Wali (CRUD)
-- [ ] Detail Dosen Wali (lihat bimbingan + reassign)
+- [x] List Dosen Wali
+- [x] Detail Dosen Wali (lihat bimbingan)
+- [x] Assign / unassign mahasiswa untuk dosen wali terpilih
 
 #### 4.C.4 — Mahasiswa
-- [ ] List Mahasiswa (CRUD)
+- [x] List Mahasiswa
+- [x] Detail Mahasiswa read-only dari sisi Kaprodi
 
 ### Deliverable
 ✅ Semua halaman kaprodi sudah bisa di-demo dengan dummy data.  

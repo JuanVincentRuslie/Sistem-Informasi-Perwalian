@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import MahasiswaBimbinganRow from './MahasiswaBimbinganRow.jsx';
 
-function MahasiswaBimbinganList({ items }) {
+function MahasiswaBimbinganList({ items, getNavigationTarget }) {
   if (items.length === 0) {
     return (
       <Paper
@@ -35,7 +35,11 @@ function MahasiswaBimbinganList({ items }) {
     >
       <Box sx={{ display: 'grid', gap: 2 }}>
         {items.map((item) => (
-          <MahasiswaBimbinganRow key={item.mahasiswa.id} item={item} />
+          <MahasiswaBimbinganRow
+            key={item.mahasiswa.id}
+            item={item}
+            getNavigationTarget={getNavigationTarget}
+          />
         ))}
       </Box>
     </Paper>

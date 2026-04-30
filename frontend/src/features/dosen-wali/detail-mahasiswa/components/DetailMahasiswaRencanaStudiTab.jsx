@@ -14,7 +14,7 @@ import useFetch from '../../../../hooks/useFetch.js';
 import FrsPeriodeTabs from '../../../mahasiswa/perwalian/components/FrsPeriodeTabs.jsx';
 import DosenRencanaStudiDetailView from './DosenRencanaStudiDetailView.jsx';
 
-function DetailMahasiswaRencanaStudiTab({ mahasiswa }) {
+function DetailMahasiswaRencanaStudiTab({ mahasiswa, reviewEnabled = true }) {
   // useState: tab dalam tab untuk memilih histori FRS per periode mahasiswa.
   // Default diatur ke periode terbaru setelah data riwayat selesai dimuat.
   const [activePeriodeIndex, setActivePeriodeIndex] = useState(0);
@@ -113,7 +113,11 @@ function DetailMahasiswaRencanaStudiTab({ mahasiswa }) {
       )}
 
       {!loadingDetail && !detailError && rencanaStudi && (
-        <DosenRencanaStudiDetailView rencanaStudi={rencanaStudi} onReview={handleReview} />
+        <DosenRencanaStudiDetailView
+          rencanaStudi={rencanaStudi}
+          onReview={handleReview}
+          reviewEnabled={reviewEnabled}
+        />
       )}
     </Box>
   );
