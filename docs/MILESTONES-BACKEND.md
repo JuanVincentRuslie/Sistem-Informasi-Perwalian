@@ -144,21 +144,22 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 ### Tasks
 
-- [ ] Implement `GET /api/v1/periode`
-- [ ] Implement `GET /api/v1/periode/aktif`
-- [ ] Implement `POST /api/v1/periode`
-- [ ] Implement `PATCH /api/v1/periode/:id/aktivasi`
-- [ ] Implement `DELETE /api/v1/periode/:id`
-- [ ] Implement auto-activate saat create periode baru
-- [ ] Implement auto-deactivate periode aktif lama saat create/aktivasi periode lain
-- [ ] Tolak aktivasi periode yang sudah lewat `tanggal_selesai`
-- [ ] Pastikan delete periode mengikuti aturan referential integrity
-- [ ] Pastikan kondisi "tidak ada periode aktif" tetap valid secara sistem
+- [x] Implement `GET /api/v1/periode`
+- [x] Implement `GET /api/v1/periode/aktif`
+- [x] Implement `POST /api/v1/periode`
+- [x] Implement `PUT /api/v1/periode/:id`
+- [x] Implement `PATCH /api/v1/periode/:id/aktivasi`
+- [x] Implement `DELETE /api/v1/periode/:id`
+- [x] Implement auto-activate saat create periode baru
+- [x] Implement auto-deactivate periode aktif lama saat create/aktivasi periode lain
+- [x] Tolak aktivasi periode yang sudah lewat `tanggal_selesai`
+- [x] Pastikan delete periode mengikuti aturan referential integrity
+- [x] Pastikan kondisi "tidak ada periode aktif" tetap valid secara sistem
 
 ### Deliverable
 
-- [ ] Flow periode backend sinkron dengan frontend kaprodi
-- [ ] Rule aktif / tidak aktif / berakhir konsisten dengan blueprint dan API spec
+- [x] Flow periode backend sinkron dengan frontend kaprodi
+- [x] Rule aktif / tidak aktif / berakhir konsisten dengan blueprint dan API spec
 
 ---
 
@@ -332,7 +333,7 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 | 1. Foundation & Auth | ✅ Done | 2026-04-30 | 2026-04-30 |
 | 2. Database Schema & Seeds | ✅ Done | 2026-04-30 | 2026-04-30 |
 | 3. User Management | ✅ Done | 2026-04-30 | 2026-04-30 |
-| 4. Periode | ⏳ Not started | - | - |
+| 4. Periode | ✅ Done | 2026-04-30 | 2026-04-30 |
 | 5. Kelas & Upload Jadwal Excel | ⏳ Not started | - | - |
 | 6. Core Rencana Studi Flow | ⏳ Not started | - | - |
 | 7. Akademik & Pohon Kurikulum | ⏳ Not started | - | - |
