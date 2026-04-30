@@ -83,9 +83,11 @@ DRAFT ──[mahasiswa submit]──→ SUBMITTED
 
 ### Dikelola Kaprodi
 - Set tanggal mulai - selesai
-- Aktivasi periode (toggle on/off)
-- Upload Excel jadwal kelas (gabung dalam 1 flow)
-- Upload Excel catalog mata kuliah (gabung dalam 1 flow)
+- Tambah periode baru dan langsung aktif
+- Periode aktif lama otomatis jadi tidak aktif saat kaprodi membuat atau mengaktifkan periode lain
+- Periode otomatis dianggap tidak aktif saat tanggal selesai sudah lewat
+- Hapus periode untuk koreksi input kaprodi
+- Upload Excel jadwal kelas (tab dalam halaman periode)
 
 ### Behavior pas periode AKTIF
 - Mahasiswa bisa: isi/edit/submit FRS
@@ -96,6 +98,11 @@ DRAFT ──[mahasiswa submit]──→ SUBMITTED
 - Mahasiswa & Dosen tetap bisa lihat history (read-only)
 - FRS yang masih `SUBMITTED` pas periode tutup → **dibiarkan ngegantung** (no special handling)
 
+### Cara periode jadi tidak aktif
+- Kaprodi mengaktifkan periode lain
+- Periode dihapus oleh kaprodi untuk koreksi input
+- Tanggal selesai periode sudah lewat
+
 ---
 
 ## 📦 Data Master & Upload Strategy
@@ -103,7 +110,7 @@ DRAFT ──[mahasiswa submit]──→ SUBMITTED
 | Entity | Handling | Format |
 |---|---|---|
 | **Periode** | CRUD by Kaprodi | Form |
-| **Mata Kuliah catalog** | Upload by Kaprodi | Excel |
+| **Mata Kuliah catalog** | Hardcoded / seeded di sistem | Data seed |
 | **Kelas + Jadwal** | Upload by Kaprodi | Excel |
 | **Riwayat Nilai (DPS)** | Upload by Mahasiswa | PDF + Auto-extract (parser dosen, ditunda) + manual edit fallback |
 | **User (Dosen Wali, Mahasiswa)** | CRUD by Kaprodi | Form |
@@ -177,7 +184,8 @@ Halaman detail FRS dari sisi dosen wali harus rich information:
 | Page | Konten | Action |
 |---|---|---|
 | Login | Form login | Submit |
-| Dashboard | Set & aktivasi periode + upload jadwal + upload catalog matkul | CRUD periode |
+| Dashboard | Overview periode aktif, statistik dosen wali, statistik mahasiswa | Navigasi ke modul |
+| Periode | Tambah periode, histori, aktivasi, hapus, upload jadwal kelas | CRUD periode + upload jadwal |
 | List Dosen Wali | List semua dosen wali | Tambah, Edit, Hapus |
 | Detail Dosen Wali | List mahasiswa bimbingan + status | Reassign mahasiswa |
 | List Mahasiswa | List semua mahasiswa | Tambah, Edit, Hapus |
@@ -192,10 +200,13 @@ Halaman detail FRS dari sisi dosen wali harus rich information:
 | State machine | 4 state | DRAFT, SUBMITTED, APPROVED, REJECTED |
 | Edit dari APPROVED | Bisa, status auto-change | Tanpa modal konfirmasi |
 | Periode tutup | Full read-only | FRS pending = ngegantung |
+| Periode baru | Langsung aktif | Periode aktif lama otomatis nonaktif |
+| Periode berakhir | Auto nonaktif | Tidak bisa diaktifkan lagi |
+| Koreksi periode | Hapus periode | Untuk salah input kaprodi |
 | Validasi otomatis | Tidak ada | Trust dosen wali |
 | User management | Mode 2 (CRUD by Kaprodi) | Bukan self-register |
 | Single/multi prodi | Single | 1 prodi proof of concept |
-| Catalog matkul | Upload Excel | Konsisten dengan upload-pattern |
+| Catalog matkul | Hardcoded/seed | Tidak di-upload dari UI |
 | Jadwal kelas | Upload Excel | Bareng flow periode Kaprodi |
 | DPS mahasiswa | PDF + auto-extract | Parser dosen (ditunda implementasinya) |
 | Upload mode | Replace + konfirmasi | - |

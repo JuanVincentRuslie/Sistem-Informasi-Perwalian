@@ -255,9 +255,9 @@ feat: complete dosen wali feature pages (milestone 4.B)
 - [x] Dashboard Kaprodi (overview: jumlah dosen aktif, mahasiswa, status periode)
 
 #### 4.C.2 — Periode
-- [ ] Periode (CRUD: tambah, edit, aktifkan/nonaktifkan)
-- [ ] Upload Excel jadwal kelas (preview + confirm) — dalam halaman Periode
-- [ ] Upload Excel master matkul (preview + confirm) — dalam halaman Periode
+- [x] Periode (tambah auto-aktif, histori, aktivasi manual untuk periode nonaktif yang belum berakhir, hapus untuk koreksi input)
+- [x] Upload Excel jadwal kelas (preview + confirm) — dalam halaman Periode
+- [x] Upload Excel master matkul — dibatalkan, master matkul akan di-hardcode di sistem
 
 #### 4.C.3 — Dosen Wali
 - [ ] List Dosen Wali (CRUD)

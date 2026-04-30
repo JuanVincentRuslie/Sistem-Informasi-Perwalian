@@ -310,7 +310,7 @@ Reassign. **Auth:** kaprodi
 
 ### `GET /api/v1/periode/aktif`
 
-Get periode aktif saat ini (helper endpoint).
+Get periode aktif saat ini (helper endpoint). Jika semua periode yang pernah dibuat sudah lewat tanggal selesai, endpoint ini mengembalikan `404`.
 
 **Response 200:**
 ```json
@@ -334,6 +334,8 @@ Get periode aktif saat ini (helper endpoint).
 
 **Auth:** kaprodi
 
+Membuat periode baru sekaligus menjadikannya periode aktif. Backend harus otomatis menonaktifkan periode aktif sebelumnya.
+
 **Request:**
 ```json
 {
@@ -352,7 +354,7 @@ Get periode aktif saat ini (helper endpoint).
 ### `PATCH /api/v1/periode/:id/aktivasi`
 
 **Auth:** kaprodi  
-⚠️ Backend enforce: max 1 periode aktif (auto-deactivate periode lain).
+⚠️ Backend enforce: max 1 periode aktif (auto-deactivate periode lain). Endpoint ini hanya bisa dipakai untuk periode yang belum lewat tanggal selesai.
 
 **Request:**
 ```json
@@ -362,7 +364,7 @@ Get periode aktif saat ini (helper endpoint).
 ### `DELETE /api/v1/periode/:id`
 
 **Auth:** kaprodi  
-⚠️ Tolak jika ada FRS atau kelas yang refer (409).
+Dipakai untuk koreksi input kaprodi. Jika periode yang dihapus sedang aktif, maka setelah delete sistem bisa berada pada kondisi tanpa periode aktif sampai kaprodi membuat atau mengaktifkan periode lain.
 
 ---
 

@@ -1,3 +1,5 @@
+import { getMockPeriodeAktif as getSharedMockPeriodeAktif } from './periode.js';
+
 const DOSEN_WALI_STORAGE_KEY = 'mock_profile_dosen_wali';
 
 const DEFAULT_DOSEN_WALI_PROFILE = {
@@ -6,16 +8,6 @@ const DEFAULT_DOSEN_WALI_PROFILE = {
   email: 'sari@kampus.ac.id',
   nip: '198001012005012001',
   jadwal_perwalian: 'Senin 1 September 2025 14:00 - 16:00',
-};
-
-const PERIODE_AKTIF = {
-  id: 3,
-  nama: 'Ganjil 2025/2026',
-  tahun_mulai: 2025,
-  jenis: 'ganjil',
-  tanggal_mulai: '2025-09-01',
-  tanggal_selesai: '2026-01-31',
-  is_active: true,
 };
 
 function clone(value) {
@@ -62,7 +54,7 @@ export function getMockDosenWaliProfile() {
 }
 
 export function getMockPeriodeAktif() {
-  return clone(PERIODE_AKTIF);
+  return getSharedMockPeriodeAktif();
 }
 
 export async function mockGetJadwalPerwalianSaya() {
