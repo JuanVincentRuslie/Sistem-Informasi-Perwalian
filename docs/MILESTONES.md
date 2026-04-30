@@ -252,7 +252,7 @@ feat: complete dosen wali feature pages (milestone 4.B)
 ### Tasks
 
 #### 4.C.1 — Dashboard Kaprodi
-- [ ] Dashboard Kaprodi (overview: jumlah dosen aktif, mahasiswa, status periode)
+- [x] Dashboard Kaprodi (overview: jumlah dosen aktif, mahasiswa, status periode)
 
 #### 4.C.2 — Periode
 - [ ] Periode (CRUD: tambah, edit, aktifkan/nonaktifkan)
@@ -299,6 +299,6 @@ Beberapa hal yang bakal dikerjakan setelah milestone 4 selesai:
 | 3. Pohon Kurikulum | ✅ Done | 2026-04-29 | 2026-04-29 |
 | 4.A. Mahasiswa Features | ✅ Done | 2026-04-30 | 2026-04-30 |
 | 4.B. Dosen Wali Features | ✅ Done | 2026-04-30 | 2026-04-30 |
-| 4.C. Kaprodi Features | ⏳ Not started | - | - |
+| 4.C. Kaprodi Features | 🚧 In Progress | 2026-04-30 | - |
 
 > Update kolom Status: `⏳ Not started` → `🚧 In Progress` → `✅ Done`
