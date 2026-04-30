@@ -233,7 +233,7 @@ feat: complete mahasiswa feature pages (milestone 4.A)
 - [x] Approve/Revisi Rencana Studi mahasiswa
 
 #### 4.B.3 — Jadwal Perwalian
-- [ ] Set Jadwal Perwalian Pribadi
+- [x] Set Jadwal Perwalian Pribadi
 
 ### Deliverable
 ✅ Semua halaman dosen wali sudah bisa di-demo dengan dummy data.
@@ -298,7 +298,7 @@ Beberapa hal yang bakal dikerjakan setelah milestone 4 selesai:
 | 2. Routing & Layout | ✅ Done | 2026-04-29 | 2026-04-29 |
 | 3. Pohon Kurikulum | ✅ Done | 2026-04-29 | 2026-04-29 |
 | 4.A. Mahasiswa Features | ✅ Done | 2026-04-30 | 2026-04-30 |
-| 4.B. Dosen Wali Features | 🚧 In Progress | 2026-04-30 | - |
+| 4.B. Dosen Wali Features | ✅ Done | 2026-04-30 | 2026-04-30 |
 | 4.C. Kaprodi Features | ⏳ Not started | - | - |
 
 > Update kolom Status: `⏳ Not started` → `🚧 In Progress` → `✅ Done`

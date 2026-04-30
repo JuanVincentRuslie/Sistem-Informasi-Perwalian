@@ -1,7 +1,9 @@
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { splitJadwalPerwalianLines } from '../../../dosen-wali/jadwal-perwalian/components/jadwalPerwalianUtils.js';
 import { formatTanggal } from '../../../../utils/formatDate.js';
 
 /**
@@ -38,6 +40,7 @@ function PeriodePerwalianCard({ periodeAktif, dosenWali }) {
   }
 
   const rentangTanggal = `${formatTanggal(periodeAktif.tanggal_mulai)} - ${formatTanggal(periodeAktif.tanggal_selesai)}`;
+  const jadwalLines = splitJadwalPerwalianLines(dosenWali?.jadwal_perwalian);
 
   return (
     <Paper variant="outlined" sx={{ mt: 2, overflow: 'hidden' }}>
@@ -59,10 +62,19 @@ function PeriodePerwalianCard({ periodeAktif, dosenWali }) {
         <Divider />
 
         <InfoRow label="Jadwal Dosen Wali">
-          <Typography variant="body2">{rentangTanggal}</Typography>
-          <Typography variant="body2" color="text.secondary">
-            {dosenWali?.jadwal_perwalian}
-          </Typography>
+          {jadwalLines.length > 0 ? (
+            <Stack spacing={0.5} sx={{ alignItems: 'flex-end' }}>
+              {jadwalLines.map((line) => (
+                <Typography key={line} variant="body2">
+                  {line}
+                </Typography>
+              ))}
+            </Stack>
+          ) : (
+            <Typography variant="body2" color="text.secondary">
+              Belum ada jadwal perwalian
+            </Typography>
+          )}
         </InfoRow>
       </Box>
     </Paper>

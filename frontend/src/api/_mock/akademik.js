@@ -1,5 +1,6 @@
 import { kurikulum2023Nodes } from './pohon-kurikulum/kurikulum2023Nodes.js';
 import { kurikulum2023Edges } from './pohon-kurikulum/kurikulum2023Edges.js';
+import { getMockDosenWaliProfile, getMockPeriodeAktif } from './dosenWali.js';
 import { getRiwayatNilaiSummary, getSavedRiwayatNilai } from './riwayatNilai.js';
 
 function findNilaiForNode(node, riwayatNilai) {
@@ -25,6 +26,8 @@ function toNodeMatch(nilai) {
 export async function mockGetRingkasanAkademik() {
   await new Promise((resolve) => setTimeout(resolve, 300));
   const summary = getRiwayatNilaiSummary();
+  const periodeAktif = getMockPeriodeAktif();
+  const dosenWali = getMockDosenWaliProfile();
 
   return {
     success: true,
@@ -34,18 +37,8 @@ export async function mockGetRingkasanAkademik() {
       total_sks_lulus: summary.total_sks_lulus,
       total_sks_wajib_lulus: 70,
       total_sks_pilihan_lulus: 17,
-      periode_aktif: {
-        id: 3,
-        nama: 'Ganjil 2025/2026',
-        tanggal_mulai: '2025-09-01',
-        tanggal_selesai: '2026-01-31',
-      },
-      dosen_wali: {
-        id: 5,
-        nama: 'Dr. Sari Wijaya',
-        email: 'sari@kampus.ac.id',
-        jadwal_perwalian: 'Senin 14:00 - 16:00',
-      },
+      periode_aktif: periodeAktif,
+      dosen_wali: dosenWali,
       rencana_studi_status: 'APPROVED',
     },
     message: 'OK',
