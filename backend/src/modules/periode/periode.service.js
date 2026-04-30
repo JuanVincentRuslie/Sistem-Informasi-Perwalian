@@ -57,21 +57,30 @@ async function getPeriodeById(id) {
 }
 
 async function createPeriode({ nama, tahun_mulai, jenis, tanggal_mulai, tanggal_selesai }) {
-  return withTransaction(async (client) => {
-    // Nonaktifkan periode aktif sebelumnya
-    await client.query(
-      'UPDATE periode SET is_active = FALSE, updated_at = NOW() WHERE is_active = TRUE',
-    );
-
-    const result = await client.query(
-      `INSERT INTO periode (nama, tahun_mulai, jenis, tanggal_mulai, tanggal_selesai, is_active)
-       VALUES ($1, $2, $3, $4, $5, TRUE)
-       RETURNING id`,
-      [nama, tahun_mulai, jenis, tanggal_mulai, tanggal_selesai],
-    );
-
-    return getPeriodeById(result.rows[0].id);
-  });
+  // Kembalikan hanya id dari dalam transaction agar getPeriodeById dipanggil setelah COMMIT
+  let newId;
+  try {
+    newId = await withTransaction(async (client) => {
+      await client.query(
+        'UPDATE periode SET is_active = FALSE, updated_at = NOW() WHERE is_active = TRUE',
+      );
+      const result = await client.query(
+        `INSERT INTO periode (nama, tahun_mulai, jenis, tanggal_mulai, tanggal_selesai, is_active)
+         VALUES ($1, $2, $3, $4, $5, TRUE)
+         RETURNING id`,
+        [nama, tahun_mulai, jenis, tanggal_mulai, tanggal_selesai],
+      );
+      return result.rows[0].id;
+    });
+  } catch (dbErr) {
+    if (dbErr.code === '23505') {
+      const err = new Error('Nama periode sudah digunakan');
+      err.statusCode = 409;
+      throw err;
+    }
+    throw dbErr;
+  }
+  return getPeriodeById(newId);
 }
 
 async function updatePeriode(id, { nama, tahun_mulai, jenis, tanggal_mulai, tanggal_selesai }) {
@@ -116,7 +125,7 @@ async function aktivasiPeriode(id) {
     return target; // sudah aktif, no-op
   }
 
-  return withTransaction(async (client) => {
+  await withTransaction(async (client) => {
     await client.query(
       'UPDATE periode SET is_active = FALSE, updated_at = NOW() WHERE is_active = TRUE',
     );
@@ -124,8 +133,8 @@ async function aktivasiPeriode(id) {
       'UPDATE periode SET is_active = TRUE, updated_at = NOW() WHERE id = $1',
       [id],
     );
-    return getPeriodeById(id);
   });
+  return getPeriodeById(id);
 }
 
 async function deletePeriode(id) {

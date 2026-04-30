@@ -55,6 +55,11 @@ function check(label, condition, detail = '') {
 async function run() {
   console.log('\n=== Milestone 4 — Periode Test ===\n');
 
+  // Pakai suffix timestamp agar nama unik di setiap run
+  const ts = Date.now();
+  const nama1 = `Test Ganjil ${ts}`;
+  const nama2 = `Test Genap ${ts}`;
+
   // GET /periode (list kosong awal — atau ada dari seed)
   console.log('GET /api/v1/periode');
   const list1 = await request('GET', '/api/v1/periode', null, tokenKaprodi);
@@ -67,16 +72,16 @@ async function run() {
   const aktif0 = await request('GET', '/api/v1/periode/aktif', null, tokenKaprodi);
   check('status 200 atau 404', aktif0.status === 200 || aktif0.status === 404);
 
-  // POST /periode — buat periode pertama
+  // POST /periode — buat periode pertama (tanggal sudah lewat → status berakhir)
   console.log('\nPOST /api/v1/periode (buat periode 1)');
   const create1 = await request('POST', '/api/v1/periode', {
-    nama: 'Ganjil 2024/2025',
+    nama: nama1,
     tahun_mulai: 2024,
     jenis: 'ganjil',
     tanggal_mulai: '2024-09-01',
     tanggal_selesai: '2025-01-31',
   }, tokenKaprodi);
-  check('status 201', create1.status === 201, `status: ${create1.status}`);
+  check('status 201', create1.status === 201, `status: ${create1.status} — ${JSON.stringify(create1.data?.message)}`);
   check('is_active true', create1.data.data?.is_active === true);
   check('status aktif atau berakhir', ['aktif', 'berakhir'].includes(create1.data.data?.status));
   const id1 = create1.data.data?.id;
@@ -84,7 +89,7 @@ async function run() {
   // POST /periode — buat periode kedua, periode pertama harus nonaktif
   console.log('\nPOST /api/v1/periode (buat periode 2, auto-deactivate periode 1)');
   const create2 = await request('POST', '/api/v1/periode', {
-    nama: 'Genap 2024/2025',
+    nama: nama2,
     tahun_mulai: 2024,
     jenis: 'genap',
     tanggal_mulai: '2025-02-01',

@@ -1,0 +1,42 @@
+=== Milestone 4 — Periode Test ===
+
+GET /api/v1/periode
+  ✓ status 200
+  ✓ success true
+  ✓ data adalah array
+
+GET /api/v1/periode/aktif (mungkin 404 kalau belum ada)
+  ✓ status 200 atau 404
+
+POST /api/v1/periode (buat periode 1)
+  ✓ status 201 — status: 201
+  ✗ is_active true
+  ✗ status aktif atau berakhir
+
+POST /api/v1/periode (buat periode 2, auto-deactivate periode 1)
+  ✓ status 201
+  ✗ periode 2 aktif
+
+GET /api/v1/periode/aktif (harus periode 2)
+  ✓ status 200
+  ✗ dapat periode yang benar — id: 2, expected: undefined
+  ✓ status aktif
+
+GET /api/v1/periode (cek periode 1 tidak lagi aktif)
+  ✗ periode 1 is_active false — is_active: undefined
+
+PATCH /api/v1/periode/undefined/aktivasi (periode berakhir → 422)
+  ✗ status 422 — status: 500
+
+PUT /api/v1/periode/undefined (update nama)
+  ✗ status 200
+  ✗ nama terupdate
+
+POST /api/v1/periode (mahasiswa → 403)
+  ✓ status 403
+
+DELETE /api/v1/periode/undefined
+  ✗ status 200 — status: 500
+  ✓ periode 1 sudah terhapus
+
+❌ Ada test yang gagal
