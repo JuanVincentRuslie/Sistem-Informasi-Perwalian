@@ -283,10 +283,12 @@ feat: complete kaprodi feature pages (milestone 4.C)
 
 **Next Phase**: Backend development.
 
+Tracker detail backend: `docs/MILESTONES-BACKEND.md`
+
 Beberapa hal yang bakal dikerjakan setelah milestone 4 selesai:
 - Setup backend Node.js (Express atau native HTTP)
 - Database PostgreSQL setup + migrations
-- Implement Phase 1-9 dari `api-spec.md`
+- Implement phase backend dari `api-spec-sistem-perwalian.md`
 - Replace mock di frontend dengan real API call
 - Google OAuth integration
 
