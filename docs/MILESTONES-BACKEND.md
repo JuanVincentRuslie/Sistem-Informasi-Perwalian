@@ -47,25 +47,25 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 ### Tasks
 
-- [ ] Init project backend Node.js
-- [ ] Tentukan stack HTTP server:
-  - [ ] Express
+- [x] Init project backend Node.js
+- [x] Tentukan stack HTTP server:
+  - [x] Express
   - [ ] atau native HTTP (sesuai keputusan implementasi final)
-- [ ] Setup environment config:
-  - [ ] `PORT`
-  - [ ] `DATABASE_URL`
-  - [ ] `JWT_SECRET`
-  - [ ] Google OAuth credentials
-  - [ ] allowed email domains
-- [ ] Setup koneksi PostgreSQL
-- [ ] Setup migration tool
-- [ ] Setup folder structure backend
-- [ ] Setup health endpoint
-- [ ] Implement `POST /api/v1/auth/google`
-- [ ] Implement JWT signing
-- [ ] Implement middleware auth JWT
-- [ ] Implement middleware role check
-- [ ] Seed 1 user kaprodi awal
+- [x] Setup environment config:
+  - [x] `PORT`
+  - [x] `DATABASE_URL`
+  - [x] `JWT_SECRET`
+  - [x] Google OAuth credentials
+  - [x] allowed email domains
+- [x] Setup koneksi PostgreSQL
+- [x] Setup migration tool
+- [x] Setup folder structure backend
+- [x] Setup health endpoint
+- [x] Implement `POST /api/v1/auth/google`
+- [x] Implement JWT signing
+- [x] Implement middleware auth JWT
+- [x] Implement middleware role check
+- [x] Seed 1 user kaprodi awal
 
 ### Deliverable
 
@@ -82,26 +82,26 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 ### Tasks
 
-- [ ] Buat migration tabel `users`
-- [ ] Buat migration tabel `profile_dosen`
-- [ ] Buat migration tabel `profile_mahasiswa`
-- [ ] Buat migration tabel `periode`
-- [ ] Buat migration tabel `master_matkul`
-- [ ] Buat migration tabel `master_matkul_edge`
-- [ ] Buat migration tabel `kelas`
-- [ ] Buat migration tabel `sesi_kelas`
-- [ ] Buat migration tabel `rencana_studi`
-- [ ] Buat migration tabel `rencana_studi_item`
-- [ ] Buat migration tabel `riwayat_nilai`
-- [ ] Tambahkan constraints penting dari ERD
-- [ ] Tambahkan index penting
-- [ ] Tambahkan partial unique index untuk **maksimal 1 periode aktif**
-- [ ] Seed data awal:
-  - [ ] kaprodi
-  - [ ] dosen wali
-  - [ ] mahasiswa
-  - [ ] `master_matkul`
-  - [ ] `master_matkul_edge`
+- [x] Buat migration tabel `users`
+- [x] Buat migration tabel `profile_dosen`
+- [x] Buat migration tabel `profile_mahasiswa`
+- [x] Buat migration tabel `periode`
+- [x] Buat migration tabel `master_matkul`
+- [x] Buat migration tabel `master_matkul_edge`
+- [x] Buat migration tabel `kelas`
+- [x] Buat migration tabel `sesi_kelas`
+- [x] Buat migration tabel `rencana_studi`
+- [x] Buat migration tabel `rencana_studi_item`
+- [x] Buat migration tabel `riwayat_nilai`
+- [x] Tambahkan constraints penting dari ERD
+- [x] Tambahkan index penting
+- [x] Tambahkan partial unique index untuk **maksimal 1 periode aktif**
+- [x] Seed data awal:
+  - [x] kaprodi
+  - [x] dosen wali
+  - [x] mahasiswa
+  - [x] `master_matkul`
+  - [x] `master_matkul_edge`
 
 ### Deliverable
 
@@ -329,8 +329,8 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 | Backend Milestone | Status | Started | Completed |
 |---|---|---|---|
-| 1. Foundation & Auth | ⏳ Not started | - | - |
-| 2. Database Schema & Seeds | ⏳ Not started | - | - |
+| 1. Foundation & Auth | ✅ Done | 2026-04-30 | 2026-04-30 |
+| 2. Database Schema & Seeds | ✅ Done | 2026-04-30 | 2026-04-30 |
 | 3. User Management | ⏳ Not started | - | - |
 | 4. Periode | ⏳ Not started | - | - |
 | 5. Kelas & Upload Jadwal Excel | ⏳ Not started | - | - |

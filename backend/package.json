@@ -1,0 +1,33 @@
+{
+  "name": "si-perwalian-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Backend Sistem Informasi Perwalian",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "migrate": "node scripts/migrate.js up",
+    "migrate:down": "node scripts/migrate.js down",
+    "migrate:create": "node-pg-migrate create --migrations-dir migrations",
+    "seed:kaprodi": "node src/seeds/seed-kaprodi.js",
+    "seed:dosen-wali": "node src/seeds/seed-dosen-wali.js",
+    "seed:mahasiswa": "node src/seeds/seed-mahasiswa.js",
+    "seed:master-matkul": "node src/seeds/seed-master-matkul.js",
+    "seed:all": "npm run seed:kaprodi && npm run seed:dosen-wali && npm run seed:mahasiswa && npm run seed:master-matkul"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "google-auth-library": "^10.6.2",
+    "jsonwebtoken": "^9.0.3",
+    "node-pg-migrate": "^8.0.4",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
