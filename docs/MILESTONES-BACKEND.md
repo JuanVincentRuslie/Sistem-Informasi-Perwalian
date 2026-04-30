@@ -117,20 +117,20 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 ### Tasks
 
-- [ ] Implement list/get dosen wali
-- [ ] Implement create/update/delete dosen wali
-- [ ] Implement list/get mahasiswa
-- [ ] Implement create/update/delete mahasiswa
-- [ ] Implement assign / unassign mahasiswa ke dosen wali
-- [ ] Tambahkan validation ownership & role
-- [ ] Tambahkan pagination + search dasar
+- [x] Implement list/get dosen wali
+- [x] Implement create/update/delete dosen wali
+- [x] Implement list/get mahasiswa
+- [x] Implement create/update/delete mahasiswa
+- [x] Implement assign / unassign mahasiswa ke dosen wali
+- [x] Tambahkan validation ownership & role
+- [x] Tambahkan pagination + search dasar
 
 ### Catatan Sinkronisasi
 
 - Assignment mahasiswa ke dosen wali harus mendukung flow kaprodi:
-  - [ ] lihat mahasiswa di bawah dosen wali terpilih
-  - [ ] lihat mahasiswa yang belum punya dosen wali
-  - [ ] assign / unassign
+  - [x] lihat mahasiswa di bawah dosen wali terpilih
+  - [x] lihat mahasiswa yang belum punya dosen wali
+  - [x] assign / unassign
 
 ### Deliverable
 
@@ -331,7 +331,7 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 |---|---|---|---|
 | 1. Foundation & Auth | ✅ Done | 2026-04-30 | 2026-04-30 |
 | 2. Database Schema & Seeds | ✅ Done | 2026-04-30 | 2026-04-30 |
-| 3. User Management | ⏳ Not started | - | - |
+| 3. User Management | ✅ Done | 2026-04-30 | 2026-04-30 |
 | 4. Periode | ⏳ Not started | - | - |
 | 5. Kelas & Upload Jadwal Excel | ⏳ Not started | - | - |
 | 6. Core Rencana Studi Flow | ⏳ Not started | - | - |

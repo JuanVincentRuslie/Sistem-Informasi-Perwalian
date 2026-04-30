@@ -1,5 +1,8 @@
 const express = require('express');
 const authRouter = require('./modules/auth/auth.router');
+const dosenWaliRouter = require('./modules/dosen-wali/dosen-wali.router');
+const mahasiswaRouter = require('./modules/mahasiswa/mahasiswa.router');
+const periodeRouter = require('./modules/periode/periode.router');
 
 const app = express();
 
@@ -10,6 +13,9 @@ app.get('/api/v1/health', (_req, res) => {
 });
 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/dosen-wali', dosenWaliRouter);
+app.use('/api/v1/mahasiswa', mahasiswaRouter);
+app.use('/api/v1/periode', periodeRouter);
 
 // 404 fallback
 app.use((_req, res) => {

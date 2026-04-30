@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(node -e ' *)",
+      "Bash(curl -s -H 'Authorization: Bearer __TRACKED_VAR__' http://localhost:4000/api/v1/dosen-wali)",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\)\\); console.log\\('success:', d.success, '| count \\(should be 2\\):', d.data?.length\\)\")",
+      "Bash(curl -s \"http://localhost:4000/api/v1/mahasiswa\")",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\)\\); console.log\\('success:', d.success, '| message:', d.message\\)\")",
+      "Bash(kill %1)"
+    ]
+  }
+}
