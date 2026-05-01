@@ -260,6 +260,7 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 - [ ] Implement confirm save
 - [ ] Replace riwayat nilai per periode sesuai kontrak API
 - [ ] Recalculate IPK, IPS terakhir, total SKS lulus, total SKS wajib, total SKS pilihan
+  > Function `recalculateProfileCache(mahasiswaId)` sudah dibuat di M7 — file `backend/src/modules/akademik/akademik.service.js`. Tinggal panggil setelah replace riwayat_nilai.
 - [ ] Integrasikan parser dari `parser_for_backend/Dps_parser/index.js`
 - [ ] Mapping hasil parser DPS ke format API `riwayat_nilai`
 - [ ] Gunakan `transcript` parser sebagai sumber utama item siap simpan
