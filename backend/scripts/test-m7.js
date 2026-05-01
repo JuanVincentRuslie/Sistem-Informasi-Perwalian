@@ -118,7 +118,12 @@ async function run() {
 
   console.log('\nGET /api/v1/akademik/saya/pohon-kurikulum (riwayat kosong)');
   const pohonKosong = await api('GET', '/api/v1/akademik/saya/pohon-kurikulum', { token: tokenMhsA });
-  check('status 200', pohonKosong.status === 200);
+  check('status 200', pohonKosong.status === 200,
+    `status: ${pohonKosong.status} — body: ${JSON.stringify(pohonKosong.data).slice(0, 300)}`);
+  if (pohonKosong.status !== 200) {
+    console.error('STOP: pohon kurikulum gagal, lihat detail di atas');
+    await pool.end(); process.exit(1);
+  }
   check('punya nodes', Array.isArray(pohonKosong.data?.data?.nodes));
   check('punya edges', Array.isArray(pohonKosong.data?.data?.edges));
   check('semua node match=null', pohonKosong.data.data.nodes.every((n) => n.match === null));

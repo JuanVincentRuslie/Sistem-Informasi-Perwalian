@@ -228,21 +228,23 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 ### Tasks
 
-- [ ] Implement `GET /api/v1/akademik/me/ringkasan`
-- [ ] Implement `GET /api/v1/akademik/mahasiswa/:id/pohon-kurikulum`
-- [ ] Implement `GET /api/v1/master-matkul`
-- [ ] Implement `GET /api/v1/master-matkul/:id`
-- [ ] Implement `GET /api/v1/master-matkul/edges`
-- [ ] Implement matching `riwayat_nilai` ke `master_matkul` via `kode_aktif` / `kode_alias`
-- [ ] Implement kalkulasi cache `profile_mahasiswa`
-- [ ] Pastikan detail mahasiswa dosen wali dan kaprodi membaca sumber yang sama
+- [x] Implement `GET /api/v1/akademik/saya/ringkasan`
+- [x] Implement `GET /api/v1/akademik/saya/pohon-kurikulum`
+- [x] Implement `GET /api/v1/akademik/mahasiswa/:id/ringkasan`
+- [x] Implement `GET /api/v1/akademik/mahasiswa/:id/pohon-kurikulum`
+- [x] Implement `GET /api/v1/master-matkul` (read-only — master matkul via seed)
+- [x] Implement `GET /api/v1/master-matkul/:id`
+- [x] Implement `GET /api/v1/master-matkul/edges`
+- [x] Implement matching `riwayat_nilai` ke `master_matkul` via `kode_aktif` / `kode_alias` (pilih nilai_angka tertinggi)
+- [x] Implement kalkulasi cache `profile_mahasiswa` (function `recalculateProfileCache` dipakai dari M8)
+- [x] Pastikan detail mahasiswa dosen wali dan kaprodi membaca sumber yang sama
 
 ### Deliverable
 
-- [ ] Dashboard mahasiswa
-- [ ] detail mahasiswa dosen wali
-- [ ] detail mahasiswa kaprodi
-- [ ] pohon kurikulum  
+- [x] Dashboard mahasiswa
+- [x] detail mahasiswa dosen wali
+- [x] detail mahasiswa kaprodi
+- [x] pohon kurikulum  
   semuanya sudah bisa pakai data backend
 
 ---
@@ -339,7 +341,7 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 | 4. Periode | ✅ Done | 2026-04-30 | 2026-04-30 |
 | 5. Kelas & Upload Jadwal Excel | ✅ Done | 2026-04-30 | 2026-04-30 |
 | 6. Core Rencana Studi Flow | ✅ Done | 2026-05-01 | 2026-05-01 |
-| 7. Akademik & Pohon Kurikulum | ⏳ Not started | - | - |
+| 7. Akademik & Pohon Kurikulum | ✅ Done | 2026-05-01 | 2026-05-01 |
 | 8. Riwayat Nilai / DPS | ⏳ Not started | - | - |
 | 9. Integrasi Frontend | ⏳ Not started | - | - |
 | 10. Hardening & Polish | ⏳ Not started | - | - |
