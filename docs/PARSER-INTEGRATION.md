@@ -143,21 +143,39 @@ Untuk penyimpanan `riwayat_nilai`:
 - utamakan `transcript` sebagai daftar nilai final per kode mata kuliah
 - setiap item kemudian dipetakan ke shape API / DB
 
-Mapping minimum:
+Mapping minimum (M8 — keputusan akhir):
 
 ```text
+mahasiswa_id  <- req.user.id (dari JWT, abaikan profile.npm dari PDF)
 kode_matkul   <- transcript.kode
 nama_matkul   <- transcript.nama
+sks           <- lookup dari master_matkul (cek kode_aktif & kode_alias). Default 0 jika tidak match.
 nilai_huruf   <- transcript.nilai
-nilai_angka   <- transcript.scoreId
-periode_id    <- hasil deteksi backend / input user / hasil mapping tahunSemester
-status        <- lulus / mengulang / unknown (sesuai rule backend)
+nilai_angka   <- NULL (tidak dipakai di UI; field tetap nullable di DB)
+periode_id    <- ID periode dummy "Riwayat DPS" (lihat catatan di bawah)
+status        <- "TIDAK_LULUS" jika nilai_huruf = "E", selain itu "LULUS"
+sumber        <- "dps_upload"
 ```
 
-Catatan:
-- parser DPS belum otomatis memberikan `periode_id` database final
-- field `tahunSemester` dari parser perlu dimapping ke tabel `periode`
-- jika mapping periode tidak pasti, backend harus memberi preview dulu dan membiarkan koreksi manual
+**Penting — Periode Dummy untuk Riwayat DPS**:
+
+> Backend menyediakan satu periode khusus dengan `is_active=FALSE` dan nama "Riwayat DPS". Semua row hasil upload DPS pakai `periode_id` periode dummy ini, terlepas dari `tahunSemester` di parser.
+>
+> Alasan: 1 file DPS berisi nilai dari banyak periode, dan UI tidak butuh granularitas per periode. IPK/IPS/total SKS langsung diambil dari `academic.*` parser, bukan dihitung per periode.
+>
+> Konsekuensi: backend **tidak** memetakan `transcript[].tahunSemester` ke periode database. Field tersebut diabaikan.
+
+**IPK / IPS / total SKS langsung dari parser**:
+
+```text
+profile_mahasiswa.ipk                  <- academic.ipk.nilai
+profile_mahasiswa.ips_terakhir         <- academic.ips.nilai
+profile_mahasiswa.total_sks_lulus      <- academic.sks.totalLulus
+profile_mahasiswa.total_sks_wajib_lulus <- academic.sks.lulusWajib
+profile_mahasiswa.total_sks_pilihan_lulus <- academic.sks.lulusPilihan
+```
+
+Function `applyAcademicSnapshot(mahasiswaId, academicData)` di `backend/src/modules/akademik/akademik.service.js` menangani ini saat upload DPS confirm.
 
 ---
 

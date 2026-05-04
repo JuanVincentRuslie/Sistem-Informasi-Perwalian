@@ -255,34 +255,36 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 ### Tasks
 
-- [ ] Implement `GET /api/v1/riwayat-nilai/me`
-- [ ] Implement `POST /api/v1/riwayat-nilai/upload-dps`
-- [ ] Implement `POST /api/v1/riwayat-nilai/upload-dps/confirm`
-- [ ] Implement preview hasil parse / input manual
-- [ ] Implement confirm save
-- [ ] Replace riwayat nilai per periode sesuai kontrak API
-- [ ] Recalculate IPK, IPS terakhir, total SKS lulus, total SKS wajib, total SKS pilihan
-  > Function `recalculateProfileCache(mahasiswaId)` sudah dibuat di M7 — file `backend/src/modules/akademik/akademik.service.js`. Tinggal panggil setelah replace riwayat_nilai.
-- [ ] Integrasikan parser dari `parser_for_backend/Dps_parser/index.js`
-- [ ] Mapping hasil parser DPS ke format API `riwayat_nilai`
-- [ ] Gunakan `transcript` parser sebagai sumber utama item siap simpan
-- [ ] Simpan `courses` + `unparsedCourseLines` sebagai bahan preview/manual edit
+- [x] Implement `GET /api/v1/riwayat-nilai/saya`
+- [x] Implement `GET /api/v1/riwayat-nilai/mahasiswa/:id` (dosen wali / kaprodi)
+- [x] Implement `POST /api/v1/riwayat-nilai/upload-dps`
+- [x] Implement `POST /api/v1/riwayat-nilai/upload-dps/confirm`
+- [x] Implement `POST /api/v1/riwayat-nilai/manual` (fallback input manual)
+- [x] Implement preview hasil parse / input manual
+- [x] Implement confirm save
+- [x] Replace riwayat nilai sesuai keputusan: full replace per mahasiswa (DELETE all + INSERT)
+- [x] Apply IPK / IPS / total SKS dari `academic.*` parser DPS langsung (function `applyAcademicSnapshot` di akademik service)
+- [x] Function `recalculateProfileCache` (M7) tetap dipakai untuk fallback `/manual`
+- [x] Integrasikan parser dari `parser_for_backend/Dps_parser/index.js` (di-copy ke `backend/src/services/dpsPdfParser.js`, terima buffer)
+- [x] Mapping hasil parser DPS ke format API `riwayat_nilai` (lihat `docs/PARSER-INTEGRATION.md` final mapping)
+- [x] Gunakan `transcript` parser sebagai sumber utama item siap simpan
+- [x] Periode dummy "Riwayat DPS" via seed (`npm run seed:periode-dummy`) — semua row pakai periode_id ini
 
 ### Catatan Sinkronisasi
 
 - Parser DPS sekarang **sudah ada di repo**, jadi backend tidak mulai dari nol
 - Parser PDF dosen masih boleh diintegrasikan bertahap
 - Minimal flow awal boleh:
-  - [ ] upload
-  - [ ] preview
-  - [ ] manual edit
-  - [ ] save
+  - [x] upload
+  - [x] preview
+  - [x] manual edit (via `/manual` endpoint)
+  - [x] save
 - Parser DPS adalah komponen internal backend, bukan service publik terpisah
-- Flow wajib: upload PDF -> parse -> preview -> manual edit bila perlu -> confirm -> replace `riwayat_nilai` -> update cache akademik
+- Flow wajib: upload PDF -> parse -> preview -> confirm -> replace `riwayat_nilai` (DELETE all per mahasiswa + INSERT) -> apply academic snapshot ke `profile_mahasiswa`
 
 ### Deliverable
 
-- [ ] Halaman upload DPS frontend bisa swap dari mock ke backend
+- [x] Halaman upload DPS frontend bisa swap dari mock ke backend
 
 ---
 
@@ -302,9 +304,37 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 - [ ] Replace mock riwayat nilai
 - [ ] Rapikan loading / error state setelah integrasi
 
+### Frontend Issues yang Ditemukan saat Integrasi (untuk dikerjakan di M9)
+
+#### Issue 1 — IPK Terhitung di DPS Upload Panel
+
+**Lokasi**: `frontend/src/features/mahasiswa/pohon-kurikulum/components/DpsUploadPanel.jsx` (atau child component yang render preview).
+
+**Masalah**:
+- Setelah parse DPS, frontend menampilkan kolom "IPK Terhitung" yang dihitung lokal di frontend dari (Angka × SKS) per row.
+- Padahal parser DPS sudah mengembalikan `academic.ipk.nilai` (IPK resmi dari kampus, mis: `3.17`).
+- Hitungan lokal di frontend bisa berbeda dari yang resmi karena formula bobot tidak persis match.
+
+**Fix yang harus dilakukan**:
+1. Backend `POST /riwayat-nilai/upload-dps` di response preview tambahkan field `academic` dari parser (sudah disediakan di M8).
+2. Frontend `DpsUploadPanel.jsx`: hapus logic kalkulasi IPK lokal. Ambil `data.academic.ipk.nilai` langsung dari response preview untuk ditampilkan di card "IPK Terhitung".
+3. Hapus juga kolom "Angka" dari tabel preview kalau tidak perlu (sesuai keputusan M8 — `nilai_angka` tidak dipakai di UI).
+
+**Detail teknis**:
+- Response preview M8 berisi `data.academic = { ipk: { nilai, sks, periode }, ips: { nilai, sks, periode }, sks: { totalLulus, lulusWajib, lulusPilihan, ... } }` — passthrough dari parser DPS.
+- Backend tidak hitung ulang, tinggal forward parser output.
+
+#### Issue 2 — Kolom SKS di preview DPS
+
+**Masalah**: Preview tabel saat ini ada kolom SKS yang bisa diedit mahasiswa. Padahal sks per matkul sudah hardcoded di pohon kurikulum (master_matkul). Mahasiswa tidak perlu input.
+
+**Fix**: di [DpsUploadPanel.jsx], hapus kolom SKS dari tabel preview. Backend lookup sks dari master_matkul saat confirm.
+
 ### Deliverable
 
 - [ ] Semua halaman utama frontend memakai backend nyata untuk happy path utama
+- [ ] Issue 1 (IPK Terhitung dari frontend lokal) sudah fix
+- [ ] Issue 2 (kolom SKS di preview) sudah dihapus
 
 ---
 
@@ -342,7 +372,7 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 | 5. Kelas & Upload Jadwal Excel | ✅ Done | 2026-04-30 | 2026-04-30 |
 | 6. Core Rencana Studi Flow | ✅ Done | 2026-05-01 | 2026-05-01 |
 | 7. Akademik & Pohon Kurikulum | ✅ Done | 2026-05-01 | 2026-05-01 |
-| 8. Riwayat Nilai / DPS | ⏳ Not started | - | - |
+| 8. Riwayat Nilai / DPS | ✅ Done | 2026-05-04 | 2026-05-04 |
 | 9. Integrasi Frontend | ⏳ Not started | - | - |
 | 10. Hardening & Polish | ⏳ Not started | - | - |
 

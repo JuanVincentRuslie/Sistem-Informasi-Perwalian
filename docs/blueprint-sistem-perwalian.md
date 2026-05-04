@@ -138,6 +138,21 @@ DRAFT ──[mahasiswa submit]──→ SUBMITTED
 - Parser baseline ada dari dosen, butuh modifikasi
 - **Phase implementasi**: parser ditunda; sistem awal pakai data seed/manual input
 
+### Keputusan: Periode Dummy untuk Riwayat DPS
+
+> **Konteks**: 1 file DPS berisi nilai dari banyak periode (semester 1 - semester sekarang). Sementara `riwayat_nilai.periode_id` di DB adalah `NOT NULL`.
+
+**Keputusan**: backend menyediakan **satu periode khusus dummy** dengan `is_active=FALSE` (mis: nama "Riwayat DPS"). Semua row hasil upload DPS pakai periode_id = id periode dummy ini.
+
+**Konsekuensi**:
+- Tabel `riwayat_nilai` tidak punya breakdown per semester yang akurat
+- IPK / IPS / total SKS lulus diambil **langsung dari `academic.*` parser DPS** (bukan dihitung ulang dari `riwayat_nilai`)
+- Pohon kurikulum tetap akurat karena matching by `kode_matkul`, tidak peduli `periode_id`
+- FRS rencana studi tetap pakai periode normal yang dibuat kaprodi (terpisah total dari periode dummy ini)
+- Endpoint `?periode_id=X` di `/riwayat-nilai/saya` masih disediakan, tapi UI saat ini tidak memakai filter ini
+
+**Alternatif yang dipertimbangkan**: auto-create periode per `tahunSemester` parser, atau skema nullable `periode_id`. Dipilih opsi periode dummy karena paling sederhana dan UI tidak butuh granularitas per semester.
+
 ---
 
 ## 🛡️ Validasi (Filosofi: Minimal, Trust Dosen)

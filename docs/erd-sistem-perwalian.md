@@ -470,6 +470,15 @@ CREATE INDEX idx_rn_kode ON riwayat_nilai(kode_matkul);
 
 > Mengulang matkul = insert row baru dengan `periode_id` berbeda.
 
+> **Catatan implementasi M8 — Periode Dummy "Riwayat DPS"**:
+> Untuk simplicity, backend menyediakan **satu periode khusus dummy** dengan `is_active=FALSE` dan nama "Riwayat DPS". Semua row dari upload DPS pakai `periode_id` periode dummy ini, terlepas dari `tahunSemester` di parser.
+>
+> Konsekuensi:
+> - Mengulang matkul **tidak** insert row baru — full replace per mahasiswa setiap upload DPS (DELETE all + INSERT).
+> - IPK / IPS / total SKS lulus diambil dari `academic.*` parser DPS, **tidak** dihitung dari riwayat_nilai.
+> - Pohon kurikulum match by `kode_matkul` saja, tidak peduli periode_id.
+> - Lihat detail di `docs/blueprint-sistem-perwalian.md` section "Keputusan: Periode Dummy".
+
 ---
 
 ## 🔗 Strategi Matching (Soft Reference)

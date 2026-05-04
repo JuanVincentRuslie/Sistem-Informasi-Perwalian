@@ -333,6 +333,49 @@ async function recalculateProfileCache(mahasiswaId) {
   };
 }
 
+/* ============================================================
+ * Apply academic snapshot dari parser DPS
+ * ============================================================
+ * Dipanggil dari M8 saat upload DPS confirm. Tidak hitung dari
+ * riwayat_nilai — langsung overwrite cache profile_mahasiswa
+ * dengan angka yang sudah dihitung kampus (parser.academic.*).
+ *
+ * Param `academic` shape:
+ *   { ipk: { nilai }, ips: { nilai }, sks: { totalLulus, lulusWajib, lulusPilihan } }
+ * Field yang null/missing → biarkan kolom DB tidak terupdate.
+ */
+async function applyAcademicSnapshot(mahasiswaId, academic) {
+  if (!academic || typeof academic !== 'object') {
+    throw new Error('applyAcademicSnapshot: academic data wajib');
+  }
+
+  const ipk = academic.ipk?.nilai != null ? Number(academic.ipk.nilai) : null;
+  const ips = academic.ips?.nilai != null ? Number(academic.ips.nilai) : null;
+  const totalLulus = academic.sks?.totalLulus != null ? Number(academic.sks.totalLulus) : null;
+  const wajibLulus = academic.sks?.lulusWajib != null ? Number(academic.sks.lulusWajib) : null;
+  const pilihanLulus = academic.sks?.lulusPilihan != null ? Number(academic.sks.lulusPilihan) : null;
+
+  await query(
+    `UPDATE profile_mahasiswa
+     SET ipk = COALESCE($1, ipk),
+         ips_terakhir = COALESCE($2, ips_terakhir),
+         total_sks_lulus = COALESCE($3, total_sks_lulus),
+         total_sks_wajib_lulus = COALESCE($4, total_sks_wajib_lulus),
+         total_sks_pilihan_lulus = COALESCE($5, total_sks_pilihan_lulus),
+         cache_updated_at = NOW(),
+         updated_at = NOW()
+     WHERE user_id = $6`,
+    [ipk, ips, totalLulus, wajibLulus, pilihanLulus, mahasiswaId],
+  );
+
+  return {
+    ipk, ips_terakhir: ips,
+    total_sks_lulus: totalLulus,
+    total_sks_wajib_lulus: wajibLulus,
+    total_sks_pilihan_lulus: pilihanLulus,
+  };
+}
+
 module.exports = {
   // dashboard / pohon untuk mahasiswa sendiri
   getRingkasanAkademik,
@@ -340,6 +383,8 @@ module.exports = {
   // akses-aware
   getRingkasanForCaller,
   getPohonForCaller,
-  // dipakai dari M8
+  // dipakai dari M8 — manual entry / fallback compute dari riwayat_nilai
   recalculateProfileCache,
+  // dipakai dari M8 — DPS upload confirm (snapshot dari parser)
+  applyAcademicSnapshot,
 };
