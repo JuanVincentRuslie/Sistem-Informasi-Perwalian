@@ -5,6 +5,7 @@ const authController = require('./auth.controller');
 const router = Router();
 
 router.post('/google', authController.googleLogin);
+router.post('/dev-login', authController.devLogin);
 router.get('/me', authenticate, authController.getMe);
 
 module.exports = router;
