@@ -7,7 +7,10 @@
       "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\)\\); console.log\\('success:', d.success, '| count \\(should be 2\\):', d.data?.length\\)\")",
       "Bash(curl -s \"http://localhost:4000/api/v1/mahasiswa\")",
       "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\)\\); console.log\\('success:', d.success, '| message:', d.message\\)\")",
-      "Bash(kill %1)"
+      "Bash(kill %1)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(node scripts/test-dev-login.js)"
     ]
   }
 }

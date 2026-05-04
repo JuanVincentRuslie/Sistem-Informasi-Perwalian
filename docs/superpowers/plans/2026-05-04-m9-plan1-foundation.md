@@ -8,7 +8,7 @@
 - Backend: tambah `POST /api/v1/auth/dev-login` (gated `NODE_ENV !== 'production'`) yang return same response format as `/auth/google`. Ubah JWT TTL 7d → 6h.
 - Frontend: bikin `apiClient` method-based (get/post/put/del/upload), refactor AuthContext simpan `{user, token}`, refactor LoginPage panggil dev-login endpoint.
 
-**Tech Stack:** Node.js + Express + PostgreSQL (backend), React + Vite + MUI + JS (frontend), `jsonwebtoken` for JWT, `axios` for backend test scripts.
+**Tech Stack:** Node.js + Express + PostgreSQL (backend, port 4000), React + Vite + MUI + JS (frontend), `jsonwebtoken` for JWT, native `node:http` for backend test scripts (konsisten dengan `test-m4..m8.js` existing).
 
 **Reference spec:** [docs/superpowers/specs/2026-05-04-frontend-integration-m9-design.md](../specs/2026-05-04-frontend-integration-m9-design.md) Sections 1-3.
 
@@ -54,19 +54,24 @@ git commit -m "feat(auth): JWT TTL 7d -> 6h for M9 integration"
 
 - [ ] **Step 1: Create test script**
 
+Pakai pola native `node:http` (sama dengan `test-m4.js` ... `test-m8.js`).
+
 ```js
 /**
- * Test script untuk POST /api/v1/auth/dev-login.
+ * Test script untuk POST /api/v1/auth/dev-login (M9 Plan 1).
  * Pre-requisites:
- * - Backend running di http://localhost:3000
+ * - Backend running di http://localhost:4000
  * - Seed users sudah jalan (mahasiswa, dosen_wali, kaprodi)
  * - NODE_ENV !== 'production'
  *
  * Usage: node scripts/test-dev-login.js
  */
-const axios = require('axios');
+const path = require('node:path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
-const BASE = 'http://localhost:3000/api/v1';
+const http = require('node:http');
+
+const BASE = 'http://localhost:4000';
 
 const SEEDS = {
   mahasiswa: '6180000001@student.unpar.ac.id',
@@ -74,82 +79,81 @@ const SEEDS = {
   kaprodi: 'kaprodi@unpar.ac.id',
 };
 
-async function expectOk(label, fn) {
-  try {
-    const result = await fn();
-    console.log(`  ✓ ${label}`);
-    return result;
-  } catch (err) {
-    console.log(`  ✗ ${label}`);
-    console.log(`    ${err.response?.status} ${JSON.stringify(err.response?.data)}`);
-    throw err;
-  }
+function request(method, url, body, token) {
+  return new Promise((resolve, reject) => {
+    const bodyStr = body ? JSON.stringify(body) : null;
+    const options = {
+      method,
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...(bodyStr ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(bodyStr) } : {}),
+      },
+    };
+    const req = http.request(`${BASE}${url}`, options, (res) => {
+      let b = '';
+      res.on('data', (c) => { b += c; });
+      res.on('end', () => {
+        try { resolve({ status: res.statusCode, data: JSON.parse(b) }); }
+        catch { resolve({ status: res.statusCode, data: b }); }
+      });
+    });
+    req.on('error', reject);
+    if (bodyStr) req.write(bodyStr);
+    req.end();
+  });
 }
 
-async function expectFail(label, fn, expectedStatus) {
-  try {
-    await fn();
-    console.log(`  ✗ ${label} — expected fail but succeeded`);
-    throw new Error('expected fail');
-  } catch (err) {
-    if (err.response?.status === expectedStatus) {
-      console.log(`  ✓ ${label} (status ${expectedStatus})`);
-    } else {
-      console.log(`  ✗ ${label} — expected ${expectedStatus} but got ${err.response?.status}`);
-      throw err;
-    }
-  }
+function check(label, condition, detail = '') {
+  const icon = condition ? '✓' : '✗';
+  console.log(`  ${icon} ${label}${detail ? ' — ' + detail : ''}`);
+  if (!condition) process.exitCode = 1;
 }
 
 async function run() {
-  console.log('Test 1: Login mahasiswa berhasil');
-  const mhsRes = await expectOk('login mahasiswa', () =>
-    axios.post(`${BASE}/auth/dev-login`, { email: SEEDS.mahasiswa })
-  );
-  if (!mhsRes.data?.success) throw new Error('success flag missing');
-  if (!mhsRes.data?.data?.token) throw new Error('token missing');
-  if (mhsRes.data?.data?.user?.role !== 'mahasiswa') throw new Error('role mismatch');
-  console.log(`    token length: ${mhsRes.data.data.token.length}, user.id: ${mhsRes.data.data.user.id}`);
+  console.log('\n=== M9 Plan 1 — Dev Login Test ===\n');
 
-  console.log('\nTest 2: Login dosen wali berhasil');
-  const dosenRes = await expectOk('login dosen_wali', () =>
-    axios.post(`${BASE}/auth/dev-login`, { email: SEEDS.dosen_wali })
-  );
-  if (dosenRes.data?.data?.user?.role !== 'dosen_wali') throw new Error('role mismatch');
+  console.log('Test 1: POST /auth/dev-login mahasiswa');
+  const t1 = await request('POST', '/api/v1/auth/dev-login', { email: SEEDS.mahasiswa });
+  check('status 200', t1.status === 200, `got ${t1.status} ${JSON.stringify(t1.data?.message)}`);
+  check('success true', t1.data?.success === true);
+  check('token ada', typeof t1.data?.data?.token === 'string' && t1.data.data.token.length > 0);
+  check('user.role mahasiswa', t1.data?.data?.user?.role === 'mahasiswa');
+  check('user.email match', t1.data?.data?.user?.email === SEEDS.mahasiswa);
+  const tokenMhs = t1.data?.data?.token;
 
-  console.log('\nTest 3: Login kaprodi berhasil');
-  const kaprodiRes = await expectOk('login kaprodi', () =>
-    axios.post(`${BASE}/auth/dev-login`, { email: SEEDS.kaprodi })
-  );
-  if (kaprodiRes.data?.data?.user?.role !== 'kaprodi') throw new Error('role mismatch');
+  console.log('\nTest 2: POST /auth/dev-login dosen_wali');
+  const t2 = await request('POST', '/api/v1/auth/dev-login', { email: SEEDS.dosen_wali });
+  check('status 200', t2.status === 200);
+  check('user.role dosen_wali', t2.data?.data?.user?.role === 'dosen_wali');
+
+  console.log('\nTest 3: POST /auth/dev-login kaprodi');
+  const t3 = await request('POST', '/api/v1/auth/dev-login', { email: SEEDS.kaprodi });
+  check('status 200', t3.status === 200);
+  check('user.role kaprodi', t3.data?.data?.user?.role === 'kaprodi');
 
   console.log('\nTest 4: Email tidak terdaftar -> 404');
-  await expectFail(
-    'unknown email',
-    () => axios.post(`${BASE}/auth/dev-login`, { email: 'nonexistent@kampus.ac.id' }),
-    404,
-  );
+  const t4 = await request('POST', '/api/v1/auth/dev-login', { email: 'nonexistent@kampus.ac.id' });
+  check('status 404', t4.status === 404, `got ${t4.status}`);
+  check('success false', t4.data?.success === false);
 
   console.log('\nTest 5: Body tanpa email -> 400');
-  await expectFail(
-    'missing email',
-    () => axios.post(`${BASE}/auth/dev-login`, {}),
-    400,
-  );
+  const t5 = await request('POST', '/api/v1/auth/dev-login', {});
+  check('status 400', t5.status === 400, `got ${t5.status}`);
 
-  console.log('\nTest 6: Token bisa dipakai akses /auth/me');
-  const meRes = await expectOk('GET /auth/me dengan token mahasiswa', () =>
-    axios.get(`${BASE}/auth/me`, {
-      headers: { Authorization: `Bearer ${mhsRes.data.data.token}` },
-    })
-  );
-  if (meRes.data?.data?.email !== SEEDS.mahasiswa) throw new Error('me email mismatch');
+  console.log('\nTest 6: GET /auth/me dengan token mahasiswa');
+  const t6 = await request('GET', '/api/v1/auth/me', null, tokenMhs);
+  check('status 200', t6.status === 200, `got ${t6.status}`);
+  check('email match seed', t6.data?.data?.email === SEEDS.mahasiswa);
 
-  console.log('\n✅ Semua test lulus');
+  if (process.exitCode === 1) {
+    console.log('\n❌ Ada test yang gagal');
+  } else {
+    console.log('\n✅ Semua test lulus');
+  }
 }
 
 run().catch((err) => {
-  console.error('\n❌ Test gagal:', err.message);
+  console.error('\n❌ Test crash:', err.message);
   process.exit(1);
 });
 ```
@@ -162,7 +166,7 @@ cd backend
 npm run dev
 ```
 
-Pastikan log `Server listening on http://localhost:3000` muncul.
+Pastikan log `Backend listening on http://localhost:4000` muncul.
 
 - [ ] **Step 3: Run test untuk verify FAIL**
 
@@ -171,7 +175,7 @@ cd backend
 node scripts/test-dev-login.js
 ```
 
-Expected: Test 1 langsung gagal dengan status 404 (endpoint belum ada). Pesan: `Cannot POST /api/v1/auth/dev-login` atau `Endpoint tidak ditemukan` dari fallback handler di app.js.
+Expected: Test 1 langsung gagal dengan status 404 (endpoint belum ada — fallback `app.js` 404 handler return `{success: false, message: 'Endpoint tidak ditemukan'}`). Bisa juga test lain ikut fail karena dependent (token mahasiswa undefined, dst). Itu OK — yang penting Test 1 fail karena endpoint belum ada.
 
 ---
 
@@ -315,14 +319,14 @@ git commit -m "feat(auth): add POST /auth/dev-login endpoint for M9 frontend int
 
 File `frontend/.env.example`:
 ```
-VITE_API_BASE_URL=http://localhost:3000/api/v1
+VITE_API_BASE_URL=http://localhost:4000/api/v1
 ```
 
 - [ ] **Step 2: Create .env**
 
 File `frontend/.env` (sama isi dengan .env.example untuk start):
 ```
-VITE_API_BASE_URL=http://localhost:3000/api/v1
+VITE_API_BASE_URL=http://localhost:4000/api/v1
 ```
 
 - [ ] **Step 3: Tambah .env ke .gitignore**
@@ -372,7 +376,7 @@ File `frontend/src/api/client.js`:
 // - Handle 5xx: throw error dengan message backend
 // - Handle network error: throw error generic
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3000/api/v1';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:4000/api/v1';
 
 async function request(method, path, { body, query, isFormData } = {}) {
   let url = BASE_URL + path;
@@ -718,7 +722,7 @@ cd backend
 npm run dev
 ```
 
-Pastikan log `Server listening on http://localhost:3000` muncul.
+Pastikan log `Backend listening on http://localhost:4000` muncul.
 
 - [ ] **Step 2: Start frontend**
 
