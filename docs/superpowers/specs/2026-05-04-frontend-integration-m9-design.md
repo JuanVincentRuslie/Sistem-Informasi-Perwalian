@@ -216,7 +216,22 @@ async function handleLogin(role) {
 - Tombol dev (3 role) di-hide kalau `import.meta.env.PROD === true`
 - Backend `.env` user lengkapi: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI`
 
-### 3.7 Edge case yang sudah di-handle
+### 3.7 Backend CORS (added during execution)
+
+Backend belum punya CORS middleware. Karena frontend Vite di `:5173` cross-origin ke backend `:4000`, browser preflight block request kalau tidak ada CORS. Fix:
+
+- Install `cors` package di backend
+- [backend/src/app.js] tambah middleware:
+  ```js
+  const cors = require('cors');
+  app.use(cors({
+    origin: process.env.FRONTEND_ORIGIN || 'http://localhost:5173',
+    credentials: false,
+  }));
+  ```
+- Production: set `FRONTEND_ORIGIN` env ke domain frontend deploy
+
+### 3.8 Edge case yang sudah di-handle
 - 401 dari backend (token expired) → apiClient redirect /login
 - User refresh page → AuthContext baca dari localStorage, tetap login sampai token expired
 - User open tab kedua → share token via localStorage (sama login state)

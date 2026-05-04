@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const authRouter = require('./modules/auth/auth.router');
 const dosenWaliRouter = require('./modules/dosen-wali/dosen-wali.router');
 const mahasiswaRouter = require('./modules/mahasiswa/mahasiswa.router');
@@ -10,6 +11,13 @@ const akademikRouter = require('./modules/akademik/akademik.router');
 const riwayatNilaiRouter = require('./modules/riwayat-nilai/riwayat-nilai.router');
 
 const app = express();
+
+// CORS: izinkan frontend dev (Vite default :5173) akses backend.
+// Override via env FRONTEND_ORIGIN kalau perlu (mis. production atau port lain).
+app.use(cors({
+  origin: process.env.FRONTEND_ORIGIN || 'http://localhost:5173',
+  credentials: false,
+}));
 
 app.use(express.json());
 
