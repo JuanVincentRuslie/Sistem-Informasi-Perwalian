@@ -55,13 +55,13 @@ async function updateLastLogin(userId, googleId, avatarUrl) {
 
 /**
  * Sign JWT internal. Payload minimal: id, email, role.
- * Expire 7 hari — cukup untuk sesi perwalian.
+ * Expire 6 jam — cukup untuk sesi demo penuh.
  */
 function signJwt(user) {
   return jwt.sign(
     { id: user.id, email: user.email, role: user.role },
     env.jwtSecret,
-    { expiresIn: '7d' },
+    { expiresIn: '6h' },
   );
 }
 
