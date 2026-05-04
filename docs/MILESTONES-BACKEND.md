@@ -294,8 +294,9 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 ### Tasks
 
-- [ ] Buat API client backend nyata di frontend
-- [ ] Replace mock auth
+- [ ] Buat API client backend nyata di frontend (`client.js` + auth helper)
+- [ ] Implement `POST /auth/dev-login` di backend (sementara, gated `NODE_ENV !== 'production'`)
+- [ ] Replace mock auth frontend (LoginPage panggil dev-login, AuthContext simpan token)
 - [ ] Replace mock periode
 - [ ] Replace mock kaprodi management
 - [ ] Replace mock rencana studi mahasiswa
@@ -303,6 +304,31 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 - [ ] Replace mock akademik
 - [ ] Replace mock riwayat nilai
 - [ ] Rapikan loading / error state setelah integrasi
+- [ ] Implement Google OAuth real (akhir M9, setelah `.env` Google dilengkapi)
+
+### Catatan: Strategi Auth — dev-login dulu, Google OAuth terakhir
+
+**Keputusan**: implementasi login Google OAuth ditunda ke task terakhir M9. Selama integrasi mock-swap berjalan, frontend pakai endpoint `POST /api/v1/auth/dev-login` sementara untuk dapat JWT.
+
+**Rationale**:
+- Setiap endpoint backend butuh JWT (`authenticate` middleware tolak request tanpa token). Tanpa cara dapat token, integrasi mock → real API tidak bisa di-test.
+- Setup Google OAuth (Google Cloud Console, OAuth client, redirect URI, `.env`) bisa makan waktu sendiri yang tidak ada hubungannya dengan inti M9 (swap mock → real API).
+- Memisahkan dev-login vs OAuth bikin scope M9 fokus & demo siap.
+
+**Implementasi dev-login**:
+- Endpoint `POST /api/v1/auth/dev-login` di backend, gated `if (process.env.NODE_ENV === 'production') return 404`.
+- Body: `{ email }` (tanpa password).
+- Response **persis sama** dengan `/auth/google`: `{ success, data: { token, user: { id, email, nama, role, avatar_url } }, message }`.
+- Tujuannya format identical: AuthContext + API client + `auth.login()` helper di frontend tidak perlu refactor pas swap ke Google OAuth nanti.
+
+**Frontend selama dev-login berlaku**:
+- `LoginPage.jsx` tetap punya 3 tombol role (mahasiswa, dosen_wali, kaprodi), tapi tiap tombol panggil `POST /auth/dev-login` dengan email user seeded.
+- AuthContext simpan `{ token, user }` (token disimpan localStorage untuk persistence).
+
+**Refactor pas Google OAuth jadi (akhir M9)**:
+- Tidak perlu sentuh: `client.js`, AuthContext, 7 file API lain, backend endpoint lain.
+- Yang berubah: `LoginPage.jsx` (tombol → redirect Google), tambah `AuthCallbackPage.jsx` (terima `code`, POST ke `/auth/google`).
+- Dev-login endpoint **tidak dihapus** — tetap di-keep untuk dev iteration lokal, hanya disable otomatis di production via env gate.
 
 ### Frontend Issues yang Ditemukan saat Integrasi (untuk dikerjakan di M9)
 
