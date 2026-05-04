@@ -294,9 +294,9 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 ### Tasks
 
-- [ ] Buat API client backend nyata di frontend (`client.js` + auth helper)
-- [ ] Implement `POST /auth/dev-login` di backend (sementara, gated `NODE_ENV !== 'production'`)
-- [ ] Replace mock auth frontend (LoginPage panggil dev-login, AuthContext simpan token)
+- [x] Buat API client backend nyata di frontend (`client.js` + auth helper)
+- [x] Implement `POST /auth/dev-login` di backend (sementara, gated `NODE_ENV !== 'production'`)
+- [x] Replace mock auth frontend (LoginPage panggil dev-login, AuthContext simpan token)
 - [ ] Replace mock periode
 - [ ] Replace mock kaprodi management
 - [ ] Replace mock rencana studi mahasiswa
@@ -399,7 +399,7 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 | 6. Core Rencana Studi Flow | ✅ Done | 2026-05-01 | 2026-05-01 |
 | 7. Akademik & Pohon Kurikulum | ✅ Done | 2026-05-01 | 2026-05-01 |
 | 8. Riwayat Nilai / DPS | ✅ Done | 2026-05-04 | 2026-05-04 |
-| 9. Integrasi Frontend | ⏳ Not started | - | - |
+| 9. Integrasi Frontend | 🚧 In Progress | 2026-05-04 | - |
 | 10. Hardening & Polish | ⏳ Not started | - | - |
 
 > Update kolom Status: `⏳ Not started` -> `🚧 In Progress` -> `✅ Done`
