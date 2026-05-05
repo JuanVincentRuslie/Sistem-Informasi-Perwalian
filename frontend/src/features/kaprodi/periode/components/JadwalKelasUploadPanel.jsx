@@ -218,13 +218,10 @@ function JadwalKelasUploadPanel({ periods, activePeriode, onUploaded }) {
         {currentUpload ? (
           <Paper variant="outlined" sx={{ p: 2 }}>
             <Typography variant="body2" color="text.secondary">
-              Upload terakhir untuk periode ini
+              Periode ini sudah punya jadwal kelas
             </Typography>
             <Typography variant="body1" fontWeight={700}>
-              {currentUpload.nama_file}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {currentUpload.total_kelas} kelas, {currentUpload.total_rows} baris
+              {currentUpload.total_kelas} kelas tersimpan
             </Typography>
           </Paper>
         ) : null}

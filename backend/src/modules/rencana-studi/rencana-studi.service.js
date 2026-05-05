@@ -458,8 +458,9 @@ async function listBimbinganFrs({ dosenId, periodeId, status }) {
   return { data, summary };
 }
 
-async function getProfilMahasiswaBimbingan({ dosenId, mahasiswaId }) {
-  if (!(await isMahasiswaBimbinganDosen(dosenId, mahasiswaId))) {
+async function getProfilMahasiswaBimbingan({ callerRole, dosenId, mahasiswaId }) {
+  // Kaprodi boleh akses semua mahasiswa (read-only). Dosen wali hanya bimbingannya.
+  if (callerRole !== 'kaprodi' && !(await isMahasiswaBimbinganDosen(dosenId, mahasiswaId))) {
     const err = new Error('Anda bukan dosen wali mahasiswa ini');
     err.statusCode = 403;
     throw err;
@@ -491,8 +492,9 @@ async function getProfilMahasiswaBimbingan({ dosenId, mahasiswaId }) {
   };
 }
 
-async function listRiwayatMahasiswaBimbingan({ dosenId, mahasiswaId }) {
-  if (!(await isMahasiswaBimbinganDosen(dosenId, mahasiswaId))) {
+async function listRiwayatMahasiswaBimbingan({ callerRole, dosenId, mahasiswaId }) {
+  // Kaprodi boleh akses riwayat semua mahasiswa. Dosen wali hanya bimbingannya.
+  if (callerRole !== 'kaprodi' && !(await isMahasiswaBimbinganDosen(dosenId, mahasiswaId))) {
     const err = new Error('Anda bukan dosen wali mahasiswa ini');
     err.statusCode = 403;
     throw err;

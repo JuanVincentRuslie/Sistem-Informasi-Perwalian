@@ -1,16 +1,21 @@
 import { useEffect, useMemo, useState } from 'react';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
 import useFetch from '../../../hooks/useFetch.js';
 import {
+  createRencanaStudi,
   deleteRencanaStudiItem,
   getRencanaStudiSaya,
   getRiwayatRencanaStudiSaya,
   submitRencanaStudi,
 } from '../../../api/rencanaStudi.js';
+import { getPeriodeAktif } from '../../../api/periode.js';
 import CatatanDosenModal from './components/CatatanDosenModal.jsx';
 import FrsContentPanel from './components/FrsContentPanel.jsx';
 import FrsPeriodeTabs from './components/FrsPeriodeTabs.jsx';
@@ -26,9 +31,20 @@ function PerwalianPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // useState: track create-FRS in-flight supaya tombol disable + tampilkan
+  // pesan error kalau gagal (mis. tidak ada periode aktif).
+  const [creating, setCreating] = useState(false);
+  const [createError, setCreateError] = useState('');
+
   // useFetch: ambil riwayat ringkasan FRS (untuk render tab-tab periode).
   // [] sebagai deps = hanya fetch sekali saat mount.
-  const { data: riwayat, loading: loadingTabs } = useFetch(getRiwayatRencanaStudiSaya, []);
+  const { data: riwayat, loading: loadingTabs, refetch: refetchRiwayat } = useFetch(getRiwayatRencanaStudiSaya, []);
+
+  // useFetch: periode aktif (kalau ada) — dipakai untuk empty state kalau
+  // mahasiswa belum punya FRS sama sekali, supaya bisa langsung "Buat FRS Baru".
+  // Diberi nama beda dari variable `periodeAktif` di bawah (yang isinya boolean
+  // is_active untuk tab terpilih) supaya tidak collision.
+  const { data: periodeAktifInfo } = useFetch(getPeriodeAktif, []);
 
   // useMemo: tampilkan histori secara kronologis (lama -> baru) supaya tab
   // dibaca natural dari kiri ke kanan, tanpa mengubah data asli dari API/mock.
@@ -106,12 +122,62 @@ function PerwalianPage() {
 
   const handleJadwal = () => navigate('/dashboard/perwalian/jadwal', { state: { frs } });
 
+  // Mahasiswa belum pernah bikin FRS untuk periode aktif. Trigger create lalu
+  // refetch riwayat supaya tab langsung muncul tanpa user perlu reload.
+  async function handleCreateFrs() {
+    if (!periodeAktifInfo?.id) return;
+    setCreating(true);
+    setCreateError('');
+    try {
+      await createRencanaStudi({ periode_id: periodeAktifInfo.id });
+      refetchRiwayat();
+    } catch (err) {
+      setCreateError(err instanceof Error ? err.message : 'Gagal membuat FRS baru');
+    } finally {
+      setCreating(false);
+    }
+  }
+
   if (loadingTabs) {
     return (
       <PageContainer>
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}>
           <CircularProgress />
         </Box>
+      </PageContainer>
+    );
+  }
+
+  // Empty state: belum ada riwayat FRS sama sekali. Tampilkan CTA "Buat FRS Baru"
+  // kalau ada periode aktif, atau pesan informatif kalau periode aktif kosong.
+  if (sortedRiwayat.length === 0) {
+    return (
+      <PageContainer>
+        <Paper variant="outlined" sx={{ p: 4, textAlign: 'center', mt: 4 }}>
+          {periodeAktifInfo ? (
+            <>
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                Belum ada Rencana Studi
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                Periode aktif saat ini: <strong>{periodeAktifInfo.nama}</strong>. Buat rencana studi baru untuk mulai memilih kelas.
+              </Typography>
+              {createError ? <Alert severity="error" sx={{ mb: 2 }}>{createError}</Alert> : null}
+              <Button variant="contained" onClick={handleCreateFrs} disabled={creating}>
+                {creating ? 'Membuat...' : 'Buat FRS Baru'}
+              </Button>
+            </>
+          ) : (
+            <>
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                Belum ada periode aktif
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Hubungi kaprodi untuk membuka periode perwalian baru.
+              </Typography>
+            </>
+          )}
+        </Paper>
       </PageContainer>
     );
   }

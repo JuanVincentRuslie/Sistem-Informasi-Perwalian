@@ -19,7 +19,6 @@ function DpsPreviewTable({ rows, onRowChange }) {
           <TableRow>
             <TableCell>Kode</TableCell>
             <TableCell>Nama Mata Kuliah</TableCell>
-            <TableCell align="right">SKS</TableCell>
             <TableCell>Nilai</TableCell>
             <TableCell align="right">Angka</TableCell>
             <TableCell>Status</TableCell>
@@ -45,16 +44,6 @@ function DpsPreviewTable({ rows, onRowChange }) {
                   onChange={(event) => onRowChange(index, 'nama_matkul', event.target.value)}
                   inputProps={{ 'aria-label': 'Nama mata kuliah' }}
                   sx={{ minWidth: 220 }}
-                />
-              </TableCell>
-              <TableCell align="right">
-                <TextField
-                  size="small"
-                  type="number"
-                  value={row.sks}
-                  onChange={(event) => onRowChange(index, 'sks', event.target.value)}
-                  inputProps={{ min: 0, 'aria-label': 'SKS' }}
-                  sx={{ width: 80 }}
                 />
               </TableCell>
               <TableCell>

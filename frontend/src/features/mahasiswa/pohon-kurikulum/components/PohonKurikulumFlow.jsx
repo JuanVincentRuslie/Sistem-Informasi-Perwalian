@@ -82,14 +82,15 @@ function PohonKurikulumFlow({ data }) {
         </ReactFlow>
       </Box>
 
-      {/* Summary akademik dari data.summary */}
+      {/* Summary akademik dari data.summary. Field nilai bisa null kalau
+          mahasiswa belum upload DPS — fallback ke '-' biar tidak crash. */}
       <Stack direction="row" spacing={4}>
         <Box>
           <Typography variant="caption" color="text.secondary">
             Total SKS Lulus
           </Typography>
           <Typography variant="h6" fontWeight="bold">
-            {total_sks_lulus}
+            {total_sks_lulus ?? 0}
           </Typography>
         </Box>
         <Box>
@@ -97,7 +98,7 @@ function PohonKurikulumFlow({ data }) {
             IPK
           </Typography>
           <Typography variant="h6" fontWeight="bold">
-            {ipk.toFixed(2)}
+            {ipk == null ? '-' : ipk.toFixed(2)}
           </Typography>
         </Box>
         <Box>
@@ -105,7 +106,7 @@ function PohonKurikulumFlow({ data }) {
             IPS Terakhir
           </Typography>
           <Typography variant="h6" fontWeight="bold">
-            {ips_terakhir.toFixed(2)}
+            {ips_terakhir == null ? '-' : ips_terakhir.toFixed(2)}
           </Typography>
         </Box>
       </Stack>

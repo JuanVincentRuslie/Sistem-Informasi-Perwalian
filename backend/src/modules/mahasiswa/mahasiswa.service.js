@@ -38,14 +38,19 @@ async function listMahasiswa({ page, limit, offset, search, dosenWaliId, angkata
   );
 
   const dataParams = [...params, limit, offset];
+  // Tambah status_frs dari LEFT JOIN ke rencana_studi periode aktif.
+  // Mahasiswa tanpa periode aktif / belum bikin FRS → status default 'DRAFT'.
   const rows = await query(
     `SELECT
        u.id, u.nama, u.email, u.avatar_url,
        pm.nim, pm.angkatan, pm.ipk, pm.total_sks_lulus,
-       json_build_object('id', dw.id, 'nama', dw.nama) AS dosen_wali
+       json_build_object('id', dw.id, 'nama', dw.nama) AS dosen_wali,
+       COALESCE(rs.status, 'DRAFT') AS status_frs
      FROM users u
      JOIN profile_mahasiswa pm ON pm.user_id = u.id
      LEFT JOIN users dw ON dw.id = pm.dosen_wali_id
+     LEFT JOIN periode pa ON pa.is_active = TRUE AND pa.tanggal_selesai >= CURRENT_DATE
+     LEFT JOIN rencana_studi rs ON rs.mahasiswa_id = u.id AND rs.periode_id = pa.id
      ${where}
      ORDER BY u.nama
      LIMIT $${dataParams.length - 1} OFFSET $${dataParams.length}`,

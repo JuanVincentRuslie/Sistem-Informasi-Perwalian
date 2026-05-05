@@ -12,14 +12,22 @@ async function listDosenWali({ page, limit, offset, search }) {
     [searchParam],
   );
 
+  // Tambah count FRS bimbingan per dosen di periode aktif:
+  // - total_menunggu_review: status SUBMITTED atau REJECTED (dosen perlu lihat)
+  // - total_disetujui: status APPROVED
+  // Pola JOIN periode aktif + rencana_studi sama dengan rencana-studi.service.listBimbinganFrs.
   const rows = await query(
     `SELECT
        u.id, u.nama, u.email,
        pd.nip, pd.jadwal_perwalian,
-       COUNT(pm.user_id)::int AS jumlah_bimbingan
+       COUNT(DISTINCT pm.user_id)::int AS jumlah_bimbingan,
+       COUNT(*) FILTER (WHERE COALESCE(rs.status, 'DRAFT') IN ('SUBMITTED', 'REJECTED'))::int AS total_menunggu_review,
+       COUNT(*) FILTER (WHERE rs.status = 'APPROVED')::int AS total_disetujui
      FROM users u
      JOIN profile_dosen pd ON pd.user_id = u.id
      LEFT JOIN profile_mahasiswa pm ON pm.dosen_wali_id = u.id
+     LEFT JOIN periode pa ON pa.is_active = TRUE AND pa.tanggal_selesai >= CURRENT_DATE
+     LEFT JOIN rencana_studi rs ON rs.mahasiswa_id = pm.user_id AND rs.periode_id = pa.id
      WHERE u.is_active = true
        AND (u.nama ILIKE $1 OR u.email ILIKE $1)
      GROUP BY u.id, pd.user_id, pd.nip, pd.jadwal_perwalian
@@ -41,16 +49,23 @@ async function getDosenWaliById(id) {
   );
   if (!dosenResult.rows[0]) return null;
 
-  // Mahasiswa bimbingan + status FRS periode aktif
+  // Mahasiswa bimbingan + status FRS periode aktif + total_sks dari item kelas.
+  // Pakai pattern listBimbinganFrs dari rencana-studi service.
   const bimbinganResult = await query(
     `SELECT
        u.id, pm.nim, u.nama, pm.ipk,
-       COALESCE(rs.status, 'DRAFT') AS rencana_studi_status
+       rs.id AS rs_id,
+       COALESCE(rs.status, 'DRAFT') AS rencana_studi_status,
+       rs.submitted_at,
+       COALESCE(SUM(k.sks), 0)::int AS total_sks
      FROM profile_mahasiswa pm
      JOIN users u ON u.id = pm.user_id
-     LEFT JOIN periode p ON p.is_active = TRUE
+     LEFT JOIN periode p ON p.is_active = TRUE AND p.tanggal_selesai >= CURRENT_DATE
      LEFT JOIN rencana_studi rs ON rs.mahasiswa_id = pm.user_id AND rs.periode_id = p.id
+     LEFT JOIN rencana_studi_item rsi ON rsi.rencana_studi_id = rs.id
+     LEFT JOIN kelas k ON k.id = rsi.kelas_id
      WHERE pm.dosen_wali_id = $1
+     GROUP BY u.id, pm.nim, pm.ipk, rs.id
      ORDER BY u.nama`,
     [id],
   );

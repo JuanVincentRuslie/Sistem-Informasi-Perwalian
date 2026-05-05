@@ -13,8 +13,9 @@ router.get('/saya/riwayat', authenticate, authorize('mahasiswa'), ctrl.getRiwaya
 
 // Dosen-side
 router.get('/dosen/bimbingan', authenticate, authorize('dosen_wali'), ctrl.listBimbingan);
-router.get('/dosen/mahasiswa/:mahasiswa_id/profil', authenticate, authorize('dosen_wali'), ctrl.getProfilBimbingan);
-router.get('/dosen/mahasiswa/:mahasiswa_id/riwayat', authenticate, authorize('dosen_wali'), ctrl.getRiwayatBimbingan);
+// Profil + riwayat juga boleh diakses kaprodi (read-only) untuk halaman detail mahasiswa kaprodi.
+router.get('/dosen/mahasiswa/:mahasiswa_id/profil', authenticate, authorize('dosen_wali', 'kaprodi'), ctrl.getProfilBimbingan);
+router.get('/dosen/mahasiswa/:mahasiswa_id/riwayat', authenticate, authorize('dosen_wali', 'kaprodi'), ctrl.getRiwayatBimbingan);
 
 /* ---------- Mutation endpoints ---------- */
 

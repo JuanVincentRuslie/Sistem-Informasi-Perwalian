@@ -82,12 +82,14 @@ function MahasiswaPage() {
           onChange={(event) => setSearchQuery(event.target.value)}
           size="small"
           placeholder="Cari nama atau NIM"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon fontSize="small" />
-              </InputAdornment>
-            ),
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon fontSize="small" />
+                </InputAdornment>
+              ),
+            },
           }}
           sx={{ width: { xs: '100%', md: 320 } }}
         />

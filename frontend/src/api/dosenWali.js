@@ -1,29 +1,44 @@
-import {
-  mockGetJadwalPerwalianSaya,
-  mockUpdateJadwalPerwalianSaya,
-} from './_mock/dosenWali.js';
+// Service layer untuk dosen wali side: kelola jadwal perwalian sendiri.
+// Backend tidak punya `GET /dosen-wali/me`, jadi compose dari /auth/me
+// (sudah include profile.nip + profile.jadwal_perwalian per role) dan /periode/aktif.
+import { apiClient } from './client.js';
+import { getPeriodeAktif } from './periode.js';
 
 /**
- * Get periode aktif dan profil dosen wali yang sedang login untuk halaman jadwal perwalian.
- * Di backend asli nanti ini bisa diganti dengan kombinasi /auth/me dan /periode/aktif.
- * @returns {Promise<{success: boolean, data: {periode_aktif: object, dosen_wali: object}, message: string}>}
+ * Get periode aktif + profil dosen wali yang sedang login.
  */
 export async function getJadwalPerwalianSaya() {
-  // TODO: replace with real API call when backend ready
-  return mockGetJadwalPerwalianSaya();
+  const [meResp, periodeAktifResp] = await Promise.all([
+    apiClient.get('/auth/me'),
+    getPeriodeAktif(),
+  ]);
+
+  const me = meResp.data ?? {};
+  const profile = me.profile ?? {};
+
+  return {
+    success: true,
+    data: {
+      periode_aktif: periodeAktifResp.data,
+      dosen_wali: {
+        id: me.id,
+        nama: me.nama,
+        email: me.email,
+        nip: profile.nip ?? null,
+        jadwal_perwalian: profile.jadwal_perwalian ?? null,
+      },
+    },
+    message: 'OK',
+  };
 }
 
 /**
- * Update jadwal perwalian milik dosen wali yang sedang login.
- * Payload tetap mengikuti kontrak API formal: 1 field text jadwal_perwalian.
- * @param {{ jadwal_perwalian: string | null }} payload
- * @returns {Promise<{success: boolean, data: {periode_aktif: object, dosen_wali: object}, message: string}>}
+ * Update jadwal perwalian sendiri (PATCH /dosen-wali/me) lalu re-fetch supaya
+ * UI dapat data terbaru.
  */
 export async function updateJadwalPerwalianSaya(payload) {
-  // TODO: replace with real API call when backend ready:
-  // return await fetch('/api/v1/dosen-wali/me', {
-  //   method: 'PATCH',
-  //   body: JSON.stringify(payload),
-  // }).then((res) => res.json());
-  return mockUpdateJadwalPerwalianSaya(payload);
+  await apiClient.patch('/dosen-wali/me', {
+    jadwal_perwalian: payload.jadwal_perwalian,
+  });
+  return getJadwalPerwalianSaya();
 }

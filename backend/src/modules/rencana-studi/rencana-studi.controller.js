@@ -108,6 +108,7 @@ async function listBimbingan(req, res) {
 async function getProfilBimbingan(req, res) {
   try {
     const data = await service.getProfilMahasiswaBimbingan({
+      callerRole: req.user.role,
       dosenId: req.user.id,
       mahasiswaId: Number(req.params.mahasiswa_id),
     });
@@ -120,6 +121,7 @@ async function getProfilBimbingan(req, res) {
 async function getRiwayatBimbingan(req, res) {
   try {
     const data = await service.listRiwayatMahasiswaBimbingan({
+      callerRole: req.user.role,
       dosenId: req.user.id,
       mahasiswaId: Number(req.params.mahasiswa_id),
     });

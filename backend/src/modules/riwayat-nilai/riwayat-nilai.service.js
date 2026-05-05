@@ -200,14 +200,11 @@ async function uploadDpsConfirm({ mahasiswaId, upload_token, mode, items }) {
     : null;
 
   if (!finalItems) {
-    // Build dari parsed transcript + sks lookup
+    // Build dari parsed transcript
     const transcript = staged.parsed.transcript ?? [];
-    const kodeList = transcript.map((t) => t.kode);
-    const sksMap = await lookupSksMap(kodeList);
     finalItems = transcript.map((t) => ({
       kode_matkul: t.kode,
       nama_matkul: t.nama,
-      sks: sksMap.get(t.kode.toUpperCase()) ?? 0,
       nilai_huruf: t.nilai,
       status: statusFromHuruf(t.nilai),
     }));
@@ -222,6 +219,11 @@ async function uploadDpsConfirm({ mahasiswaId, upload_token, mode, items }) {
     }
   }
 
+  // Sks selalu di-lookup dari master_matkul di sini. Frontend tidak kirim sks
+  // (per keputusan M9 Issue 2), supaya mahasiswa tidak bisa override sks.
+  const kodeListAll = finalItems.map((it) => it.kode_matkul);
+  const sksMap = await lookupSksMap(kodeListAll);
+
   const periodeDummyId = await getPeriodeDummyId();
 
   // Full replace per mahasiswa: DELETE all + INSERT.
@@ -230,6 +232,7 @@ async function uploadDpsConfirm({ mahasiswaId, upload_token, mode, items }) {
     await client.query('DELETE FROM riwayat_nilai WHERE mahasiswa_id = $1', [mahasiswaId]);
 
     for (const it of finalItems) {
+      const sks = sksMap.get(it.kode_matkul.toUpperCase()) ?? 0;
       await client.query(
         `INSERT INTO riwayat_nilai
            (mahasiswa_id, periode_id, kode_matkul, nama_matkul, sks,
@@ -237,7 +240,7 @@ async function uploadDpsConfirm({ mahasiswaId, upload_token, mode, items }) {
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'dps_upload')`,
         [
           mahasiswaId, periodeDummyId,
-          it.kode_matkul, it.nama_matkul, Number(it.sks ?? 0),
+          it.kode_matkul, it.nama_matkul, sks,
           it.nilai_huruf,
           it.nilai_angka != null ? Number(it.nilai_angka) : null,
           it.status ?? statusFromHuruf(it.nilai_huruf),

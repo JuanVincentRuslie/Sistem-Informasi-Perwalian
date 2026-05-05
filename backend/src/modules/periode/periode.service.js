@@ -9,6 +9,11 @@ const STATUS_SQL = `
   END AS status
 `;
 
+// total_kelas dipakai kaprodi untuk tahu periode mana yang sudah di-upload jadwal
+const TOTAL_KELAS_SQL = `
+  (SELECT COUNT(*)::int FROM kelas k WHERE k.periode_id = p.id) AS total_kelas
+`;
+
 async function listPeriode({ isActive } = {}) {
   let whereClause = '';
   const params = [];
@@ -22,7 +27,8 @@ async function listPeriode({ isActive } = {}) {
   const result = await query(
     `SELECT p.id, p.nama, p.tahun_mulai, p.jenis,
             p.tanggal_mulai, p.tanggal_selesai, p.is_active,
-            ${STATUS_SQL}
+            ${STATUS_SQL},
+            ${TOTAL_KELAS_SQL}
      FROM periode p
      ${whereClause}
      ORDER BY p.tanggal_mulai DESC`,
@@ -36,7 +42,8 @@ async function getPeriodeAktif() {
   const result = await query(
     `SELECT p.id, p.nama, p.tahun_mulai, p.jenis,
             p.tanggal_mulai, p.tanggal_selesai, p.is_active,
-            ${STATUS_SQL}
+            ${STATUS_SQL},
+            ${TOTAL_KELAS_SQL}
      FROM periode p
      WHERE p.is_active = TRUE AND p.tanggal_selesai >= CURRENT_DATE
      LIMIT 1`,
@@ -48,7 +55,8 @@ async function getPeriodeById(id) {
   const result = await query(
     `SELECT p.id, p.nama, p.tahun_mulai, p.jenis,
             p.tanggal_mulai, p.tanggal_selesai, p.is_active,
-            ${STATUS_SQL}
+            ${STATUS_SQL},
+            ${TOTAL_KELAS_SQL}
      FROM periode p
      WHERE p.id = $1`,
     [id],

@@ -32,7 +32,7 @@ function DetailMahasiswaDashboardTab({ profile }) {
 
       <Paper variant="outlined" sx={{ p: 3, textAlign: 'center' }}>
         <Typography variant="h5" fontWeight="bold">
-          IPS : {mahasiswa.ips_terakhir.toFixed(2)}
+          IPS : {mahasiswa.ips_terakhir == null ? '-' : mahasiswa.ips_terakhir.toFixed(2)}
         </Typography>
       </Paper>
 
@@ -44,9 +44,9 @@ function DetailMahasiswaDashboardTab({ profile }) {
         </Box>
         <Box sx={{ p: 2, display: 'grid', gap: 1 }}>
           <InfoRow label="Angkatan" value={mahasiswa.angkatan} />
-          <InfoRow label="Periode Aktif" value={periode_aktif.nama} />
-          <InfoRow label="IPK" value={mahasiswa.ipk.toFixed(2)} />
-          <InfoRow label="IPS Terakhir" value={mahasiswa.ips_terakhir.toFixed(2)} />
+          <InfoRow label="Periode Aktif" value={periode_aktif?.nama ?? '-'} />
+          <InfoRow label="IPK" value={mahasiswa.ipk == null ? '-' : mahasiswa.ipk.toFixed(2)} />
+          <InfoRow label="IPS Terakhir" value={mahasiswa.ips_terakhir == null ? '-' : mahasiswa.ips_terakhir.toFixed(2)} />
         </Box>
       </Paper>
     </Box>

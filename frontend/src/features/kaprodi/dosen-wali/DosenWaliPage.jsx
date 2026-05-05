@@ -65,12 +65,14 @@ function DosenWaliPage() {
         onChange={(event) => setSearchQuery(event.target.value)}
         size="small"
         placeholder="Cari nama atau NIP dosen wali"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon fontSize="small" />
-            </InputAdornment>
-          ),
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon fontSize="small" />
+              </InputAdornment>
+            ),
+          },
         }}
         sx={{ mb: 3, width: { xs: '100%', md: 360 } }}
       />

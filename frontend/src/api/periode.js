@@ -1,67 +1,109 @@
-import {
-  mockActivatePeriode,
-  mockConfirmUploadJadwalKelas,
-  mockCreatePeriode,
-  mockDeletePeriode,
-  mockGetPeriodeManagement,
-  mockPreviewUploadJadwalKelas,
-} from './_mock/periode.js';
+// Service layer untuk domain periode (kaprodi).
+// Component panggil function di sini, tidak boleh panggil apiClient langsung.
+//
+// Backend `GET /periode` return flat array dengan status bahasa Indonesia
+// (aktif/nonaktif/berakhir). Layer ini transform jadi shape yang component
+// harapkan: { periode_aktif, histori, summary } + status EN (active/inactive/expired).
+import { apiClient } from './client.js';
+
+const STATUS_BACKEND_TO_UI = {
+  aktif: 'active',
+  nonaktif: 'inactive',
+  berakhir: 'expired',
+};
+
+function mapPeriode(row) {
+  const status = STATUS_BACKEND_TO_UI[row.status] ?? 'inactive';
+  const totalKelas = row.total_kelas ?? 0;
+  return {
+    id: row.id,
+    nama: row.nama,
+    tahun_mulai: row.tahun_mulai,
+    jenis: row.jenis,
+    tanggal_mulai: row.tanggal_mulai,
+    tanggal_selesai: row.tanggal_selesai,
+    is_active: row.is_active,
+    status,
+    upload_jadwal: totalKelas > 0 ? { total_kelas: totalKelas } : null,
+  };
+}
+
+function buildNamaPeriode(tahunMulai, jenis) {
+  const tahunAkhir = Number(tahunMulai) + 1;
+  const jenisLabel = jenis === 'genap' ? 'Genap' : 'Ganjil';
+  return `${jenisLabel} ${tahunMulai}/${tahunAkhir}`;
+}
+
+/**
+ * Get periode aktif (helper untuk role apa saja). Return null kalau tidak ada
+ * periode aktif (backend response 404). Component tinggal cek `data.data === null`.
+ */
+export async function getPeriodeAktif() {
+  try {
+    const response = await apiClient.get('/periode/aktif');
+    return { ...response, data: response.data ? mapPeriode(response.data) : null };
+  } catch {
+    return { success: true, data: null, message: 'Tidak ada periode aktif' };
+  }
+}
 
 /**
  * Get data manajemen periode untuk halaman kaprodi.
- * @returns {Promise<{success: boolean, data: object, message: string}>}
+ * Aggregate flat array dari backend jadi { periode_aktif, histori, summary }.
  */
 export async function getPeriodeManagement() {
-  // TODO: replace with real API call when backend ready
-  return mockGetPeriodeManagement();
+  const response = await apiClient.get('/periode');
+  const histori = (response.data ?? []).map(mapPeriode);
+  const periodeAktif = histori.find((periode) => periode.status === 'active') ?? null;
+
+  const summary = {
+    total_periode: histori.length,
+    total_periode_aktif: histori.filter((periode) => periode.status === 'active').length,
+    total_periode_berakhir: histori.filter((periode) => periode.status === 'expired').length,
+  };
+
+  return {
+    success: true,
+    data: { periode_aktif: periodeAktif, histori, summary },
+    message: response.message ?? 'OK',
+  };
 }
 
 /**
  * Tambah periode baru dan langsung jadikan periode aktif.
- * @param {{ tahun_mulai: number, jenis: string, tanggal_mulai: string, tanggal_selesai: string }} payload
- * @returns {Promise<{success: boolean, data: object, message: string}>}
+ * Nama dibuat otomatis di sini supaya UI tetap minimalis (cukup tahun + jenis).
  */
 export async function createPeriode(payload) {
-  // TODO: replace with real API call when backend ready
-  return mockCreatePeriode(payload);
+  const nama = buildNamaPeriode(payload.tahun_mulai, payload.jenis);
+  const response = await apiClient.post('/periode', { ...payload, nama });
+  return {
+    ...response,
+    data: response.data ? mapPeriode(response.data) : null,
+  };
 }
 
-/**
- * Aktivasi periode target dan nonaktifkan periode aktif sebelumnya.
- * @param {number} periodeId
- * @returns {Promise<{success: boolean, data: object, message: string}>}
- */
 export async function activatePeriode(periodeId) {
-  // TODO: replace with real API call when backend ready
-  return mockActivatePeriode(periodeId);
+  const response = await apiClient.patch(`/periode/${periodeId}/aktivasi`);
+  return {
+    ...response,
+    data: response.data ? mapPeriode(response.data) : null,
+  };
 }
 
-/**
- * Hapus periode untuk koreksi input kaprodi.
- * @param {number} periodeId
- * @returns {Promise<{success: boolean, data: object, message: string}>}
- */
 export async function deletePeriode(periodeId) {
-  // TODO: replace with real API call when backend ready
-  return mockDeletePeriode(periodeId);
+  return apiClient.del(`/periode/${periodeId}`);
 }
 
 /**
- * Preview upload Excel jadwal kelas.
- * @param {{ file: File, periode_id: number }} payload
- * @returns {Promise<{success: boolean, data: object, message: string}>}
+ * Preview upload Excel jadwal kelas — multipart/form-data.
  */
-export async function previewUploadJadwalKelas(payload) {
-  // TODO: replace with real API call when backend ready
-  return mockPreviewUploadJadwalKelas(payload);
+export async function previewUploadJadwalKelas({ file, periode_id }) {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('periode_id', String(periode_id));
+  return apiClient.upload('/kelas/upload', formData);
 }
 
-/**
- * Konfirmasi replace jadwal kelas untuk periode target.
- * @param {{ upload_token: string, mode: string }} payload
- * @returns {Promise<{success: boolean, data: object, message: string}>}
- */
-export async function confirmUploadJadwalKelas(payload) {
-  // TODO: replace with real API call when backend ready
-  return mockConfirmUploadJadwalKelas(payload);
+export async function confirmUploadJadwalKelas({ upload_token, mode }) {
+  return apiClient.post('/kelas/upload/confirm', { upload_token, mode });
 }
