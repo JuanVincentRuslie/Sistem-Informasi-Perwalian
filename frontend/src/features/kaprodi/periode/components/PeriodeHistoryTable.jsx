@@ -1,5 +1,6 @@
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
@@ -12,7 +13,7 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import { formatTanggal } from '../../../../utils/formatDate.js';
 
-function PeriodeHistoryTable({ periods, activatingId, deletingId, onActivate, onDelete }) {
+function PeriodeHistoryTable({ periods, activatingId, deletingId, onActivate, onDelete, onEdit }) {
   return (
     <TableContainer sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1 }}>
       <Table size="small" aria-label="Histori periode">
@@ -70,6 +71,16 @@ function PeriodeHistoryTable({ periods, activatingId, deletingId, onActivate, on
                 )}
               </TableCell>
               <TableCell align="right">
+                <Button
+                  size="small"
+                  variant="text"
+                  startIcon={<EditIcon />}
+                  onClick={() => onEdit(periode)}
+                  sx={{ mr: 1 }}
+                >
+                  Edit
+                </Button>
+
                 <Button
                   size="small"
                   variant="text"

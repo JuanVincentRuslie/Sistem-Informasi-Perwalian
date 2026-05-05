@@ -22,7 +22,11 @@ function buildPreviewName(tahunMulai, jenis) {
   return `${jenisLabel} ${tahunMulai}/${tahunAkhir}`;
 }
 
-function PeriodeCreateDialog({ open, saving, submitError, onClose, onSubmit }) {
+function PeriodeCreateDialog({ open, saving, submitError, onClose, onSubmit, initialPeriode = null }) {
+  // Mode edit kalau initialPeriode dipassing — title, default form, dan button text
+  // ikut menyesuaikan supaya satu komponen bisa dipakai untuk create & edit.
+  const isEdit = Boolean(initialPeriode);
+
   // useState: form periode disimpan lokal di dialog supaya user bisa isi
   // bertahap tanpa mengubah data histori sebelum tombol simpan ditekan.
   const [form, setForm] = useState({
@@ -37,18 +41,27 @@ function PeriodeCreateDialog({ open, saving, submitError, onClose, onSubmit }) {
   const [localError, setLocalError] = useState('');
 
   // useEffect: setiap dialog dibuka ulang, form dikembalikan ke state awal
-  // supaya penambahan periode baru selalu dimulai dari konteks bersih.
+  // (atau prefill dari initialPeriode kalau edit mode).
   useEffect(() => {
     if (!open) return;
 
-    setForm({
-      tahun_mulai: '',
-      jenis: 'ganjil',
-      tanggal_mulai: '',
-      tanggal_selesai: '',
-    });
+    if (initialPeriode) {
+      setForm({
+        tahun_mulai: String(initialPeriode.tahun_mulai ?? ''),
+        jenis: initialPeriode.jenis ?? 'ganjil',
+        tanggal_mulai: initialPeriode.tanggal_mulai ?? '',
+        tanggal_selesai: initialPeriode.tanggal_selesai ?? '',
+      });
+    } else {
+      setForm({
+        tahun_mulai: '',
+        jenis: 'ganjil',
+        tanggal_mulai: '',
+        tanggal_selesai: '',
+      });
+    }
     setLocalError('');
-  }, [open]);
+  }, [open, initialPeriode]);
 
   function handleChange(field, value) {
     setLocalError('');
@@ -80,7 +93,7 @@ function PeriodeCreateDialog({ open, saving, submitError, onClose, onSubmit }) {
 
   return (
     <Dialog open={open} onClose={saving ? undefined : onClose} fullWidth maxWidth="sm">
-      <DialogTitle>Tambah Periode Baru</DialogTitle>
+      <DialogTitle>{isEdit ? 'Edit Periode' : 'Tambah Periode Baru'}</DialogTitle>
 
       <DialogContent>
         <Stack spacing={2} sx={{ pt: 1 }}>
@@ -125,9 +138,11 @@ function PeriodeCreateDialog({ open, saving, submitError, onClose, onSubmit }) {
             Nama periode akan dibuat otomatis: <strong>{buildPreviewName(form.tahun_mulai, form.jenis)}</strong>
           </Typography>
 
-          <Typography variant="body2" color="text.secondary">
-            Periode yang disimpan akan langsung aktif. Jika sebelumnya ada periode aktif lain, statusnya akan berpindah menjadi tidak aktif.
-          </Typography>
+          {isEdit ? null : (
+            <Typography variant="body2" color="text.secondary">
+              Periode yang disimpan akan langsung aktif. Jika sebelumnya ada periode aktif lain, statusnya akan berpindah menjadi tidak aktif.
+            </Typography>
+          )}
 
           {(localError || submitError) ? (
             <Alert severity="error">{localError || submitError}</Alert>
@@ -138,7 +153,7 @@ function PeriodeCreateDialog({ open, saving, submitError, onClose, onSubmit }) {
       <DialogActions sx={{ px: 3, pb: 3 }}>
         <Button onClick={onClose} disabled={saving}>Batal</Button>
         <Button variant="contained" onClick={handleSubmit} disabled={saving}>
-          {saving ? 'Menyimpan...' : 'Simpan'}
+          {saving ? 'Menyimpan...' : (isEdit ? 'Update' : 'Simpan')}
         </Button>
       </DialogActions>
     </Dialog>

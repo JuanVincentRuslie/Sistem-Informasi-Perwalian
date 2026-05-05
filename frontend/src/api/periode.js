@@ -90,6 +90,19 @@ export async function activatePeriode(periodeId) {
   };
 }
 
+/**
+ * Update periode existing — dipakai kaprodi kalau salah input tanggal.
+ * Nama di-regenerate dari tahun_mulai + jenis (sama seperti create).
+ */
+export async function updatePeriode(periodeId, payload) {
+  const nama = buildNamaPeriode(payload.tahun_mulai, payload.jenis);
+  const response = await apiClient.put(`/periode/${periodeId}`, { ...payload, nama });
+  return {
+    ...response,
+    data: response.data ? mapPeriode(response.data) : null,
+  };
+}
+
 export async function deletePeriode(periodeId) {
   return apiClient.del(`/periode/${periodeId}`);
 }

@@ -11,6 +11,7 @@ import {
   createPeriode,
   deletePeriode,
   getPeriodeManagement,
+  updatePeriode,
 } from '../../../api/periode.js';
 import useFetch from '../../../hooks/useFetch.js';
 import JadwalKelasUploadPanel from './components/JadwalKelasUploadPanel.jsx';
@@ -20,6 +21,9 @@ import PeriodeManagementPanel from './components/PeriodeManagementPanel.jsx';
 function PeriodePage() {
   const [activeTab, setActiveTab] = useState('periode');
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  // Periode yang sedang di-edit (null = tidak edit). Pakai 1 dialog yang sama
+  // (PeriodeCreateDialog) dengan prop initialPeriode untuk membedakan mode.
+  const [editingPeriode, setEditingPeriode] = useState(null);
   const [savingPeriode, setSavingPeriode] = useState(false);
   const [activatingId, setActivatingId] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
@@ -38,6 +42,23 @@ function PeriodePage() {
       refetch();
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : 'Periode baru gagal dibuat.');
+    } finally {
+      setSavingPeriode(false);
+    }
+  }
+
+  async function handleUpdatePeriode(payload) {
+    if (!editingPeriode) return;
+    try {
+      setSavingPeriode(true);
+      setSubmitError('');
+      const response = await updatePeriode(editingPeriode.id, payload);
+
+      setPageSuccessMessage(response.message ?? 'Periode berhasil diupdate.');
+      setEditingPeriode(null);
+      refetch();
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : 'Periode gagal diupdate.');
     } finally {
       setSavingPeriode(false);
     }
@@ -126,6 +147,10 @@ function PeriodePage() {
           }}
           onActivate={handleActivatePeriode}
           onDelete={handleDeletePeriode}
+          onEdit={(periode) => {
+            setSubmitError('');
+            setEditingPeriode(periode);
+          }}
         />
       ) : (
         <JadwalKelasUploadPanel
@@ -148,6 +173,19 @@ function PeriodePage() {
           setCreateDialogOpen(false);
         }}
         onSubmit={handleCreatePeriode}
+      />
+
+      <PeriodeCreateDialog
+        open={Boolean(editingPeriode)}
+        saving={savingPeriode}
+        submitError={submitError}
+        initialPeriode={editingPeriode}
+        onClose={() => {
+          if (savingPeriode) return;
+          setSubmitError('');
+          setEditingPeriode(null);
+        }}
+        onSubmit={handleUpdatePeriode}
       />
     </PageContainer>
   );

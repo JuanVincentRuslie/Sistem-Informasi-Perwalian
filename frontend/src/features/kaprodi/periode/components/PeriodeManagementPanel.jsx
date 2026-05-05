@@ -49,6 +49,7 @@ function PeriodeManagementPanel({
   onAdd,
   onActivate,
   onDelete,
+  onEdit,
 }) {
   const periodeAktif = data?.periode_aktif ?? null;
   const histori = data?.histori ?? [];
@@ -114,6 +115,7 @@ function PeriodeManagementPanel({
           deletingId={deletingId}
           onActivate={onActivate}
           onDelete={onDelete}
+          onEdit={onEdit}
         />
       </Paper>
     </Stack>

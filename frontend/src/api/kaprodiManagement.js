@@ -185,11 +185,14 @@ export async function saveKaprodiDosenWaliAssignment(dosenWaliId, payload) {
   const newAssignedIds = new Set((payload?.mahasiswa_ids ?? []).map(Number));
 
   // Snapshot kondisi saat ini supaya bisa hitung diff.
+  // Normalize ke Number — backend serialize bigint id sebagai string,
+  // sedangkan newAssignedIds sudah Number. Tanpa normalize, Set.has() gagal
+  // karga "201" !== 201, akibatnya seluruh assignment salah dianggap "perlu unassign".
   const currentResp = await apiClient.get('/mahasiswa', {
     dosen_wali_id: dosenWaliId,
     limit: LIST_LIMIT,
   });
-  const currentAssignedIds = new Set((currentResp.data ?? []).map((m) => m.id));
+  const currentAssignedIds = new Set((currentResp.data ?? []).map((m) => Number(m.id)));
 
   const toAssign = [...newAssignedIds].filter((id) => !currentAssignedIds.has(id));
   const toUnassign = [...currentAssignedIds].filter((id) => !newAssignedIds.has(id));
