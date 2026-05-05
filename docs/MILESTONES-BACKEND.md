@@ -297,12 +297,12 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 - [x] Buat API client backend nyata di frontend (`client.js` + auth helper)
 - [x] Implement `POST /auth/dev-login` di backend (sementara, gated `NODE_ENV !== 'production'`)
 - [x] Replace mock auth frontend (LoginPage panggil dev-login, AuthContext simpan token)
-- [ ] Replace mock periode
-- [ ] Replace mock kaprodi management
-- [ ] Replace mock rencana studi mahasiswa
-- [ ] Replace mock dosen wali review
-- [ ] Replace mock akademik
-- [ ] Replace mock riwayat nilai
+- [x] Replace mock periode (Domain 1 — kaprodi periode + upload jadwal kelas, backend tambah `total_kelas` per periode)
+- [x] Replace mock kaprodi management (Domain 5 — dashboard, dosen wali list/detail/assign, mahasiswa list, jadwal perwalian dosen)
+- [x] Replace mock rencana studi mahasiswa (Domain 3 — perwalian, tambah matkul, jadwal, empty state)
+- [x] Replace mock dosen wali review (Domain 3 — bimbingan list, detail mahasiswa, approve/revisi)
+- [x] Replace mock akademik (Domain 2 — ringkasan dashboard, pohon kurikulum, auto-route by role)
+- [x] Replace mock riwayat nilai (Domain 4 — DPS upload preview/confirm, manual)
 - [ ] Rapikan loading / error state setelah integrasi
 - [ ] Implement Google OAuth real (akhir M9, setelah `.env` Google dilengkapi)
 
@@ -358,9 +358,27 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 ### Deliverable
 
-- [ ] Semua halaman utama frontend memakai backend nyata untuk happy path utama
-- [ ] Issue 1 (IPK Terhitung dari frontend lokal) sudah fix
-- [ ] Issue 2 (kolom SKS di preview) sudah dihapus
+- [x] Semua halaman utama frontend memakai backend nyata untuk happy path utama
+- [x] Issue 1 (IPK Terhitung dari frontend lokal) sudah fix — kolom IPK Terhitung dihapus dari summary preview, grid di-rebalance jadi 3 kolom
+- [x] Issue 2 (kolom SKS di preview) sudah dihapus — sks lookup di backend `uploadDpsConfirm` selalu pakai `master_matkul`
+
+### Backend tweaks tambahan saat M9 (di luar plan awal)
+
+- `riwayat-nilai.service.uploadDpsConfirm` — selalu re-lookup sks dari `master_matkul` (per Issue 2 — frontend tidak kirim sks)
+- `mahasiswa.service.listMahasiswa` — tambah kolom `status_frs` via JOIN `rencana_studi` periode aktif (untuk tabel kaprodi)
+- `dosen-wali.service.listDosenWali` — tambah `total_menunggu_review` & `total_disetujui` per dosen via JOIN
+- `dosen-wali.service.getDosenWaliById` — tambah `rs_id`, `submitted_at`, `total_sks` per mahasiswa bimbingan
+- `auth.controller.getMe` — tambah `profile` per role (sesuai api-spec final, sebelumnya placeholder)
+- `periode.service` (list/aktif/detail) — tambah `total_kelas` per periode (count dari tabel `kelas`)
+- `rencana-studi.router` — `/dosen/mahasiswa/:id/profil` & `/riwayat` allow kaprodi (read-only)
+- `rencana-studi.service` — terima `callerRole`, skip ownership check kalau kaprodi
+
+### Tambahan UI saat M9 (di luar plan awal)
+
+- Edit periode untuk kaprodi — tombol Edit di tabel histori, dialog reuse `PeriodeCreateDialog` dengan prop `initialPeriode`. Backend `PUT /periode/:id` sudah ada sejak M4, frontend tinggal pakai.
+- Empty state Perwalian Saya untuk mahasiswa baru — tombol "Buat FRS Baru" dengan auto-fetch periode aktif.
+- Defensive null-safe di beberapa tempat (`PohonKurikulumFlow`, `IpkCard`, `DetailMahasiswaDashboardTab`) — kalau mahasiswa belum upload DPS, IPK/IPS bisa null.
+- Migrasi `InputProps` (deprecated MUI v6) → `slotProps.input` di `MahasiswaBimbinganFilters`, `DosenWaliPage`, `MahasiswaPage`.
 
 ---
 
