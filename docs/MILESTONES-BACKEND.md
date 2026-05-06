@@ -304,7 +304,7 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 - [x] Replace mock akademik (Domain 2 — ringkasan dashboard, pohon kurikulum, auto-route by role)
 - [x] Replace mock riwayat nilai (Domain 4 — DPS upload preview/confirm, manual)
 - [ ] Rapikan loading / error state setelah integrasi
-- [ ] Implement Google OAuth real (akhir M9, setelah `.env` Google dilengkapi)
+- [x] Implement Google OAuth real (akhir M9, setelah `.env` Google dilengkapi)
 
 ### Catatan: Strategi Auth — dev-login dulu, Google OAuth terakhir
 
@@ -327,8 +327,17 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 **Refactor pas Google OAuth jadi (akhir M9)**:
 - Tidak perlu sentuh: `client.js`, AuthContext, 7 file API lain, backend endpoint lain.
-- Yang berubah: `LoginPage.jsx` (tombol → redirect Google), tambah `AuthCallbackPage.jsx` (terima `code`, POST ke `/auth/google`).
+- Yang berubah: `LoginPage.jsx` (tombol → redirect Google), tambah `AuthCallbackPage.jsx` (terima `code`, POST ke `/auth/google`), tambah route `/auth/callback`.
 - Dev-login endpoint **tidak dihapus** — tetap di-keep untuk dev iteration lokal, hanya disable otomatis di production via env gate.
+
+**Status implementasi Google OAuth real**:
+- Frontend `LoginPage.jsx` memakai tombol "Login dengan Google" sebagai jalur utama.
+- Frontend `AuthCallbackPage.jsx` membaca `code`, memanggil `POST /auth/google`, menyimpan `{ token, user }` lewat AuthContext, lalu redirect ke dashboard sesuai role.
+- Dev-login tetap tersedia sebagai fallback development.
+- Env lokal yang wajib match:
+  - `frontend/.env`: `VITE_GOOGLE_CLIENT_ID`, `VITE_GOOGLE_REDIRECT_URI`
+  - `backend/.env`: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI`
+- Flow Google OAuth sudah berhasil diuji lokal setelah backend dan frontend direstart.
 
 ### Frontend Issues yang Ditemukan saat Integrasi (untuk dikerjakan di M9)
 

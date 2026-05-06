@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import LoginPage from '../features/auth/LoginPage.jsx';
+import AuthCallbackPage from '../features/auth/AuthCallbackPage.jsx';
 import DashboardLayout from '../shared/layouts/DashboardLayout.jsx';
 import DashboardIndex from './DashboardIndex.jsx';
 import { useAuth } from '../contexts/AuthContext.jsx';
@@ -41,6 +42,7 @@ function RootRedirect() {
 
 const router = createBrowserRouter([
   { path: '/', element: <RootRedirect /> },
+  { path: '/auth/callback', element: <AuthCallbackPage /> },
   {
     element: <PublicOnlyRoute />,
     children: [{ path: '/login', element: <LoginPage /> }],

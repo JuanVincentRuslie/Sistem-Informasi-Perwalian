@@ -3,43 +3,43 @@ import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
+import Collapse from '@mui/material/Collapse';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import GoogleIcon from '@mui/icons-material/Google';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext.jsx';
 import * as authApi from '../../api/auth.js';
-
-// Email seed yang match dengan backend/src/seeds/seed-*.js.
-// Kalau seed berubah, update mapping ini.
-const DEV_EMAILS = {
-  mahasiswa: '6180000001@student.unpar.ac.id',
-  dosen_wali: 'husnul.hakim@unpar.ac.id',
-  kaprodi: 'kaprodi@unpar.ac.id',
-};
+import DevLoginFallback from './components/DevLoginFallback.jsx';
 
 function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  // useState: track role yang sedang login. Disable semua tombol selama 1 login aktif.
-  const [loadingRole, setLoadingRole] = useState(null);
+  // useState: tandai saat user sudah klik Google supaya tombol tidak bisa diklik berkali-kali
+  // sebelum browser pindah ke halaman OAuth Google.
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   // useState: error message dari backend kalau login gagal.
   const [error, setError] = useState(null);
 
-  const handleLogin = async (role) => {
+  // useState: dev-login disimpan sebagai fallback lokal, bukan jalur utama user demo.
+  const [showDevLogin, setShowDevLogin] = useState(false);
+
+  const handleGoogleLogin = () => {
     setError(null);
-    setLoadingRole(role);
+    setGoogleLoading(true);
     try {
-      const res = await authApi.login(DEV_EMAILS[role]);
-      // res.data = { token, user } — pass langsung ke AuthContext.login
-      login(res.data);
-      navigate('/dashboard');
+      window.location.assign(authApi.createGoogleAuthUrl());
     } catch (err) {
-      setError(err.message ?? 'Login gagal');
-    } finally {
-      setLoadingRole(null);
+      setError(err.message ?? 'Login Google gagal dimulai');
+      setGoogleLoading(false);
     }
+  };
+
+  const handleLoginSuccess = (loginData) => {
+    login(loginData);
+    navigate('/dashboard');
   };
 
   return (
@@ -57,43 +57,41 @@ function LoginPage() {
         Login
       </Typography>
       <Typography variant="subtitle1" color="text.secondary">
-        Sistem Informasi Perwalian (Dev Mode)
+        Sistem Informasi Perwalian
       </Typography>
 
       {error && (
-        <Alert severity="error" sx={{ width: 280 }}>
+        <Alert severity="error" sx={{ width: 320 }}>
           {error}
         </Alert>
       )}
 
-      <Stack spacing={2} sx={{ width: 280 }}>
+      <Stack spacing={2} sx={{ width: 320 }}>
         <Button
           variant="contained"
           size="large"
-          disabled={loadingRole !== null}
-          onClick={() => handleLogin('mahasiswa')}
-          startIcon={loadingRole === 'mahasiswa' ? <CircularProgress size={16} /> : null}
+          disabled={googleLoading}
+          onClick={handleGoogleLogin}
+          startIcon={googleLoading ? <CircularProgress size={16} color="inherit" /> : <GoogleIcon />}
         >
-          Login sebagai Mahasiswa
+          Login dengan Google
         </Button>
         <Button
-          variant="contained"
-          size="large"
-          disabled={loadingRole !== null}
-          onClick={() => handleLogin('dosen_wali')}
-          startIcon={loadingRole === 'dosen_wali' ? <CircularProgress size={16} /> : null}
+          variant="text"
+          size="small"
+          disabled={googleLoading}
+          onClick={() => setShowDevLogin((value) => !value)}
         >
-          Login sebagai Dosen Wali
+          {showDevLogin ? 'Sembunyikan dev-login' : 'Gunakan dev-login'}
         </Button>
-        <Button
-          variant="contained"
-          size="large"
-          disabled={loadingRole !== null}
-          onClick={() => handleLogin('kaprodi')}
-          startIcon={loadingRole === 'kaprodi' ? <CircularProgress size={16} /> : null}
-        >
-          Login sebagai Kaprodi
-        </Button>
+
+        <Collapse in={showDevLogin}>
+          <DevLoginFallback
+            disabled={googleLoading}
+            onError={setError}
+            onSuccess={handleLoginSuccess}
+          />
+        </Collapse>
       </Stack>
     </Box>
   );
