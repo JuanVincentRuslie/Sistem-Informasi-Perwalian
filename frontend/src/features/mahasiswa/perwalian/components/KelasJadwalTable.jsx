@@ -22,7 +22,7 @@ function KelasJadwalTable({ kelas, isSelected, onPilih }) {
         <Typography fontWeight="bold" variant="body2">Kelas {kelas.nama_kelas}</Typography>
       </Box>
 
-      {kelas.sesi.map((sesi, idx) => (
+      {(kelas.sesi ?? []).map((sesi, idx) => (
         <Box
           key={sesi.id}
           sx={{

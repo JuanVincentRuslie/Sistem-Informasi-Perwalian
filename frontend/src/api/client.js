@@ -32,7 +32,7 @@ async function request(method, path, { body, query, isFormData } = {}) {
       body: isFormData ? body : (body ? JSON.stringify(body) : undefined),
     });
   } catch (err) {
-    throw new Error('Backend tidak bisa dihubungi. Cek koneksi atau hubungi admin.');
+    throw new Error('Backend tidak bisa dihubungi. Cek koneksi atau hubungi admin.', { cause: err });
   }
 
   if (res.status === 401) {
@@ -41,7 +41,9 @@ async function request(method, path, { body, query, isFormData } = {}) {
     if (window.location.pathname !== '/login') {
       window.location.href = '/login';
     }
-    throw new Error('Sesi habis, silakan login ulang');
+    const error = new Error('Sesi habis, silakan login ulang');
+    error.status = res.status;
+    throw error;
   }
 
   let json;
@@ -52,11 +54,17 @@ async function request(method, path, { body, query, isFormData } = {}) {
   }
 
   if (res.status >= 500) {
-    throw new Error(json?.message ?? 'Server error');
+    const error = new Error(json?.message ?? 'Server error');
+    error.status = res.status;
+    error.errors = json?.errors;
+    throw error;
   }
 
   if (!json.success) {
-    throw new Error(json.message ?? 'Request gagal');
+    const error = new Error(json.message ?? 'Request gagal');
+    error.status = res.status;
+    error.errors = json.errors;
+    throw error;
   }
 
   return json;

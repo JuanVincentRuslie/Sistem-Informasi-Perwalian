@@ -11,19 +11,21 @@ function getTagLabel(tag) {
 }
 
 function DosenRencanaStudiMatkulList({ items }) {
+  const safeItems = items ?? [];
+
   return (
     <Box>
       <Typography fontWeight="bold" sx={{ mb: 1 }}>
         Mata Kuliah :
       </Typography>
       <Paper variant="outlined" sx={{ p: 2 }}>
-        {items.length === 0 ? (
+        {safeItems.length === 0 ? (
           <Typography variant="body2" color="text.secondary">
             Belum ada mata kuliah di FRS ini.
           </Typography>
         ) : (
           <Stack spacing={1.5}>
-            {items.map((item) => (
+            {safeItems.map((item) => (
               <Box
                 key={item.id}
                 sx={{

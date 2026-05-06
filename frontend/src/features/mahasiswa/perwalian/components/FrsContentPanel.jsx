@@ -33,8 +33,9 @@ function FrsContentPanel({
   resetting = false,
   submitting = false,
 }) {
-  const canSubmit = periodeAktif && frs.items.length > 0 && frs.status !== 'APPROVED' && !resetting && !submitting;
-  const canReset = periodeAktif && frs.items.length > 0 && !resetting && !submitting;
+  const items = frs.items ?? [];
+  const canSubmit = periodeAktif && items.length > 0 && frs.status !== 'APPROVED' && !resetting && !submitting;
+  const canReset = periodeAktif && items.length > 0 && !resetting && !submitting;
   const submitLabel = frs.status === 'SUBMITTED' ? 'Kirim Ulang' : 'Kirim';
 
   return (
@@ -53,10 +54,10 @@ function FrsContentPanel({
         />
       </Box>
 
-      <MatkulFrsList items={frs.items} />
+      <MatkulFrsList items={items} />
 
       <Box sx={{ mt: 2 }}>
-        <JadwalFrsList items={frs.items} />
+        <JadwalFrsList items={items} />
       </Box>
 
       <Box sx={{ mt: 2 }}>

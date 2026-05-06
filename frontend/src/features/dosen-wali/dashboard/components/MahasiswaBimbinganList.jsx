@@ -3,8 +3,10 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import MahasiswaBimbinganRow from './MahasiswaBimbinganRow.jsx';
 
-function MahasiswaBimbinganList({ items, getNavigationTarget }) {
-  if (items.length === 0) {
+function MahasiswaBimbinganList({ items, getNavigationTarget, hasActiveFilter = false }) {
+  const safeItems = items ?? [];
+
+  if (safeItems.length === 0) {
     return (
       <Paper
         elevation={0}
@@ -17,7 +19,9 @@ function MahasiswaBimbinganList({ items, getNavigationTarget }) {
         }}
       >
         <Typography color="text.secondary">
-          Tidak ada mahasiswa yang cocok dengan pencarian atau filter.
+          {hasActiveFilter
+            ? 'Tidak ada mahasiswa yang cocok dengan pencarian atau filter.'
+            : 'Belum ada mahasiswa bimbingan untuk periode aktif.'}
         </Typography>
       </Paper>
     );
@@ -34,7 +38,7 @@ function MahasiswaBimbinganList({ items, getNavigationTarget }) {
       }}
     >
       <Box sx={{ display: 'grid', gap: 2 }}>
-        {items.map((item) => (
+        {safeItems.map((item) => (
           <MahasiswaBimbinganRow
             key={item.mahasiswa.id}
             item={item}

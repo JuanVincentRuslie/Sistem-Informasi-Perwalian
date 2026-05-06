@@ -109,14 +109,36 @@ function PeriodeManagementPanel({
         <Typography variant="h6" component="h2" sx={{ mb: 2 }}>
           Histori Periode
         </Typography>
-        <PeriodeHistoryTable
-          periods={histori}
-          activatingId={activatingId}
-          deletingId={deletingId}
-          onActivate={onActivate}
-          onDelete={onDelete}
-          onEdit={onEdit}
-        />
+        {histori.length === 0 ? (
+          <Box
+            sx={{
+              p: 4,
+              border: '1px dashed',
+              borderColor: 'divider',
+              borderRadius: 1,
+              textAlign: 'center',
+            }}
+          >
+            <Typography variant="h6" sx={{ mb: 1 }}>
+              Belum ada periode
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2.5 }}>
+              Buat periode pertama agar mahasiswa bisa mulai mengisi FRS.
+            </Typography>
+            <Button variant="contained" startIcon={<AddIcon />} onClick={onAdd}>
+              Buat Periode Pertama
+            </Button>
+          </Box>
+        ) : (
+          <PeriodeHistoryTable
+            periods={histori}
+            activatingId={activatingId}
+            deletingId={deletingId}
+            onActivate={onActivate}
+            onDelete={onDelete}
+            onEdit={onEdit}
+          />
+        )}
       </Paper>
     </Stack>
   );

@@ -24,7 +24,7 @@ function PerwalianWorkspace({
   onRemoveItem,
   onSubmit,
 }) {
-  const selectedKelasIds = rencanaStudi?.items.map((item) => item.kelas.id) ?? [];
+  const selectedKelasIds = (rencanaStudi?.items ?? []).map((item) => item.kelas.id);
 
   return (
     <Grid container spacing={2}>

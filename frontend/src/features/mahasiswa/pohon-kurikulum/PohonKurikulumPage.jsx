@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -30,6 +31,11 @@ function PohonKurikulumPage() {
   function handleTabChange(_event, nextTab) {
     setActiveTab(nextTab);
   }
+
+  const summary = data?.summary ?? {};
+  const hasDpsData = summary.ipk != null
+    || summary.ips_terakhir != null
+    || Number(summary.total_sks_lulus ?? 0) > 0;
 
   if (loading && !data) {
     return (
@@ -62,6 +68,20 @@ function PohonKurikulumPage() {
           <Tab label="Upload DPS" />
         </Tabs>
       </Box>
+
+      {!hasDpsData && activeTab === 0 && (
+        <Alert
+          severity="info"
+          sx={{ mb: 3 }}
+          action={(
+            <Button color="inherit" size="small" onClick={() => setActiveTab(1)}>
+              Upload DPS
+            </Button>
+          )}
+        >
+          Data riwayat nilai belum tersedia. Upload DPS agar IPK, IPS, dan warna progres mata kuliah muncul.
+        </Alert>
+      )}
 
       {activeTab === 0 ? <PohonKurikulumFlow data={data} /> : null}
       {activeTab === 1 ? <DpsUploadPanel onConfirmed={refetch} /> : null}

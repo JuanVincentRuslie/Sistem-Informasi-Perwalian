@@ -32,6 +32,8 @@ function KelasPicker({
   addingKelasId,
   onAddKelas,
 }) {
+  const safeKelas = kelas ?? [];
+
   return (
     <Paper
       elevation={0}
@@ -61,15 +63,15 @@ function KelasPicker({
         </Alert>
       )}
 
-      {!loading && !error && kelas.length === 0 && (
+      {!loading && !error && safeKelas.length === 0 && (
         <Typography variant="body2" color="text.secondary">
           Belum ada kelas yang ditawarkan pada periode ini.
         </Typography>
       )}
 
-      {!loading && !error && kelas.length > 0 && (
+      {!loading && !error && safeKelas.length > 0 && (
         <Stack divider={<Divider flexItem />} spacing={2}>
-          {kelas.map((item) => {
+          {safeKelas.map((item) => {
             const alreadySelected = selectedKelasIds.includes(item.id);
             const adding = addingKelasId === item.id;
 
@@ -110,7 +112,7 @@ function KelasPicker({
                 </Stack>
 
                 <Stack spacing={0.75} sx={{ mt: 1.5 }}>
-                  {item.sesi.map((sesi) => (
+                  {(item.sesi ?? []).map((sesi) => (
                     <Box key={sesi.id}>
                       <Typography variant="body2">
                         {formatSesi(sesi)} - {sesi.bentuk_pembelajaran}

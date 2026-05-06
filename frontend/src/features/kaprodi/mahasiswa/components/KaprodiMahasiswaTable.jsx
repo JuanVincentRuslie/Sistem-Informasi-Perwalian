@@ -15,7 +15,9 @@ function getStatusLabel(status) {
 }
 
 function KaprodiMahasiswaTable({ items, onSelect }) {
-  if (items.length === 0) {
+  const safeItems = items ?? [];
+
+  if (safeItems.length === 0) {
     return (
       <TableContainer sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1 }}>
         <Table>
@@ -47,7 +49,7 @@ function KaprodiMahasiswaTable({ items, onSelect }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {items.map((item) => {
+          {safeItems.map((item) => {
             const status = getStatusLabel(item.status_frs);
 
             return (
@@ -62,7 +64,7 @@ function KaprodiMahasiswaTable({ items, onSelect }) {
                 <TableCell>{item.nim}</TableCell>
                 <TableCell>{item.nama}</TableCell>
                 <TableCell>{item.angkatan}</TableCell>
-                <TableCell>{item.ipk.toFixed(2)}</TableCell>
+                <TableCell>{item.ipk == null ? '-' : item.ipk.toFixed(2)}</TableCell>
                 <TableCell>
                   {item.dosen_wali?.nama ?? (
                     <Typography variant="body2" color="text.secondary">

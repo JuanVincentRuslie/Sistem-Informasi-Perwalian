@@ -32,6 +32,7 @@ function RencanaStudiDetail({
 }) {
   const statusConfig = getStatusConfig(rencanaStudi.status);
   const isSubmitting = mutation.type === 'submit';
+  const items = rencanaStudi.items ?? [];
 
   return (
     <Stack spacing={2}>
@@ -111,7 +112,7 @@ function RencanaStudiDetail({
               <Button
                 variant="contained"
                 startIcon={<SendIcon fontSize="small" />}
-                disabled={rencanaStudi.items.length === 0 || isSubmitting}
+                disabled={items.length === 0 || isSubmitting}
                 onClick={onSubmit}
               >
                 {isSubmitting ? 'Mengirim...' : 'Kirim ke Dosen Wali'}
@@ -122,7 +123,7 @@ function RencanaStudiDetail({
       </Paper>
 
       <RencanaStudiItems
-        items={rencanaStudi.items}
+        items={items}
         editable={editable}
         removingItemId={mutation.type === 'remove' ? mutation.targetId : null}
         onRemoveItem={onRemoveItem}

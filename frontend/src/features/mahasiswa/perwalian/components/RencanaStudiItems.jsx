@@ -29,6 +29,8 @@ function RencanaStudiItems({
   removingItemId,
   onRemoveItem,
 }) {
+  const safeItems = items ?? [];
+
   return (
     <Paper
       elevation={0}
@@ -43,13 +45,13 @@ function RencanaStudiItems({
         Daftar Kelas
       </Typography>
 
-      {items.length === 0 ? (
+      {safeItems.length === 0 ? (
         <Typography variant="body2" color="text.secondary">
           Belum ada kelas di FRS ini.
         </Typography>
       ) : (
         <Stack divider={<Divider flexItem />} spacing={2}>
-          {items.map((item) => (
+          {safeItems.map((item) => (
             <Box key={item.id}>
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}
@@ -90,7 +92,7 @@ function RencanaStudiItems({
               </Stack>
 
               <Stack spacing={0.75} sx={{ mt: 1.5 }}>
-                {item.kelas.sesi.map((sesi) => (
+                {(item.kelas.sesi ?? []).map((sesi) => (
                   <Box key={sesi.id}>
                     <Typography variant="body2">
                       {formatSesi(sesi)} - {sesi.bentuk_pembelajaran}

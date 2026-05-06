@@ -18,6 +18,9 @@ function DetailMahasiswaRencanaStudiTab({ mahasiswa, reviewEnabled = true }) {
   // useState: tab dalam tab untuk memilih histori FRS per periode mahasiswa.
   // Default diatur ke periode terbaru setelah data riwayat selesai dimuat.
   const [activePeriodeIndex, setActivePeriodeIndex] = useState(0);
+  // useState: feedback approve/revisi dibuat persistent di tab supaya dosen
+  // bisa membaca error backend tanpa kehilangan konteks FRS yang sedang direview.
+  const [reviewError, setReviewError] = useState('');
 
   // useFetch: ambil daftar FRS mahasiswa bimbingan dari service layer.
   // Data ini menjadi sumber tab histori di dalam tab Rencana Studi.
@@ -56,6 +59,7 @@ function DetailMahasiswaRencanaStudiTab({ mahasiswa, reviewEnabled = true }) {
   );
 
   async function handleReview(decision, catatan) {
+    setReviewError('');
     try {
       if (decision === 'APPROVED') {
         await setujuiRencanaStudi(rencanaStudi.id, { catatan });
@@ -66,7 +70,7 @@ function DetailMahasiswaRencanaStudiTab({ mahasiswa, reviewEnabled = true }) {
       refetchDetail();
       refetchRiwayat();
     } catch (err) {
-      alert(err.message);
+      setReviewError(err instanceof Error ? err.message : 'Review rencana studi gagal disimpan.');
     }
   }
 
@@ -99,6 +103,12 @@ function DetailMahasiswaRencanaStudiTab({ mahasiswa, reviewEnabled = true }) {
         activeTabIndex={activePeriodeIndex}
         onChange={setActivePeriodeIndex}
       />
+
+      {reviewError ? (
+        <Alert severity="error" sx={{ mt: 2 }}>
+          {reviewError}
+        </Alert>
+      ) : null}
 
       {loadingDetail && (
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>

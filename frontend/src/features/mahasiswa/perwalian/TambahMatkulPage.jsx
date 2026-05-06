@@ -35,6 +35,9 @@ function TambahMatkulPage() {
   // useState: Map dari kode_matkul → kelas_id yang dipilih.
   // Map memastikan per matkul hanya bisa pilih 1 kelas (seperti FRS nyata).
   const [selectedKelas, setSelectedKelas] = useState(new Map());
+  // useState: error checkout disimpan supaya user bisa baca dan koreksi,
+  // tanpa terganggu popup alert native browser.
+  const [submitError, setSubmitError] = useState('');
 
   // useFetch: ambil list kelas tersedia untuk periode ini.
   // [periodeId] di deps: refetch kalau user navigasi ulang dengan periodeId berbeda.
@@ -72,6 +75,7 @@ function TambahMatkulPage() {
 
   const handleCheckout = async () => {
     if (!frsId) { navigate('/dashboard/perwalian'); return; }
+    setSubmitError('');
     try {
       for (const kelasId of selectedKelas.values()) {
         await addRencanaStudiItem(frsId, { kelas_id: kelasId });
@@ -79,7 +83,7 @@ function TambahMatkulPage() {
       // state.refreshed memberitahu PerwalianPage untuk refetch data FRS
       navigate('/dashboard/perwalian', { state: { refreshed: true } });
     } catch (err) {
-      alert(err.message);
+      setSubmitError(err instanceof Error ? err.message : 'Mata kuliah gagal ditambahkan ke FRS.');
     }
   };
 
@@ -91,6 +95,7 @@ function TambahMatkulPage() {
       <Typography variant="h5" fontWeight="bold" sx={{ mb: 2 }}>
         Mata Kuliah Semester {periodeNama}
       </Typography>
+      {submitError ? <Alert severity="error" sx={{ mb: 2 }}>{submitError}</Alert> : null}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
         {matkulGroups.map((matkul) => (
           <MatkulAccordionItem

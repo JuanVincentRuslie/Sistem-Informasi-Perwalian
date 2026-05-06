@@ -72,6 +72,8 @@ function DosenDashboardPage() {
     });
   }, [data?.items, searchQuery, statusFilter]);
 
+  const hasActiveFilter = Boolean(searchQuery.trim()) || statusFilter !== 'all';
+
   if (loading && !data) {
     return (
       <PageContainer>
@@ -107,7 +109,7 @@ function DosenDashboardPage() {
         onStatusFilterChange={handleStatusFilterChange}
       />
 
-      <MahasiswaBimbinganList items={filteredItems} />
+      <MahasiswaBimbinganList items={filteredItems} hasActiveFilter={hasActiveFilter} />
     </PageContainer>
   );
 }

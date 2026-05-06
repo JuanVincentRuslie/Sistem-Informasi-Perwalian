@@ -22,7 +22,7 @@ function getEdgeColor(relationType) {
 // Transform: data dari API -> format yang dimengerti React Flow.
 // React Flow butuh id string, field `position`, dan `data` untuk custom node.
 function toFlowNodes(nodes) {
-  return nodes.map((node) => ({
+  return (nodes ?? []).map((node) => ({
     id: String(node.id),
     type: 'matkul',
     data: node,
@@ -36,7 +36,7 @@ function toFlowNodes(nodes) {
 }
 
 function toFlowEdges(edges) {
-  return edges.map((edge) => ({
+  return (edges ?? []).map((edge) => ({
     id: String(edge.id),
     source: String(edge.source_id),
     target: String(edge.target_id),
@@ -60,9 +60,9 @@ function PohonKurikulumFlow({ data }) {
   // Tanpa ini, React Flow anggap nodeTypes baru tiap render -> re-mount semua custom node.
   const nodeTypes = useMemo(() => ({ matkul: MatkulNode }), []);
 
-  const flowNodes = toFlowNodes(data.nodes);
-  const flowEdges = toFlowEdges(data.edges);
-  const { total_sks_lulus, ipk, ips_terakhir } = data.summary;
+  const flowNodes = toFlowNodes(data?.nodes);
+  const flowEdges = toFlowEdges(data?.edges);
+  const { total_sks_lulus, ipk, ips_terakhir } = data?.summary ?? {};
 
   return (
     <>

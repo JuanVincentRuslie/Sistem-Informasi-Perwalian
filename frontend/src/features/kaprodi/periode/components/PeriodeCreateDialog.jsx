@@ -15,6 +15,8 @@ const JENIS_OPTIONS = [
   { value: 'genap', label: 'Genap' },
 ];
 
+
+
 function buildPreviewName(tahunMulai, jenis) {
   if (!tahunMulai || !jenis) return '-';
   const tahunAkhir = Number(tahunMulai) + 1;
@@ -123,7 +125,7 @@ function PeriodeCreateDialog({ open, saving, submitError, onClose, onSubmit, ini
             type="date"
             value={form.tanggal_mulai}
             onChange={(event) => handleChange('tanggal_mulai', event.target.value)}
-            InputLabelProps={{ shrink: true }}
+            slotProps={{ inputLabel: { shrink: true } }}
           />
 
           <TextField
@@ -131,7 +133,7 @@ function PeriodeCreateDialog({ open, saving, submitError, onClose, onSubmit, ini
             type="date"
             value={form.tanggal_selesai}
             onChange={(event) => handleChange('tanggal_selesai', event.target.value)}
-            InputLabelProps={{ shrink: true }}
+            slotProps={{ inputLabel: { shrink: true } }}
           />
 
           <Typography variant="body2" color="text.secondary">

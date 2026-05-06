@@ -7,16 +7,18 @@ import Typography from '@mui/material/Typography';
  * @param {{ id, kelas: { nama_matkul, sks } }[]} items
  */
 function MatkulFrsList({ items }) {
+  const safeItems = items ?? [];
+
   return (
     <Box>
       <Typography fontWeight="bold" sx={{ mb: 1 }}>Mata Kuliah :</Typography>
       <Box sx={{ border: '1px solid', borderColor: 'grey.300', borderRadius: 1, minHeight: 100 }}>
-        {items.length === 0 ? (
+        {safeItems.length === 0 ? (
           <Box sx={{ p: 2 }}>
             <Typography variant="body2" color="text.secondary">Belum ada matakuliah ditambahkan.</Typography>
           </Box>
         ) : (
-          items.map((item) => (
+          safeItems.map((item) => (
             <Box
               key={item.id}
               sx={{

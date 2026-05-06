@@ -17,6 +17,7 @@ import {
 } from '../../../api/rencanaStudi.js';
 import { getPeriodeAktif } from '../../../api/periode.js';
 import CatatanDosenModal from './components/CatatanDosenModal.jsx';
+import EmptyRencanaStudi from './components/EmptyRencanaStudi.jsx';
 import FrsContentPanel from './components/FrsContentPanel.jsx';
 import FrsPeriodeTabs from './components/FrsPeriodeTabs.jsx';
 
@@ -28,6 +29,9 @@ function PerwalianPage() {
   const [catatanOpen, setCatatanOpen] = useState(false);
   const [resetting, setResetting] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  // useState: simpan error aksi submit/reset supaya feedback muncul di layout MUI,
+  // bukan alert browser yang lepas dari desain aplikasi.
+  const [actionError, setActionError] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -87,30 +91,33 @@ function PerwalianPage() {
   const handleKirim = async () => {
     if (!frs) return;
     setSubmitting(true);
+    setActionError('');
     try {
       await submitRencanaStudi(frs.id);
       refetch();
     } catch (err) {
-      alert(err.message);
+      setActionError(err instanceof Error ? err.message : 'FRS gagal dikirim.');
     } finally {
       setSubmitting(false);
     }
   };
 
   const handleReset = async () => {
-    if (!frs || frs.items.length === 0) return;
+    const items = frs?.items ?? [];
+    if (!frs || items.length === 0) return;
 
     const confirmed = window.confirm('Reset FRS akan menghapus semua mata kuliah di rencana studi ini. Lanjutkan?');
     if (!confirmed) return;
 
     setResetting(true);
+    setActionError('');
     try {
-      for (const item of frs.items) {
+      for (const item of items) {
         await deleteRencanaStudiItem(frs.id, item.id);
       }
       refetch();
     } catch (err) {
-      alert(err.message);
+      setActionError(err instanceof Error ? err.message : 'FRS gagal direset.');
     } finally {
       setResetting(false);
     }
@@ -125,11 +132,12 @@ function PerwalianPage() {
   // Mahasiswa belum pernah bikin FRS untuk periode aktif. Trigger create lalu
   // refetch riwayat supaya tab langsung muncul tanpa user perlu reload.
   async function handleCreateFrs() {
-    if (!periodeAktifInfo?.id) return;
+    const targetPeriodeId = activePeriodeId ?? periodeAktifInfo?.id;
+    if (!targetPeriodeId) return;
     setCreating(true);
     setCreateError('');
     try {
-      await createRencanaStudi({ periode_id: periodeAktifInfo.id });
+      await createRencanaStudi({ periode_id: targetPeriodeId });
       refetchRiwayat();
     } catch (err) {
       setCreateError(err instanceof Error ? err.message : 'Gagal membuat FRS baru');
@@ -196,7 +204,33 @@ function PerwalianPage() {
         </Box>
       )}
 
-      {frsError && !loadingFrs && (
+      {actionError ? (
+        <Alert severity="error" sx={{ mt: 2 }}>{actionError}</Alert>
+      ) : null}
+
+      {frsError?.status === 404 && !loadingFrs && (
+        periodeAktif ? (
+          <Box sx={{ mt: 2 }}>
+            <EmptyRencanaStudi
+              periode={sortedRiwayat?.[activeTabIndex]?.periode ?? periodeAktifInfo}
+              creating={creating}
+              onCreate={handleCreateFrs}
+            />
+            {createError ? <Alert severity="error" sx={{ mt: 2 }}>{createError}</Alert> : null}
+          </Box>
+        ) : (
+          <Paper variant="outlined" sx={{ p: 4, textAlign: 'center', mt: 2 }}>
+            <Typography variant="h6" sx={{ mb: 1 }}>
+              FRS belum dibuat untuk periode ini
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Periode {periodeNama} tidak aktif, jadi data ini hanya ditampilkan sebagai riwayat.
+            </Typography>
+          </Paper>
+        )
+      )}
+
+      {frsError && frsError.status !== 404 && !loadingFrs && (
         <Alert severity="error" sx={{ mt: 2 }}>{frsError.message}</Alert>
       )}
 
