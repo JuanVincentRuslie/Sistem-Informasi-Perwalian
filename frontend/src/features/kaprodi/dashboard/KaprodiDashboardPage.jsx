@@ -19,7 +19,7 @@ function KaprodiDashboardPage() {
   // Ini menjaga page tetap tipis dan mudah diganti ke backend asli nanti.
   const { data, loading, error } = useFetch(() => getKaprodiDashboard(), []);
 
-  if (loading) {
+  if (loading && !data) {
     return (
       <PageContainer>
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}>
@@ -29,7 +29,7 @@ function KaprodiDashboardPage() {
     );
   }
 
-  if (error) {
+  if (error && !data) {
     return (
       <PageContainer>
         <Alert severity="error">{error.message}</Alert>

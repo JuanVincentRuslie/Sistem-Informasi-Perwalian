@@ -14,7 +14,7 @@ function DashboardPage() {
   // useFetch otomatis unwrap response.data, jadi `data` langsung berisi payload-nya.
   const { data, loading, error } = useFetch(() => getRingkasanAkademik(), []);
 
-  if (loading) {
+  if (loading && !data) {
     return (
       <PageContainer>
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}>
@@ -24,7 +24,7 @@ function DashboardPage() {
     );
   }
 
-  if (error) {
+  if (error && !data) {
     return (
       <PageContainer>
         <Alert severity="error">{error.message}</Alert>

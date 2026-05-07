@@ -40,6 +40,18 @@ function DosenWaliAssignPage() {
     setSubmitError('');
   }, [data]);
 
+  // useEffect: success save assignment cukup jadi konfirmasi singkat.
+  // Setelah beberapa detik alert hilang agar halaman editor tetap bersih.
+  useEffect(() => {
+    if (!submitSuccess) return undefined;
+
+    const timeoutId = window.setTimeout(() => {
+      setSubmitSuccess('');
+    }, 3000);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [submitSuccess]);
+
   const allItems = useMemo(() => (
     [...(data?.assigned_items ?? []), ...(data?.available_items ?? [])]
   ), [data?.assigned_items, data?.available_items]);

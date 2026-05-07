@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -30,6 +30,18 @@ function PeriodePage() {
   const [submitError, setSubmitError] = useState('');
   const [pageSuccessMessage, setPageSuccessMessage] = useState('');
   const { data, loading, error, refetch } = useFetch(() => getPeriodeManagement(), []);
+
+  // useEffect: pesan sukses mutation hanya feedback sementara.
+  // Auto-dismiss mencegah alert lama menumpuk setelah kaprodi lanjut bekerja.
+  useEffect(() => {
+    if (!pageSuccessMessage) return undefined;
+
+    const timeoutId = window.setTimeout(() => {
+      setPageSuccessMessage('');
+    }, 3000);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [pageSuccessMessage]);
 
   async function handleCreatePeriode(payload) {
     try {
@@ -97,7 +109,7 @@ function PeriodePage() {
     }
   }
 
-  if (loading) {
+  if (loading && !data) {
     return (
       <PageContainer>
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}>
@@ -107,7 +119,7 @@ function PeriodePage() {
     );
   }
 
-  if (error) {
+  if (error && !data) {
     return (
       <PageContainer>
         <Alert severity="error">{error.message}</Alert>
@@ -133,6 +145,12 @@ function PeriodePage() {
         <Tab value="periode" label="Periode" />
         <Tab value="upload-jadwal" label="Upload Jadwal Kelas" />
       </Tabs>
+
+      {error && data ? (
+        <Alert severity="error" sx={{ mb: 3 }}>
+          {error.message}
+        </Alert>
+      ) : null}
 
       {activeTab === 'periode' ? (
         <PeriodeManagementPanel

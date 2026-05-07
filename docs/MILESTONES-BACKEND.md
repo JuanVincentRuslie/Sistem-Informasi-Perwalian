@@ -304,6 +304,9 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 - [x] Replace mock akademik (Domain 2 — ringkasan dashboard, pohon kurikulum, auto-route by role)
 - [x] Replace mock riwayat nilai (Domain 4 — DPS upload preview/confirm, manual)
 - [ ] Rapikan loading / error state setelah integrasi
+  - [x] Priority 3: avoid loading flicker di dashboard mahasiswa dan halaman periode (`loading && !data`)
+  - [x] Priority 3: auto-dismiss success alert mutation periode dan save assignment setelah 3 detik
+  - [ ] Priority 3: audit lanjutan untuk skeleton/retry button kalau mau dipoles lagi
 - [x] Implement Google OAuth real (akhir M9, setelah `.env` Google dilengkapi)
 
 ### Catatan: Strategi Auth — dev-login dulu, Google OAuth terakhir
