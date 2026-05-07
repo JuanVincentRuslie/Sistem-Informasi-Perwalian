@@ -54,9 +54,17 @@ function DashboardLayout() {
 
       }}>
         <Toolbar>
-          <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
-            Sistem Informasi Perwalian
-          </Typography>
+          <Box
+            component="img"
+            src="/Logo-Informatika.jpg"
+            alt="Logo Informatika"
+            sx={{
+              width: 180,
+              maxWidth: '45vw',
+              height: 'auto',
+              mr: 'auto',
+            }}
+          />
 
           <Typography variant="body2" sx={{ mr: 1 }}>
             {user?.nama}

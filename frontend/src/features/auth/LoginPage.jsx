@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Collapse from '@mui/material/Collapse';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import GoogleIcon from '@mui/icons-material/Google';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext.jsx';
@@ -53,12 +52,16 @@ function LoginPage() {
         gap: 3,
       }}
     >
-      <Typography variant="h4" component="h1" fontWeight="bold">
-        Login
-      </Typography>
-      <Typography variant="subtitle1" color="text.secondary">
-        Sistem Informasi Perwalian
-      </Typography>
+      <Box
+        component="img"
+        src="/Logo-Informatika.jpg"
+        alt="Logo Informatika"
+        sx={{
+          width: { xs: 260, sm: 320 },
+          maxWidth: '80vw',
+          height: 'auto',
+        }}
+      />
 
       {error && (
         <Alert severity="error" sx={{ width: 320 }}>
