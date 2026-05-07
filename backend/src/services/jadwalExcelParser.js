@@ -190,10 +190,14 @@ async function parseJadwal({ input, buffer, sheet = DEFAULT_SHEET, periodeId = n
     await workbook.xlsx.readFile(input);
   }
 
-  const worksheet = workbook.getWorksheet(sheet);
+  // Coba sheet bernama "Template" (atau apapun yang dipassed). Kalau tidak ada,
+  // fallback ke sheet pertama — kaprodi bebas kasih nama sheet apapun.
+  let worksheet = workbook.getWorksheet(sheet);
   if (!worksheet) {
-    const names = workbook.worksheets.map((item) => item.name).join(', ');
-    throw new Error(`Sheet "${sheet}" tidak ditemukan. Sheet tersedia: ${names}`);
+    worksheet = workbook.worksheets[0];
+    if (!worksheet) {
+      throw new Error('File Excel tidak punya sheet apapun.');
+    }
   }
 
   const headerMap = buildHeaderMap(worksheet);

@@ -400,28 +400,42 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 **Goal**: backend cukup stabil untuk demo skripsi dan integrasi lanjutan.
 
-### Tasks
+### Tasks (urutan prioritas final)
 
-- [ ] Auth hardening: move JWT from localStorage to HttpOnly cookie - tanya detail ke user
+**Sebelum UAT dosen (P1)**:
+- [x] **P1.1** — Audit migration + seed untuk setup ulang dari nol
+  - Verified: TRUNCATE → migrate → seed:all → 17 users (2 kaprodi + 5 dosen wali + 10 mahasiswa) + 42 master matkul + 31 edges + 1 periode dummy
+  - Seed data updated dengan nama dosen FOI UNPAR + nama mahasiswa realistik untuk demo (kaprodi `mariskha@unpar.ac.id` + Google `ruslie.vincent@gmail.com`)
+  - Mahasiswa 1-9 unassigned (untuk demo flow assign kaprodi), mahasiswa #10 (Juan Vincent / NIM 6182201039) → DW04 Rosa
+  - Helper script baru: `node scripts/reset-and-seed.js` (TRUNCATE + seed:all dalam 1 command, ~3 detik)
+  - Helper verify: `node scripts/verify-seed.js`
+  - Catatan minor: `npm run migrate` ada warning "Can't determine timestamp" karena nama file pakai 001-011 bukan timestamp — non-fatal, fix nanti
+  - Side effect: `test-m6.js` ref email lama (`husnul.hakim@unpar.ac.id`) — akan break sampai di-update setelah UAT
+- [ ] **P1.2** — Siapkan `backend/.env.example` dan `frontend/.env.example`
+- [ ] **P1.3** — Siapkan dokumentasi run lokal backend (README atau file terpisah)
+
+**Setelah UAT (P2)**:
+- [ ] **P2.1** — Tambahkan protection untuk edge case periode
+- [ ] **P2.2** — Tambahkan protection untuk edge case ownership
+- [ ] **P2.3** — Tambahkan request validation
+- [ ] **P2.4** — Tambahkan logging dasar
+- [ ] **P2.5** — Audit response agar tetap sinkron dengan `api-spec-sistem-perwalian.md`
+
+**Auth hardening + tests (P3, terakhir)**:
+- [ ] **P3.1** — Auth hardening: move JWT from localStorage to HttpOnly cookie - tanya detail ke user
+- [ ] **P3.2** — Tambahkan test untuk service / endpoint penting (ditaruh setelah cookie migration biar tidak rewrite test auth flow)
+
+**Sudah selesai**:
+- [x] Standardize error handling
+  - [x] Priority 2: audit controller yang expose `err.message` internal
+  - [x] Priority 2: friendly response untuk PostgreSQL constraint errors umum (`23505`, `23503`, `23502`, `23514`)
+  - [x] Priority 2: `PUT /periode/:id` rename ke nama duplikat return 409 friendly, bukan raw duplicate key
 - [x] Frontend advisory check untuk bentrok jadwal saat mahasiswa pilih kelas
   - Pure frontend, zero backend changes. Cek pairwise sesi (hari sama + waktu overlap)
     saat klik Checkout di TambahMatkulPage.
   - Scope: kelas baru yang dipilih + kelas yang sudah di FRS (dari router state). Dedup by kelas_id.
   - Dialog `JadwalBentrokDialog` baru dengan tombol "Kembali" (tutup dialog, tidak navigate keluar).
   - Spec: `docs/superpowers/specs/2026-05-08-frontend-jadwal-bentrok-advisory-design.md`
-- [ ] Standardize error handling
-  - [x] Priority 2: audit controller yang expose `err.message` internal
-  - [x] Priority 2: friendly response untuk PostgreSQL constraint errors umum (`23505`, `23503`, `23502`, `23514`)
-  - [x] Priority 2: `PUT /periode/:id` rename ke nama duplikat return 409 friendly, bukan raw duplicate key
-- [ ] Tambahkan request validation
-- [ ] Tambahkan logging dasar
-- [ ] Tambahkan test untuk service / endpoint penting
-- [ ] Tambahkan protection untuk edge case periode
-- [ ] Tambahkan protection untuk edge case ownership
-- [ ] Audit response agar tetap sinkron dengan `api-spec-sistem-perwalian.md`
-- [ ] Audit migration + seed untuk setup ulang dari nol
-- [ ] Siapkan `.env.example`
-- [ ] Siapkan dokumentasi run lokal backend
 
 ### Hotfix saat testing M10
 

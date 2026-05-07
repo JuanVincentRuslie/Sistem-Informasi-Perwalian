@@ -14,8 +14,9 @@ function capitalize(str) {
  * @param {{ id, nama_kelas, sesi: object[] }} kelas
  * @param {boolean} isSelected - true kalau kelas ini yang dipilih mahasiswa
  * @param {Function} onPilih - toggle pilih/batal
+ * @param {boolean} [readonly] - kalau true, sembunyikan tombol Pilih (mode lihat-saja)
  */
-function KelasJadwalTable({ kelas, isSelected, onPilih }) {
+function KelasJadwalTable({ kelas, isSelected, onPilih, readonly = false }) {
   return (
     <Box sx={{ mb: 1 }}>
       <Box sx={{ px: 2, py: 1, bgcolor: 'grey.100' }}>
@@ -39,16 +40,18 @@ function KelasJadwalTable({ kelas, isSelected, onPilih }) {
         </Box>
       ))}
 
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', px: 2, py: 1 }}>
-        <Button
-          variant={isSelected ? 'contained' : 'outlined'}
-          size="small"
-          startIcon={<AddIcon />}
-          onClick={onPilih}
-        >
-          Pilih
-        </Button>
-      </Box>
+      {!readonly && (
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', px: 2, py: 1 }}>
+          <Button
+            variant={isSelected ? 'contained' : 'outlined'}
+            size="small"
+            startIcon={<AddIcon />}
+            onClick={onPilih}
+          >
+            Pilih
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 }

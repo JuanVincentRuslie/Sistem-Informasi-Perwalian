@@ -8,12 +8,13 @@ require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 const { query, pool } = require('../db/pool');
 
+// Data dosen sebenarnya (FOI Informatika UNPAR). NIP placeholder 001-005 untuk demo UAT.
 const DOSEN_DATA = [
-  { nama: 'Dr. Husnul Hakim, S.Kom., M.T.', email: 'husnul.hakim@unpar.ac.id', nip: '198201152010011001' },
-  { nama: 'Yosef Ardi, S.Kom., M.T.', email: 'yosef.ardi@unpar.ac.id', nip: '198412102011011002' },
-  { nama: 'Dr. Maria Lestari', email: 'maria.lestari@unpar.ac.id', nip: '197909182009012003' },
-  { nama: 'Anita Wulandari, S.T., M.T.', email: 'anita.wulandari@unpar.ac.id', nip: '198806232014042004' },
-  { nama: 'Dr. I Made Putra', email: 'made.putra@unpar.ac.id', nip: '197705092007011005' },
+  { nama: 'Dr.rer.nat. Cecilia Esti Nugraheni, S.T', email: 'cheni@unpar.ac.id', nip: '001' },
+  { nama: 'Lionov, Ph.D.', email: 'lionov@unpar.ac.id', nip: '002' },
+  { nama: 'Luciana Abednego, S.Kom', email: 'luciana@unpar.ac.id', nip: '003' },
+  { nama: 'Dra. Rosa de Lima Endang Padmowati, M.T', email: 'rosad5@unpar.ac.id', nip: '004' },
+  { nama: 'Husnul Hakim, S.Kom', email: 'husnulhakim@unpar.ac.id', nip: '005' },
 ];
 
 async function seedDosenWali() {

@@ -14,8 +14,9 @@ import KelasJadwalTable from './KelasJadwalTable.jsx';
  * @param {{ kode_matkul, nama_matkul, sks, kelas_list }} matkul
  * @param {number|null} selectedKelasId - id kelas yang dipilih, null jika belum pilih
  * @param {Function} onPilih - callback(kelasId)
+ * @param {boolean} [readonly] - kalau true, mode lihat-saja: tombol Pilih + indicator tersembunyi
  */
-function MatkulAccordionItem({ matkul, selectedKelasId, onPilih }) {
+function MatkulAccordionItem({ matkul, selectedKelasId, onPilih, readonly = false }) {
   const isSelected = selectedKelasId !== null;
 
   return (
@@ -32,15 +33,17 @@ function MatkulAccordionItem({ matkul, selectedKelasId, onPilih }) {
     >
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Box
-            sx={{
-              width: 28,
-              height: 28,
-              bgcolor: isSelected ? 'primary.main' : 'grey.300',
-              borderRadius: 1,
-              flexShrink: 0,
-            }}
-          />
+          {!readonly && (
+            <Box
+              sx={{
+                width: 28,
+                height: 28,
+                bgcolor: isSelected ? 'primary.main' : 'grey.300',
+                borderRadius: 1,
+                flexShrink: 0,
+              }}
+            />
+          )}
           <Typography>{matkul.nama_matkul}</Typography>
         </Box>
       </AccordionSummary>
@@ -54,7 +57,8 @@ function MatkulAccordionItem({ matkul, selectedKelasId, onPilih }) {
             key={kelas.id}
             kelas={kelas}
             isSelected={selectedKelasId === kelas.id}
-            onPilih={() => onPilih(kelas.id)}
+            onPilih={() => onPilih?.(kelas.id)}
+            readonly={readonly}
           />
         ))}
       </AccordionDetails>

@@ -8,25 +8,30 @@ require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 const { query, pool } = require('../db/pool');
 
-// Mapping email dosen wali → dipakai untuk lookup ID saat assign
+// Mapping email dosen wali → dipakai untuk lookup ID saat assign.
+// Match dengan seed-dosen-wali.js urutan dan email-nya.
 const DOSEN_EMAIL = {
-  DW01: 'husnul.hakim@unpar.ac.id',
-  DW02: 'yosef.ardi@unpar.ac.id',
-  DW03: 'maria.lestari@unpar.ac.id',
-  DW04: 'anita.wulandari@unpar.ac.id',
-  DW05: 'made.putra@unpar.ac.id',
+  DW01: 'cheni@unpar.ac.id',
+  DW02: 'lionov@unpar.ac.id',
+  DW03: 'luciana@unpar.ac.id',
+  DW04: 'rosad5@unpar.ac.id',
+  DW05: 'husnulhakim@unpar.ac.id',
 };
 
+// Mahasiswa 1-9: dosen wali sengaja null untuk demo flow assign kaprodi saat UAT.
+// Mahasiswa 10 (Juan Vincent / NIM riil user): pakai akun Google asli, di-assign ke DW04 (Rosa).
+// IPK tidak di-seed (akan terisi dari upload DPS — schema default = 0).
 const MAHASISWA_DATA = [
-  { nim: '6180000001', nama: 'Mahasiswa A', angkatan: 2021, ipk: 3.31, dosenKey: 'DW01' },
-  { nim: '6180000002', nama: 'Mahasiswa B', angkatan: 2021, ipk: 3.05, dosenKey: 'DW04' },
-  { nim: '6180000003', nama: 'Mahasiswa C', angkatan: 2022, ipk: 3.18, dosenKey: null },
-  { nim: '6180000004', nama: 'Mahasiswa D', angkatan: 2021, ipk: 3.72, dosenKey: 'DW01' },
-  { nim: '6180000005', nama: 'Mahasiswa E', angkatan: 2021, ipk: 3.44, dosenKey: 'DW01' },
-  { nim: '6180000006', nama: 'Mahasiswa F', angkatan: 2020, ipk: 3.67, dosenKey: 'DW02' },
-  { nim: '6180000007', nama: 'Mahasiswa G', angkatan: 2022, ipk: 2.91, dosenKey: null },
-  { nim: '6180000008', nama: 'Mahasiswa H', angkatan: 2020, ipk: 3.51, dosenKey: 'DW02' },
-  { nim: '6180000009', nama: 'Mahasiswa I', angkatan: 2021, ipk: 3.22, dosenKey: 'DW03' },
+  { nim: '6180000001', nama: 'Zefandion Benaya Teja',  angkatan: 2021, dosenKey: null },
+  { nim: '6180000002', nama: 'Christian Hadinata',     angkatan: 2021, dosenKey: null },
+  { nim: '6180000003', nama: 'Renggana Santika',       angkatan: 2022, dosenKey: null },
+  { nim: '6180000004', nama: 'Fauzah Rhamzy',          angkatan: 2021, dosenKey: null },
+  { nim: '6180000005', nama: 'Kris Bermul',            angkatan: 2021, dosenKey: null },
+  { nim: '6180000006', nama: 'Troy Andrew',            angkatan: 2020, dosenKey: null },
+  { nim: '6180000007', nama: 'Michael Khe Huang',      angkatan: 2022, dosenKey: null },
+  { nim: '6180000008', nama: 'Oliver Benjamin You',    angkatan: 2020, dosenKey: null },
+  { nim: '6180000009', nama: 'Axel Dharmaputra',       angkatan: 2021, dosenKey: null },
+  { nim: '6182201039', nama: 'Juan Vincent Ruslie',    angkatan: 2022, dosenKey: 'DW04' },
 ];
 
 async function seedMahasiswa() {
@@ -65,9 +70,9 @@ async function seedMahasiswa() {
 
     await query(
       `INSERT INTO profile_mahasiswa
-         (user_id, nim, angkatan, dosen_wali_id, ipk)
-       VALUES ($1, $2, $3, $4, $5)`,
-      [userId, mhs.nim, mhs.angkatan, dosenWaliId, mhs.ipk],
+         (user_id, nim, angkatan, dosen_wali_id)
+       VALUES ($1, $2, $3, $4)`,
+      [userId, mhs.nim, mhs.angkatan, dosenWaliId],
     );
 
     console.log(`  ✓ ${mhs.nama} (${mhs.nim}) → dosen: ${mhs.dosenKey ?? 'unassigned'}`);

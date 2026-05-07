@@ -15,7 +15,9 @@
     "seed:mahasiswa": "node src/seeds/seed-mahasiswa.js",
     "seed:master-matkul": "node src/seeds/seed-master-matkul.js",
     "seed:periode-dummy": "node src/seeds/seed-periode-dummy.js",
-    "seed:all": "npm run seed:kaprodi && npm run seed:dosen-wali && npm run seed:mahasiswa && npm run seed:master-matkul && npm run seed:periode-dummy"
+    "seed:all": "npm run seed:kaprodi && npm run seed:dosen-wali && npm run seed:mahasiswa && npm run seed:master-matkul && npm run seed:periode-dummy",
+    "reset": "node scripts/reset-and-seed.js",
+    "verify-seed": "node scripts/verify-seed.js"
   },
   "engines": {
     "node": ">=20.0.0"

@@ -47,7 +47,9 @@ async function lookupSksMap(kodeList) {
 }
 
 function statusFromHuruf(huruf) {
-  return huruf === 'E' ? 'TIDAK_LULUS' : 'LULUS';
+  // E (gagal sistem) dan F (fail) sama-sama TIDAK_LULUS.
+  // P (pass tanpa nilai) → LULUS. Sisanya (A..D) → LULUS.
+  return huruf === 'E' || huruf === 'F' ? 'TIDAK_LULUS' : 'LULUS';
 }
 
 async function isMahasiswaBimbinganDosen(dosenId, mahasiswaId) {

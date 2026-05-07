@@ -130,7 +130,11 @@ function PerwalianPage() {
     state: { frsId: frs?.id, periodeId: activePeriodeId, periodeNama, frs },
   });
 
-  const handleJadwal = () => navigate('/dashboard/perwalian/jadwal', { state: { frs } });
+  // Tombol "Jadwal" → halaman read-only daftar SEMUA kelas yang kaprodi upload
+  // di periode terkait (bukan jadwal FRS milik user). Pass periode info via state.
+  const handleJadwal = () => navigate('/dashboard/perwalian/jadwal', {
+    state: { periodeId: activePeriodeId, periodeNama },
+  });
 
   // Mahasiswa belum pernah bikin FRS untuk periode aktif. Trigger create lalu
   // refetch riwayat supaya tab langsung muncul tanpa user perlu reload.
