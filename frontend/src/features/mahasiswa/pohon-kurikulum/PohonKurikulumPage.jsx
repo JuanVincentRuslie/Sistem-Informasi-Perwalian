@@ -6,6 +6,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
+import PageErrorState from '../../../shared/components/PageErrorState.jsx';
 import PageHeader from '../../../shared/components/PageHeader.jsx';
 import { useAuth } from '../../../contexts/AuthContext.jsx';
 import useFetch from '../../../hooks/useFetch.js';
@@ -50,7 +51,7 @@ function PohonKurikulumPage() {
   if (error && !data) {
     return (
       <PageContainer>
-        <Alert severity="error">{error.message}</Alert>
+        <PageErrorState message={error.message} onRetry={refetch} />
       </PageContainer>
     );
   }

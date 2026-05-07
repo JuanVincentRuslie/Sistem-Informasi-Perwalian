@@ -12,6 +12,7 @@ import {
 } from '../../../api/kaprodiManagement.js';
 import useFetch from '../../../hooks/useFetch.js';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
+import PageErrorState from '../../../shared/components/PageErrorState.jsx';
 import PageHeader from '../../../shared/components/PageHeader.jsx';
 import KaprodiAssignmentPanel from './components/KaprodiAssignmentPanel.jsx';
 
@@ -132,7 +133,7 @@ function DosenWaliAssignPage() {
   if (error && !data) {
     return (
       <PageContainer>
-        <Alert severity="error">{error.message}</Alert>
+        <PageErrorState message={error.message} onRetry={refetch} />
       </PageContainer>
     );
   }

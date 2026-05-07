@@ -3,6 +3,7 @@ import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
+import PageErrorState from '../../../shared/components/PageErrorState.jsx';
 import PageHeader from '../../../shared/components/PageHeader.jsx';
 import { getJadwalPerwalianSaya, updateJadwalPerwalianSaya } from '../../../api/dosenWali.js';
 import useFetch from '../../../hooks/useFetch.js';
@@ -60,7 +61,7 @@ function JadwalPerwalianPage() {
   if (error && !data) {
     return (
       <PageContainer>
-        <Alert severity="error">{error.message}</Alert>
+        <PageErrorState message={error.message} onRetry={refetch} />
       </PageContainer>
     );
   }

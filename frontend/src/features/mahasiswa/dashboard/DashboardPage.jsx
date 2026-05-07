@@ -1,7 +1,7 @@
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
+import PageErrorState from '../../../shared/components/PageErrorState.jsx';
 import useFetch from '../../../hooks/useFetch.js';
 import { getRingkasanAkademik } from '../../../api/akademik.js';
 import IpkCard from './components/IpkCard.jsx';
@@ -12,7 +12,7 @@ function DashboardPage() {
   // useFetch: panggil getRingkasanAkademik sekali saat komponen mount.
   // [] sebagai deps = tidak re-fetch kecuali component unmount+remount.
   // useFetch otomatis unwrap response.data, jadi `data` langsung berisi payload-nya.
-  const { data, loading, error } = useFetch(() => getRingkasanAkademik(), []);
+  const { data, loading, error, refetch } = useFetch(() => getRingkasanAkademik(), []);
 
   if (loading && !data) {
     return (
@@ -27,7 +27,7 @@ function DashboardPage() {
   if (error && !data) {
     return (
       <PageContainer>
-        <Alert severity="error">{error.message}</Alert>
+        <PageErrorState message={error.message} onRetry={refetch} />
       </PageContainer>
     );
   }

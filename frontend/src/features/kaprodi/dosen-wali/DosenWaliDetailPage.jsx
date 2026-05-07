@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -12,6 +11,7 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { getKaprodiDosenWaliDetail } from '../../../api/kaprodiManagement.js';
 import useFetch from '../../../hooks/useFetch.js';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
+import PageErrorState from '../../../shared/components/PageErrorState.jsx';
 import PageHeader from '../../../shared/components/PageHeader.jsx';
 import DosenSummaryCards from '../../dosen-wali/dashboard/components/DosenSummaryCards.jsx';
 import MahasiswaBimbinganFilters from '../../dosen-wali/dashboard/components/MahasiswaBimbinganFilters.jsx';
@@ -31,7 +31,7 @@ function DosenWaliDetailPage() {
   const statusFilter = normalizeDosenStatusFilter(searchParams.get('status'));
   // useFetch: kaprodi ambil ringkasan dosen terpilih dari service sendiri,
   // terpisah dari dashboard dosen wali asli.
-  const { data, loading, error } = useFetch(
+  const { data, loading, error, refetch } = useFetch(
     () => getKaprodiDosenWaliDetail(dosenWaliId),
     [dosenWaliId],
   );
@@ -82,7 +82,7 @@ function DosenWaliDetailPage() {
   if (error && !data) {
     return (
       <PageContainer>
-        <Alert severity="error">{error.message}</Alert>
+        <PageErrorState message={error.message} onRetry={refetch} />
       </PageContainer>
     );
   }

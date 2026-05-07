@@ -303,10 +303,10 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 - [x] Replace mock dosen wali review (Domain 3 — bimbingan list, detail mahasiswa, approve/revisi)
 - [x] Replace mock akademik (Domain 2 — ringkasan dashboard, pohon kurikulum, auto-route by role)
 - [x] Replace mock riwayat nilai (Domain 4 — DPS upload preview/confirm, manual)
-- [ ] Rapikan loading / error state setelah integrasi
+- [x] Rapikan loading / error state setelah integrasi
   - [x] Priority 3: avoid loading flicker di dashboard mahasiswa dan halaman periode (`loading && !data`)
   - [x] Priority 3: auto-dismiss success alert mutation periode dan save assignment setelah 3 detik
-  - [ ] Priority 3: audit lanjutan untuk skeleton/retry button kalau mau dipoles lagi
+  - [x] Priority 3: retry button untuk error state halaman utama
   - [x] Priority 4: audit MUI deprecation props (`InputProps`, `InputLabelProps`, `inputProps`) dan migrasi ke `slotProps`
   - [x] Priority 5: disable double-click checkout tambah matkul saat request sedang berjalan
 - [x] Implement Google OAuth real (akhir M9, setelah `.env` Google dilengkapi)
@@ -444,7 +444,7 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 | 6. Core Rencana Studi Flow | ✅ Done | 2026-05-01 | 2026-05-01 |
 | 7. Akademik & Pohon Kurikulum | ✅ Done | 2026-05-01 | 2026-05-01 |
 | 8. Riwayat Nilai / DPS | ✅ Done | 2026-05-04 | 2026-05-04 |
-| 9. Integrasi Frontend | 🚧 In Progress | 2026-05-04 | - |
+| 9. Integrasi Frontend | ✅ Done | 2026-05-04 | 2026-05-07 |
 | 10. Hardening & Polish | ⏳ Not started | - | - |
 
 > Update kolom Status: `⏳ Not started` -> `🚧 In Progress` -> `✅ Done`

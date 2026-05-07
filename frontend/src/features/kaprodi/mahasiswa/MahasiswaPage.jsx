@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -11,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { getKaprodiMahasiswaList } from '../../../api/kaprodiManagement.js';
 import useFetch from '../../../hooks/useFetch.js';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
+import PageErrorState from '../../../shared/components/PageErrorState.jsx';
 import PageHeader from '../../../shared/components/PageHeader.jsx';
 import KaprodiMahasiswaSummaryCards from './components/KaprodiMahasiswaSummaryCards.jsx';
 import KaprodiMahasiswaTable from './components/KaprodiMahasiswaTable.jsx';
@@ -21,7 +21,7 @@ function MahasiswaPage() {
   const [assignmentFilter, setAssignmentFilter] = useState('all');
   // useFetch: halaman mahasiswa membaca sumber kaprodi yang sama
   // dengan halaman dosen wali agar status assign tetap konsisten.
-  const { data, loading, error } = useFetch(getKaprodiMahasiswaList, []);
+  const { data, loading, error, refetch } = useFetch(getKaprodiMahasiswaList, []);
 
   // useMemo: pencarian + filter assignment dihitung lokal supaya tabel terasa
   // responsif tanpa perlu request baru tiap kali user mengetik.
@@ -54,7 +54,7 @@ function MahasiswaPage() {
   if (error && !data) {
     return (
       <PageContainer>
-        <Alert severity="error">{error.message}</Alert>
+        <PageErrorState message={error.message} onRetry={refetch} />
       </PageContainer>
     );
   }

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -8,6 +7,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getMahasiswaBimbinganProfile } from '../../../api/rencanaStudi.js';
 import useFetch from '../../../hooks/useFetch.js';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
+import PageErrorState from '../../../shared/components/PageErrorState.jsx';
 import PageHeader from '../../../shared/components/PageHeader.jsx';
 import DetailMahasiswaDashboardTab from './components/DetailMahasiswaDashboardTab.jsx';
 import DetailMahasiswaPohonTab from './components/DetailMahasiswaPohonTab.jsx';
@@ -29,7 +29,7 @@ function DetailMahasiswaPage({
 
   // useFetch: ambil profil akademik mahasiswa bimbingan sekali per mahasiswaId.
   // Profil ini dipakai sebagai header dan sumber data tab Dashboard.
-  const { data: profile, loading, error } = useFetch(
+  const { data: profile, loading, error, refetch } = useFetch(
     () => getMahasiswaBimbinganProfile(mahasiswaId),
     [mahasiswaId],
   );
@@ -59,7 +59,7 @@ function DetailMahasiswaPage({
   if (error && !profile) {
     return (
       <PageContainer>
-        <Alert severity="error">{error.message}</Alert>
+        <PageErrorState message={error.message} onRetry={refetch} />
       </PageContainer>
     );
   }

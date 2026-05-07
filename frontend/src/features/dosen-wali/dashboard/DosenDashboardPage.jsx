@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import { useSearchParams } from 'react-router-dom';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
+import PageErrorState from '../../../shared/components/PageErrorState.jsx';
 import PageHeader from '../../../shared/components/PageHeader.jsx';
 import { getRencanaStudiDosenBimbingan } from '../../../api/rencanaStudi.js';
 import { useAuth } from '../../../contexts/AuthContext.jsx';
@@ -54,7 +54,7 @@ function DosenDashboardPage() {
 
   // useFetch: ambil list FRS mahasiswa bimbingan dari service layer.
   // Component tidak fetch langsung supaya nanti mudah diganti backend asli.
-  const { data, loading, error } = useFetch(getRencanaStudiDosenBimbingan, []);
+  const { data, loading, error, refetch } = useFetch(getRencanaStudiDosenBimbingan, []);
 
   // useMemo: filter list hanya dihitung ulang saat data/search/filter berubah,
   // bukan setiap render biasa seperti buka menu avatar.
@@ -87,7 +87,7 @@ function DosenDashboardPage() {
   if (error && !data) {
     return (
       <PageContainer>
-        <Alert severity="error">{error.message}</Alert>
+        <PageErrorState message={error.message} onRetry={refetch} />
       </PageContainer>
     );
   }

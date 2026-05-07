@@ -1,7 +1,7 @@
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
+import PageErrorState from '../../../shared/components/PageErrorState.jsx';
 import PageHeader from '../../../shared/components/PageHeader.jsx';
 import { getKaprodiDashboard } from '../../../api/kaprodi.js';
 import { useAuth } from '../../../contexts/AuthContext.jsx';
@@ -17,7 +17,7 @@ function KaprodiDashboardPage() {
 
   // useFetch: dashboard kaprodi ambil ringkasan dari service layer.
   // Ini menjaga page tetap tipis dan mudah diganti ke backend asli nanti.
-  const { data, loading, error } = useFetch(() => getKaprodiDashboard(), []);
+  const { data, loading, error, refetch } = useFetch(() => getKaprodiDashboard(), []);
 
   if (loading && !data) {
     return (
@@ -32,7 +32,7 @@ function KaprodiDashboardPage() {
   if (error && !data) {
     return (
       <PageContainer>
-        <Alert severity="error">{error.message}</Alert>
+        <PageErrorState message={error.message} onRetry={refetch} />
       </PageContainer>
     );
   }

@@ -27,8 +27,6 @@ const BULAN_INDEX_BY_NAME = Object.fromEntries(
   BULAN_OPTIONS.map((bulan, index) => [bulan.toLowerCase(), index + 1])
 );
 
-const HARI_INDEX = Object.fromEntries(HARI_OPTIONS.map((hari, index) => [hari, index]));
-
 let nextSlotId = 1;
 
 function generateSlotId() {

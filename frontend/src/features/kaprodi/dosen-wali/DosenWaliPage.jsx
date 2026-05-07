@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -9,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { getKaprodiDosenWaliList } from '../../../api/kaprodiManagement.js';
 import useFetch from '../../../hooks/useFetch.js';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
+import PageErrorState from '../../../shared/components/PageErrorState.jsx';
 import PageHeader from '../../../shared/components/PageHeader.jsx';
 import KaprodiDosenWaliDirectoryList from './components/KaprodiDosenWaliDirectoryList.jsx';
 import KaprodiDosenWaliSummaryCards from './components/KaprodiDosenWaliSummaryCards.jsx';
@@ -18,7 +18,7 @@ function DosenWaliPage() {
   const [searchQuery, setSearchQuery] = useState('');
   // useFetch: daftar dosen wali diambil dari service layer kaprodi
   // agar nanti sumber datanya bisa diganti ke backend tanpa ubah UI.
-  const { data, loading, error } = useFetch(getKaprodiDosenWaliList, []);
+  const { data, loading, error, refetch } = useFetch(getKaprodiDosenWaliList, []);
 
   // useMemo: pencarian dipisah dari render biasa supaya filtering hanya
   // dihitung ulang saat query atau data dosen benar-benar berubah.
@@ -46,7 +46,7 @@ function DosenWaliPage() {
   if (error && !data) {
     return (
       <PageContainer>
-        <Alert severity="error">{error.message}</Alert>
+        <PageErrorState message={error.message} onRetry={refetch} />
       </PageContainer>
     );
   }

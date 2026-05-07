@@ -34,7 +34,6 @@ function useFetch(fetcher, deps = []) {
   //
   // 'cancelled' flag: pengaman supaya gak setState kalau component
   // sudah unmount sebelum fetch selesai (avoid memory leak warning di console).
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     let cancelled = false;
 
