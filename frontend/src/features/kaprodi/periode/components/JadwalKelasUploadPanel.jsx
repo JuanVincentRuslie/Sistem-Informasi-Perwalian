@@ -189,8 +189,10 @@ function JadwalKelasUploadPanel({ periods, activePeriode, onUploaded }) {
             type="file"
             key={inputKey}
             label="File Excel"
-            slotProps={{ inputLabel: { shrink: true } }}
-            inputProps={{ accept: '.xlsx,.xls' }}
+            slotProps={{
+              inputLabel: { shrink: true },
+              htmlInput: { accept: '.xlsx,.xls' },
+            }}
             onChange={handleFileChange}
           />
 

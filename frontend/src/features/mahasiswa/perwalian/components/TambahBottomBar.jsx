@@ -12,8 +12,9 @@ const DRAWER_WIDTH = 240;
  * @param {number} totalSks - Total SKS dari matkul terpilih
  * @param {Function} onCheckout
  * @param {boolean} disabled
+ * @param {boolean} loading
  */
-function TambahBottomBar({ count, totalSks, onCheckout, disabled }) {
+function TambahBottomBar({ count, totalSks, onCheckout, disabled, loading = false }) {
   return (
     <Box
       sx={{
@@ -36,7 +37,7 @@ function TambahBottomBar({ count, totalSks, onCheckout, disabled }) {
         Matakuliah Terpilih : {count} ( {totalSks} SKS )
       </Typography>
       <Button variant="contained" onClick={onCheckout} disabled={disabled}>
-        Checkout
+        {loading ? 'Menyimpan...' : 'Checkout'}
       </Button>
     </Box>
   );

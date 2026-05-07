@@ -33,7 +33,7 @@ function DpsPreviewTable({ rows, onRowChange }) {
                   size="small"
                   value={row.kode_matkul}
                   onChange={(event) => onRowChange(index, 'kode_matkul', event.target.value)}
-                  inputProps={{ 'aria-label': 'Kode mata kuliah' }}
+                  slotProps={{ htmlInput: { 'aria-label': 'Kode mata kuliah' } }}
                   sx={{ minWidth: 120 }}
                 />
               </TableCell>
@@ -42,7 +42,7 @@ function DpsPreviewTable({ rows, onRowChange }) {
                   size="small"
                   value={row.nama_matkul}
                   onChange={(event) => onRowChange(index, 'nama_matkul', event.target.value)}
-                  inputProps={{ 'aria-label': 'Nama mata kuliah' }}
+                  slotProps={{ htmlInput: { 'aria-label': 'Nama mata kuliah' } }}
                   sx={{ minWidth: 220 }}
                 />
               </TableCell>
@@ -67,7 +67,7 @@ function DpsPreviewTable({ rows, onRowChange }) {
                   type="number"
                   value={row.nilai_angka ?? ''}
                   onChange={(event) => onRowChange(index, 'nilai_angka', event.target.value)}
-                  inputProps={{ min: 0, max: 100, 'aria-label': 'Nilai angka' }}
+                  slotProps={{ htmlInput: { min: 0, max: 100, 'aria-label': 'Nilai angka' } }}
                   sx={{ width: 96 }}
                 />
               </TableCell>

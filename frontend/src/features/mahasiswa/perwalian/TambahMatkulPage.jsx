@@ -38,6 +38,9 @@ function TambahMatkulPage() {
   // useState: error checkout disimpan supaya user bisa baca dan koreksi,
   // tanpa terganggu popup alert native browser.
   const [submitError, setSubmitError] = useState('');
+  // useState: kunci tombol checkout selama item FRS dikirim satu per satu,
+  // supaya double-click tidak membuat request duplikat.
+  const [submitting, setSubmitting] = useState(false);
 
   // useFetch: ambil list kelas tersedia untuk periode ini.
   // [periodeId] di deps: refetch kalau user navigasi ulang dengan periodeId berbeda.
@@ -74,8 +77,10 @@ function TambahMatkulPage() {
   };
 
   const handleCheckout = async () => {
+    if (submitting) return;
     if (!frsId) { navigate('/dashboard/perwalian'); return; }
     setSubmitError('');
+    setSubmitting(true);
     try {
       for (const kelasId of selectedKelas.values()) {
         await addRencanaStudiItem(frsId, { kelas_id: kelasId });
@@ -84,6 +89,8 @@ function TambahMatkulPage() {
       navigate('/dashboard/perwalian', { state: { refreshed: true } });
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : 'Mata kuliah gagal ditambahkan ke FRS.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -110,7 +117,8 @@ function TambahMatkulPage() {
         count={totalCount}
         totalSks={totalSks}
         onCheckout={handleCheckout}
-        disabled={selectedKelas.size === 0}
+        disabled={selectedKelas.size === 0 || submitting}
+        loading={submitting}
       />
     </Box>
   );

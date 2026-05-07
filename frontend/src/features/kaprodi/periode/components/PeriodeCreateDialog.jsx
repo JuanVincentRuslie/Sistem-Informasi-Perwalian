@@ -104,7 +104,7 @@ function PeriodeCreateDialog({ open, saving, submitError, onClose, onSubmit, ini
             type="number"
             value={form.tahun_mulai}
             onChange={(event) => handleChange('tahun_mulai', event.target.value)}
-            inputProps={{ min: 2020 }}
+            slotProps={{ htmlInput: { min: 2020 } }}
           />
 
           <TextField

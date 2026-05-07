@@ -176,10 +176,12 @@ function JadwalPerwalianDialog({
                 value={slot.tanggal}
                 onChange={(event) => handleSlotChange(slot.id, 'tanggal', event.target.value)}
                 helperText={slot.tanggal ? getHariFromTanggal(slot.tanggal) : 'Pilih tanggal'}
-                InputLabelProps={{ shrink: true }}
-                inputProps={{
-                  min: periodeAktif?.tanggal_mulai,
-                  max: periodeAktif?.tanggal_selesai,
+                slotProps={{
+                  inputLabel: { shrink: true },
+                  htmlInput: {
+                    min: periodeAktif?.tanggal_mulai,
+                    max: periodeAktif?.tanggal_selesai,
+                  },
                 }}
               />
 

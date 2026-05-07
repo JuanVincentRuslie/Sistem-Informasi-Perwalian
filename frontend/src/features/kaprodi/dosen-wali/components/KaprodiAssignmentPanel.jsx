@@ -156,12 +156,14 @@ function KaprodiAssignmentPanel({
             onChange={(event) => onSearchChange(event.target.value)}
             size="small"
             placeholder="Cari nama atau NIM"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon fontSize="small" />
-                </InputAdornment>
-              ),
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon fontSize="small" />
+                  </InputAdornment>
+                ),
+              },
             }}
           />
 

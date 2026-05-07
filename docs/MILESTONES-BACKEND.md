@@ -307,6 +307,8 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
   - [x] Priority 3: avoid loading flicker di dashboard mahasiswa dan halaman periode (`loading && !data`)
   - [x] Priority 3: auto-dismiss success alert mutation periode dan save assignment setelah 3 detik
   - [ ] Priority 3: audit lanjutan untuk skeleton/retry button kalau mau dipoles lagi
+  - [x] Priority 4: audit MUI deprecation props (`InputProps`, `InputLabelProps`, `inputProps`) dan migrasi ke `slotProps`
+  - [x] Priority 5: disable double-click checkout tambah matkul saat request sedang berjalan
 - [x] Implement Google OAuth real (akhir M9, setelah `.env` Google dilengkapi)
 
 ### Catatan: Strategi Auth — dev-login dulu, Google OAuth terakhir
