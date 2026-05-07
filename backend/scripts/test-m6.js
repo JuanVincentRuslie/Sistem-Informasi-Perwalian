@@ -208,13 +208,26 @@ async function run() {
 
   // ============ AUTO-CHANGE STATUS ON EDIT ============
 
-  // 14. Mahasiswa add item dari APPROVED → status auto SUBMITTED
-  console.log('\nPOST /:id/items dari APPROVED → auto SUBMITTED');
+  // 14. Mahasiswa add item dari APPROVED → status auto DRAFT.
+  // Keputusan: keputusan dosen di-reset, mahasiswa wajib submit ulang manual.
+  // Catatan_dosen lama dibiarkan untuk reference (akan dibersihkan saat submit ulang).
+  console.log('\nPOST /:id/items dari APPROVED → auto DRAFT');
   const editApproved = await api('POST', `/api/v1/rencana-studi/${rsId}/items`, {
     body: { kelas_id: kelas3.id }, token: tokenMhsA,
   });
   check('status 201', editApproved.status === 201);
-  check('status auto SUBMITTED', editApproved.data?.data?.status === 'SUBMITTED');
+  check('status auto DRAFT', editApproved.data?.data?.status === 'DRAFT');
+  check('catatan_dosen lama tetap (biarkan)', editApproved.data?.data?.catatan_dosen === 'Bagus, lanjutkan!');
+
+  // 14b. Regression: bug "FRS tidak bisa di-submit dari status SUBMITTED" setelah
+  // mahasiswa reset/edit FRS yang sudah APPROVED. Submit ulang harus sukses.
+  console.log('\nPOST /:id/submit (regression: dari DRAFT pasca APPROVED-edit)');
+  const resubmitAfterApprovedEdit = await api('POST', `/api/v1/rencana-studi/${rsId}/submit`, { token: tokenMhsA });
+  check('status 200', resubmitAfterApprovedEdit.status === 200,
+    `status: ${resubmitAfterApprovedEdit.status} — ${resubmitAfterApprovedEdit.data?.message}`);
+  check('status SUBMITTED', resubmitAfterApprovedEdit.data?.data?.status === 'SUBMITTED');
+  check('catatan_dosen direset null setelah submit ulang',
+    resubmitAfterApprovedEdit.data?.data?.catatan_dosen === null);
 
   // 15. Dosen revisi (catatan wajib)
   console.log('\nPOST /:id/revisi tanpa catatan → 400');

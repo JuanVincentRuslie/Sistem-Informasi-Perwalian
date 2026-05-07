@@ -151,9 +151,12 @@ async function isMahasiswaBimbinganDosen(dosenId, mahasiswaId) {
   return res.rows.length > 0;
 }
 
-// Auto-change status saat mahasiswa edit composition (add/delete item)
+// Auto-change status saat mahasiswa edit composition (add/delete item).
+// APPROVED/REJECTED → DRAFT: keputusan dosen di-reset, mahasiswa wajib submit ulang
+// secara eksplisit. Catatan_dosen lama dibiarkan untuk reference, akan dibersihkan
+// saat submit ulang (lihat submitRencanaStudi).
 function nextStatusOnEdit(currentStatus) {
-  if (currentStatus === 'APPROVED') return 'SUBMITTED';
+  if (currentStatus === 'APPROVED') return 'DRAFT';
   if (currentStatus === 'REJECTED') return 'DRAFT';
   return currentStatus; // DRAFT/SUBMITTED tetap
 }
