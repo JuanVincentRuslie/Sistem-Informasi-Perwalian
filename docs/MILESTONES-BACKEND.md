@@ -408,6 +408,9 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
   - [ ] Tampilkan warning non-blocking di checkout / tambah matkul
   - [ ] Backend tetap tidak hard-validate bentrok jadwal sesuai filosofi blueprint
 - [ ] Standardize error handling
+  - [x] Priority 2: audit controller yang expose `err.message` internal
+  - [x] Priority 2: friendly response untuk PostgreSQL constraint errors umum (`23505`, `23503`, `23502`, `23514`)
+  - [x] Priority 2: `PUT /periode/:id` rename ke nama duplikat return 409 friendly, bukan raw duplicate key
 - [ ] Tambahkan request validation
 - [ ] Tambahkan logging dasar
 - [ ] Tambahkan test untuk service / endpoint penting

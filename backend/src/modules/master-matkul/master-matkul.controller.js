@@ -1,5 +1,5 @@
 const service = require('./master-matkul.service');
-const { ok, fail } = require('../../utils/respond');
+const { ok, fail, failFromError } = require('../../utils/respond');
 
 async function list(req, res) {
   let semester = null;
@@ -15,7 +15,7 @@ async function list(req, res) {
     const data = await service.listMasterMatkul({ semester, search });
     return ok(res, data);
   } catch (err) {
-    return fail(res, 'Gagal mengambil master matkul', 500, { detail: err.message });
+    return failFromError(res, err, 'Gagal mengambil master matkul');
   }
 }
 
@@ -27,7 +27,7 @@ async function detail(req, res) {
     if (!data) return fail(res, 'Master matkul tidak ditemukan', 404);
     return ok(res, data);
   } catch (err) {
-    return fail(res, 'Gagal mengambil master matkul', 500, { detail: err.message });
+    return failFromError(res, err, 'Gagal mengambil master matkul');
   }
 }
 
@@ -36,7 +36,7 @@ async function listEdges(_req, res) {
     const data = await service.listEdges();
     return ok(res, data);
   } catch (err) {
-    return fail(res, 'Gagal mengambil edges', 500, { detail: err.message });
+    return failFromError(res, err, 'Gagal mengambil edges');
   }
 }
 

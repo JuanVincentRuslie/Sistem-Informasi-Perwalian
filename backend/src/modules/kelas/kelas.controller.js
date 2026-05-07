@@ -1,5 +1,5 @@
 const service = require('./kelas.service');
-const { ok, fail } = require('../../utils/respond');
+const { ok, fail, failFromError } = require('../../utils/respond');
 
 async function list(req, res) {
   try {
@@ -7,7 +7,7 @@ async function list(req, res) {
     const data = await service.listKelas({ periode_id, kode_matkul, search });
     return ok(res, data);
   } catch (err) {
-    return fail(res, 'Gagal mengambil data kelas', 500, { detail: err.message });
+    return failFromError(res, err, 'Gagal mengambil data kelas');
   }
 }
 
@@ -17,7 +17,7 @@ async function detail(req, res) {
     if (!kelas) return fail(res, 'Kelas tidak ditemukan', 404);
     return ok(res, kelas);
   } catch (err) {
-    return fail(res, 'Gagal mengambil data kelas', 500, { detail: err.message });
+    return failFromError(res, err, 'Gagal mengambil data kelas');
   }
 }
 
@@ -39,7 +39,7 @@ async function uploadPreview(req, res) {
     });
     return ok(res, result, 'Preview berhasil dibuat. Lakukan confirm untuk simpan.');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal membuat preview jadwal kelas');
   }
 }
 
@@ -53,7 +53,7 @@ async function uploadConfirm(req, res) {
     const result = await service.uploadConfirm({ upload_token, mode });
     return ok(res, result, 'Data kelas berhasil disimpan');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal menyimpan data kelas');
   }
 }
 

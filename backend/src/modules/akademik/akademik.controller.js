@@ -1,5 +1,5 @@
 const service = require('./akademik.service');
-const { ok, fail } = require('../../utils/respond');
+const { ok, fail, failFromError } = require('../../utils/respond');
 
 /* ---------- mahasiswa-side: data sendiri ---------- */
 
@@ -8,7 +8,7 @@ async function getRingkasanSaya(req, res) {
     const data = await service.getRingkasanAkademik(req.user.id);
     return ok(res, data);
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengambil ringkasan akademik');
   }
 }
 
@@ -17,7 +17,7 @@ async function getPohonSaya(req, res) {
     const data = await service.getPohonKurikulum(req.user.id);
     return ok(res, data);
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengambil pohon kurikulum');
   }
 }
 
@@ -36,7 +36,7 @@ async function getRingkasanMahasiswa(req, res) {
     });
     return ok(res, data);
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengambil ringkasan akademik mahasiswa');
   }
 }
 
@@ -53,7 +53,7 @@ async function getPohonMahasiswa(req, res) {
     });
     return ok(res, data);
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengambil pohon kurikulum mahasiswa');
   }
 }
 

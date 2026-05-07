@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { authenticate } = require('../../middleware/authenticate');
 const { authorize } = require('../../middleware/authorize');
 const { uploadPdf } = require('../../middleware/upload');
+const { fail } = require('../../utils/respond');
 const ctrl = require('./riwayat-nilai.controller');
 
 const router = Router();
@@ -10,7 +11,10 @@ const router = Router();
 function handleUpload(req, res, next) {
   uploadPdf(req, res, (err) => {
     if (err) {
-      return res.status(400).json({ success: false, message: err.message });
+      const message = err.code === 'LIMIT_FILE_SIZE'
+        ? 'File PDF terlalu besar. Maksimal 10 MB.'
+        : err.message;
+      return fail(res, message);
     }
     next();
   });

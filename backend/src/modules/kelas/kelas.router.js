@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { authenticate } = require('../../middleware/authenticate');
 const { authorize } = require('../../middleware/authorize');
 const { uploadExcel } = require('../../middleware/upload');
+const { fail } = require('../../utils/respond');
 const ctrl = require('./kelas.controller');
 
 const router = Router();
@@ -10,7 +11,10 @@ const router = Router();
 function handleUpload(req, res, next) {
   uploadExcel(req, res, (err) => {
     if (err) {
-      return res.status(400).json({ success: false, message: err.message });
+      const message = err.code === 'LIMIT_FILE_SIZE'
+        ? 'File Excel terlalu besar. Maksimal 5 MB.'
+        : err.message;
+      return fail(res, message);
     }
     next();
   });

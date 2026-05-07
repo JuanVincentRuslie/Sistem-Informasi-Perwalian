@@ -1,5 +1,5 @@
 const service = require('./rencana-studi.service');
-const { ok, created, fail } = require('../../utils/respond');
+const { ok, created, fail, failFromError } = require('../../utils/respond');
 
 /* ---------- mahasiswa ---------- */
 
@@ -15,7 +15,7 @@ async function getSaya(req, res) {
     const data = await service.getRencanaStudiSaya({ mahasiswaId: req.user.id, periodeId });
     return ok(res, data);
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengambil FRS');
   }
 }
 
@@ -24,7 +24,7 @@ async function getRiwayatSaya(req, res) {
     const data = await service.listRiwayatSaya(req.user.id);
     return ok(res, data);
   } catch (err) {
-    return fail(res, 'Gagal mengambil riwayat FRS', 500, { detail: err.message });
+    return failFromError(res, err, 'Gagal mengambil riwayat FRS');
   }
 }
 
@@ -37,7 +37,7 @@ async function create(req, res) {
     const data = await service.createRencanaStudi({ mahasiswaId: req.user.id, periodeId });
     return created(res, data, 'FRS berhasil dibuat');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal membuat FRS');
   }
 }
 
@@ -54,7 +54,7 @@ async function addItem(req, res) {
     });
     return created(res, data, 'Kelas berhasil ditambahkan ke FRS');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal menambahkan kelas ke FRS');
   }
 }
 
@@ -67,7 +67,7 @@ async function removeItem(req, res) {
     });
     return ok(res, data, 'Kelas berhasil dihapus dari FRS');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal menghapus kelas dari FRS');
   }
 }
 
@@ -79,7 +79,7 @@ async function submit(req, res) {
     });
     return ok(res, data, 'FRS berhasil disubmit untuk review');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal submit FRS');
   }
 }
 
@@ -101,7 +101,7 @@ async function listBimbingan(req, res) {
     const result = await service.listBimbinganFrs({ dosenId: req.user.id, periodeId, status });
     return res.json({ success: true, data: result.data, summary: result.summary, message: 'OK' });
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengambil daftar bimbingan FRS');
   }
 }
 
@@ -114,7 +114,7 @@ async function getProfilBimbingan(req, res) {
     });
     return ok(res, data);
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengambil profil mahasiswa bimbingan');
   }
 }
 
@@ -127,7 +127,7 @@ async function getRiwayatBimbingan(req, res) {
     });
     return ok(res, data);
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengambil riwayat FRS mahasiswa');
   }
 }
 
@@ -140,7 +140,7 @@ async function setujui(req, res) {
     });
     return ok(res, data, 'FRS berhasil disetujui');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal menyetujui FRS');
   }
 }
 
@@ -153,7 +153,7 @@ async function revisi(req, res) {
     });
     return ok(res, data, 'FRS dikembalikan untuk revisi');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengembalikan FRS untuk revisi');
   }
 }
 
@@ -167,7 +167,7 @@ async function detail(req, res) {
     });
     return ok(res, data);
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengambil detail FRS');
   }
 }
 

@@ -1,5 +1,5 @@
 const service = require('./periode.service');
-const { ok, created, fail } = require('../../utils/respond');
+const { ok, created, fail, failFromError } = require('../../utils/respond');
 
 async function list(req, res) {
   try {
@@ -11,7 +11,7 @@ async function list(req, res) {
     const data = await service.listPeriode({ isActive });
     return ok(res, data);
   } catch (err) {
-    return fail(res, 'Gagal mengambil data periode', 500, { detail: err.message });
+    return failFromError(res, err, 'Gagal mengambil data periode');
   }
 }
 
@@ -21,7 +21,7 @@ async function getAktif(req, res) {
     if (!periode) return fail(res, 'Tidak ada periode aktif', 404);
     return ok(res, periode);
   } catch (err) {
-    return fail(res, 'Gagal mengambil periode aktif', 500, { detail: err.message });
+    return failFromError(res, err, 'Gagal mengambil periode aktif');
   }
 }
 
@@ -40,7 +40,7 @@ async function create(req, res) {
     const periode = await service.createPeriode({ nama, tahun_mulai, jenis, tanggal_mulai, tanggal_selesai });
     return created(res, periode, 'Periode berhasil dibuat dan diaktifkan');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal membuat periode');
   }
 }
 
@@ -55,7 +55,7 @@ async function update(req, res) {
     const periode = await service.updatePeriode(req.params.id, { nama, tahun_mulai, jenis, tanggal_mulai, tanggal_selesai });
     return ok(res, periode, 'Periode berhasil diupdate');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengupdate periode');
   }
 }
 
@@ -64,7 +64,7 @@ async function aktivasi(req, res) {
     const periode = await service.aktivasiPeriode(req.params.id);
     return ok(res, periode, 'Periode berhasil diaktifkan');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengaktifkan periode');
   }
 }
 
@@ -73,7 +73,7 @@ async function remove(req, res) {
     await service.deletePeriode(req.params.id);
     return ok(res, null, 'Periode berhasil dihapus');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal menghapus periode');
   }
 }
 

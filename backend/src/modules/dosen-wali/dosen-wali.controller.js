@@ -1,5 +1,5 @@
 const service = require('./dosen-wali.service');
-const { ok, created, fail, withPagination } = require('../../utils/respond');
+const { ok, created, fail, failFromError, withPagination } = require('../../utils/respond');
 const { parsePagination, buildMeta } = require('../../utils/paginate');
 
 async function list(req, res) {
@@ -9,7 +9,7 @@ async function list(req, res) {
     const { data, total } = await service.listDosenWali({ page, limit, offset, search });
     return withPagination(res, data, buildMeta(page, limit, total));
   } catch (err) {
-    return fail(res, 'Gagal mengambil data dosen wali', 500, { detail: err.message });
+    return failFromError(res, err, 'Gagal mengambil data dosen wali');
   }
 }
 
@@ -19,7 +19,7 @@ async function detail(req, res) {
     if (!dosen) return fail(res, 'Dosen wali tidak ditemukan', 404);
     return ok(res, dosen);
   } catch (err) {
-    return fail(res, 'Gagal mengambil data dosen wali', 500, { detail: err.message });
+    return failFromError(res, err, 'Gagal mengambil data dosen wali');
   }
 }
 
@@ -34,7 +34,7 @@ async function create(req, res) {
     const dosen = await service.createDosenWali({ nama, email, nip, jadwal_perwalian });
     return created(res, dosen, 'Dosen wali berhasil ditambahkan');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal menambahkan dosen wali');
   }
 }
 
@@ -45,7 +45,7 @@ async function update(req, res) {
     const dosen = await service.updateDosenWali(req.params.id, { nama, email, nip, jadwal_perwalian });
     return ok(res, dosen, 'Data dosen wali berhasil diupdate');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengupdate data dosen wali');
   }
 }
 
@@ -60,7 +60,7 @@ async function updateMe(req, res) {
     await service.updateJadwalPerwalian(req.user.id, jadwal_perwalian);
     return ok(res, null, 'Jadwal perwalian berhasil diupdate');
   } catch (err) {
-    return fail(res, 'Gagal update jadwal', 500, { detail: err.message });
+    return failFromError(res, err, 'Gagal update jadwal');
   }
 }
 
@@ -69,7 +69,7 @@ async function remove(req, res) {
     await service.deleteDosenWali(req.params.id);
     return ok(res, null, 'Dosen wali berhasil dihapus');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal menghapus dosen wali');
   }
 }
 

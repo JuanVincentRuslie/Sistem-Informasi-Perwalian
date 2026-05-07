@@ -1,5 +1,5 @@
 const service = require('./riwayat-nilai.service');
-const { ok, fail } = require('../../utils/respond');
+const { ok, fail, failFromError } = require('../../utils/respond');
 
 async function getSaya(req, res) {
   let periodeId = null;
@@ -13,7 +13,7 @@ async function getSaya(req, res) {
     const data = await service.listSaya({ mahasiswaId: req.user.id, periodeId });
     return ok(res, data);
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengambil riwayat nilai');
   }
 }
 
@@ -38,7 +38,7 @@ async function getMahasiswa(req, res) {
     });
     return ok(res, data);
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengambil riwayat nilai mahasiswa');
   }
 }
 
@@ -53,7 +53,7 @@ async function uploadDps(req, res) {
     });
     return ok(res, data, 'Preview berhasil dibuat. Lakukan confirm untuk simpan.');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal membuat preview DPS');
   }
 }
 
@@ -70,7 +70,7 @@ async function uploadDpsConfirm(req, res) {
     });
     return ok(res, data, 'Riwayat nilai berhasil disimpan');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal menyimpan riwayat nilai');
   }
 }
 
@@ -80,7 +80,7 @@ async function manualEntry(req, res) {
     const data = await service.manualEntry({ mahasiswaId: req.user.id, items });
     return ok(res, data, 'Riwayat nilai berhasil disimpan (manual)');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal menyimpan riwayat nilai manual');
   }
 }
 

@@ -9,6 +9,7 @@ const rencanaStudiRouter = require('./modules/rencana-studi/rencana-studi.router
 const masterMatkulRouter = require('./modules/master-matkul/master-matkul.router');
 const akademikRouter = require('./modules/akademik/akademik.router');
 const riwayatNilaiRouter = require('./modules/riwayat-nilai/riwayat-nilai.router');
+const { fail } = require('./utils/respond');
 
 const app = express();
 
@@ -37,7 +38,7 @@ app.use('/api/v1/riwayat-nilai', riwayatNilaiRouter);
 
 // 404 fallback
 app.use((_req, res) => {
-  res.status(404).json({ success: false, message: 'Endpoint tidak ditemukan' });
+  return fail(res, 'Endpoint tidak ditemukan', 404);
 });
 
 module.exports = { app };

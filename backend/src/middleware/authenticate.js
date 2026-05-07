@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { env } = require('../config/env');
+const { fail } = require('../utils/respond');
 
 /**
  * Middleware: verifikasi JWT dari header Authorization: Bearer <token>.
@@ -9,7 +10,7 @@ function authenticate(req, res, next) {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ success: false, message: 'Token tidak ditemukan' });
+    return fail(res, 'Token tidak ditemukan', 401);
   }
 
   const token = authHeader.slice(7);
@@ -20,7 +21,7 @@ function authenticate(req, res, next) {
     req.user = { id: payload.id, email: payload.email, role: payload.role };
     return next();
   } catch {
-    return res.status(401).json({ success: false, message: 'Token tidak valid atau sudah expired' });
+    return fail(res, 'Token tidak valid atau sudah expired', 401);
   }
 }
 

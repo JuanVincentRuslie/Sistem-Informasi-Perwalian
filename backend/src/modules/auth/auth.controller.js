@@ -1,11 +1,12 @@
 const authService = require('./auth.service');
 const { query } = require('../../db/pool');
+const { fail, failFromError } = require('../../utils/respond');
 
 async function googleLogin(req, res) {
   const { code } = req.body;
 
   if (!code) {
-    return res.status(400).json({ success: false, message: 'Field "code" wajib diisi' });
+    return fail(res, 'Field "code" wajib diisi');
   }
 
   try {
@@ -13,14 +14,11 @@ async function googleLogin(req, res) {
     const user = await authService.findUserByEmail(googleUser.email);
 
     if (!user) {
-      return res.status(403).json({
-        success: false,
-        message: 'Email tidak terdaftar di sistem. Hubungi Kaprodi.',
-      });
+      return fail(res, 'Email tidak terdaftar di sistem. Hubungi Kaprodi.', 403);
     }
 
     if (!user.is_active) {
-      return res.status(403).json({ success: false, message: 'Akun tidak aktif.' });
+      return fail(res, 'Akun tidak aktif.', 403);
     }
 
     await authService.updateLastLogin(user.id, googleUser.googleId, googleUser.avatarUrl);
@@ -42,11 +40,7 @@ async function googleLogin(req, res) {
       message: 'Login berhasil',
     });
   } catch (err) {
-    return res.status(500).json({
-      success: false,
-      message: 'Login gagal',
-      errors: { detail: err.message },
-    });
+    return failFromError(res, err, 'Login gagal');
   }
 }
 
@@ -66,7 +60,7 @@ async function getMe(req, res) {
     const user = userResult.rows[0];
 
     if (!user) {
-      return res.status(404).json({ success: false, message: 'User tidak ditemukan' });
+      return fail(res, 'User tidak ditemukan', 404);
     }
 
     let profile = null;
@@ -91,11 +85,7 @@ async function getMe(req, res) {
 
     return res.json({ success: true, data: { ...user, profile }, message: 'OK' });
   } catch (err) {
-    return res.status(500).json({
-      success: false,
-      message: 'Gagal mengambil data user',
-      errors: { detail: err.message },
-    });
+    return failFromError(res, err, 'Gagal mengambil data user');
   }
 }
 
@@ -106,21 +96,21 @@ async function getMe(req, res) {
  */
 async function devLogin(req, res) {
   if (process.env.NODE_ENV === 'production') {
-    return res.status(404).json({ success: false, message: 'Endpoint tidak ditemukan' });
+    return fail(res, 'Endpoint tidak ditemukan', 404);
   }
 
   const { email } = req.body ?? {};
   if (!email) {
-    return res.status(400).json({ success: false, message: 'Field "email" wajib diisi' });
+    return fail(res, 'Field "email" wajib diisi');
   }
 
   try {
     const user = await authService.findUserByEmail(email);
     if (!user) {
-      return res.status(404).json({ success: false, message: 'Email tidak terdaftar di sistem' });
+      return fail(res, 'Email tidak terdaftar di sistem', 404);
     }
     if (!user.is_active) {
-      return res.status(403).json({ success: false, message: 'Akun tidak aktif' });
+      return fail(res, 'Akun tidak aktif', 403);
     }
 
     const token = authService.signJwt(user);
@@ -140,11 +130,7 @@ async function devLogin(req, res) {
       message: 'Login berhasil (dev mode)',
     });
   } catch (err) {
-    return res.status(500).json({
-      success: false,
-      message: 'Login gagal',
-      errors: { detail: err.message },
-    });
+    return failFromError(res, err, 'Login gagal');
   }
 }
 

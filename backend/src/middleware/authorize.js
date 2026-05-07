@@ -1,3 +1,5 @@
+const { fail } = require('../utils/respond');
+
 /**
  * Middleware: cek role user setelah authenticate.
  * Usage: authorize('kaprodi') atau authorize('kaprodi', 'dosen_wali')
@@ -9,10 +11,10 @@ function authorize(...roles) {
 
   return (req, res, next) => {
     if (!req.user) {
-      return res.status(401).json({ success: false, message: 'Unauthorized' });
+      return fail(res, 'Unauthorized', 401);
     }
     if (!allowed.includes(req.user.role)) {
-      return res.status(403).json({ success: false, message: 'Akses ditolak' });
+      return fail(res, 'Akses ditolak', 403);
     }
     return next();
   };

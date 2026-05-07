@@ -99,17 +99,26 @@ async function updatePeriode(id, { nama, tahun_mulai, jenis, tanggal_mulai, tang
     throw err;
   }
 
-  await query(
-    `UPDATE periode
-     SET nama = COALESCE($1, nama),
-         tahun_mulai = COALESCE($2, tahun_mulai),
-         jenis = COALESCE($3, jenis),
-         tanggal_mulai = COALESCE($4, tanggal_mulai),
-         tanggal_selesai = COALESCE($5, tanggal_selesai),
-         updated_at = NOW()
-     WHERE id = $6`,
-    [nama ?? null, tahun_mulai ?? null, jenis ?? null, tanggal_mulai ?? null, tanggal_selesai ?? null, id],
-  );
+  try {
+    await query(
+      `UPDATE periode
+       SET nama = COALESCE($1, nama),
+           tahun_mulai = COALESCE($2, tahun_mulai),
+           jenis = COALESCE($3, jenis),
+           tanggal_mulai = COALESCE($4, tanggal_mulai),
+           tanggal_selesai = COALESCE($5, tanggal_selesai),
+           updated_at = NOW()
+       WHERE id = $6`,
+      [nama ?? null, tahun_mulai ?? null, jenis ?? null, tanggal_mulai ?? null, tanggal_selesai ?? null, id],
+    );
+  } catch (dbErr) {
+    if (dbErr.code === '23505') {
+      const err = new Error('Nama periode sudah digunakan');
+      err.statusCode = 409;
+      throw err;
+    }
+    throw dbErr;
+  }
 
   return getPeriodeById(id);
 }

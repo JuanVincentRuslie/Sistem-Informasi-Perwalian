@@ -1,5 +1,5 @@
 const service = require('./mahasiswa.service');
-const { ok, created, fail, withPagination } = require('../../utils/respond');
+const { ok, created, fail, failFromError, withPagination } = require('../../utils/respond');
 const { parsePagination, buildMeta } = require('../../utils/paginate');
 
 async function list(req, res) {
@@ -17,7 +17,7 @@ async function list(req, res) {
 
     return withPagination(res, data, buildMeta(page, limit, total));
   } catch (err) {
-    return fail(res, 'Gagal mengambil data mahasiswa', 500, { detail: err.message });
+    return failFromError(res, err, 'Gagal mengambil data mahasiswa');
   }
 }
 
@@ -42,7 +42,7 @@ async function detail(req, res) {
 
     return ok(res, mhs);
   } catch (err) {
-    return fail(res, 'Gagal mengambil data mahasiswa', 500, { detail: err.message });
+    return failFromError(res, err, 'Gagal mengambil data mahasiswa');
   }
 }
 
@@ -57,7 +57,7 @@ async function create(req, res) {
     const mhs = await service.createMahasiswa({ nama, email, nim, angkatan, dosen_wali_id });
     return created(res, mhs, 'Mahasiswa berhasil ditambahkan');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal menambahkan mahasiswa');
   }
 }
 
@@ -68,7 +68,7 @@ async function update(req, res) {
     const mhs = await service.updateMahasiswa(req.params.id, { nama, email, nim, angkatan });
     return ok(res, mhs, 'Data mahasiswa berhasil diupdate');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengupdate data mahasiswa');
   }
 }
 
@@ -81,7 +81,7 @@ async function assignDosenWali(req, res) {
     const action = dosenWaliId ? 'Dosen wali berhasil di-assign' : 'Dosen wali berhasil di-unassign';
     return ok(res, null, action);
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal mengubah dosen wali mahasiswa');
   }
 }
 
@@ -90,7 +90,7 @@ async function remove(req, res) {
     await service.deleteMahasiswa(req.params.id);
     return ok(res, null, 'Mahasiswa berhasil dihapus');
   } catch (err) {
-    return fail(res, err.message, err.statusCode ?? 500);
+    return failFromError(res, err, 'Gagal menghapus mahasiswa');
   }
 }
 
