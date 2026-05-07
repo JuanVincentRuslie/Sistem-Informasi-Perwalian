@@ -70,6 +70,17 @@ async function uploadDpsConfirm(req, res) {
     });
     return ok(res, data, 'Riwayat nilai berhasil disimpan');
   } catch (err) {
+    // DEBUG: log error lengkap untuk investigasi M10. Hapus setelah issue selesai.
+    console.error('[uploadDpsConfirm] error:', {
+      message: err.message,
+      code: err.code,
+      detail: err.detail,
+      constraint: err.constraint,
+      table: err.table,
+      column: err.column,
+      statusCode: err.statusCode,
+      stack: err.stack?.split('\n').slice(0, 5).join('\n'),
+    });
     return failFromError(res, err, 'Gagal menyimpan riwayat nilai');
   }
 }

@@ -9,17 +9,20 @@ const PERIODE_DUMMY_NAMA = 'Riwayat DPS';
  * Internal helpers
  * ============================================================ */
 
-// Cari id periode dummy "Riwayat DPS" (di-seed via seed:periode-dummy)
+// Cari id periode dummy "Riwayat DPS". Kalau tidak ada (mis. ke-delete via DB direct
+// atau migrasi awal), auto-create supaya upload DPS tidak gagal. Defensive against
+// accidental deletion karena periode ini cuma placeholder backend.
 async function getPeriodeDummyId() {
   const res = await query('SELECT id FROM periode WHERE nama = $1', [PERIODE_DUMMY_NAMA]);
-  if (!res.rows[0]) {
-    const err = new Error(
-      `Periode dummy "${PERIODE_DUMMY_NAMA}" tidak ditemukan. Jalankan: npm run seed:periode-dummy`,
-    );
-    err.statusCode = 500;
-    throw err;
-  }
-  return res.rows[0].id;
+  if (res.rows[0]) return res.rows[0].id;
+
+  const insert = await query(
+    `INSERT INTO periode (nama, tahun_mulai, jenis, tanggal_mulai, tanggal_selesai, is_active)
+     VALUES ($1, 2000, 'ganjil', '2000-01-01', '2000-12-31', FALSE)
+     RETURNING id`,
+    [PERIODE_DUMMY_NAMA],
+  );
+  return insert.rows[0].id;
 }
 
 // Lookup sks per kode_matkul dari master_matkul (cek kode_aktif & kode_alias)

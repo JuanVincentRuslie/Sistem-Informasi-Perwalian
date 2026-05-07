@@ -15,14 +15,17 @@ const TOTAL_KELAS_SQL = `
 `;
 
 async function listPeriode({ isActive } = {}) {
-  let whereClause = '';
-  const params = [];
+  // Sembunyikan periode dummy "Riwayat DPS" dari list — itu placeholder backend
+  // untuk tampung riwayat_nilai hasil upload DPS, bukan untuk dilihat/diedit kaprodi.
+  const conditions = ["p.nama != 'Riwayat DPS'"];
 
   if (isActive === true) {
-    whereClause = 'WHERE p.is_active = TRUE AND p.tanggal_selesai >= CURRENT_DATE';
+    conditions.push('p.is_active = TRUE AND p.tanggal_selesai >= CURRENT_DATE');
   } else if (isActive === false) {
-    whereClause = 'WHERE NOT (p.is_active = TRUE AND p.tanggal_selesai >= CURRENT_DATE)';
+    conditions.push('NOT (p.is_active = TRUE AND p.tanggal_selesai >= CURRENT_DATE)');
   }
+
+  const whereClause = `WHERE ${conditions.join(' AND ')}`;
 
   const result = await query(
     `SELECT p.id, p.nama, p.tahun_mulai, p.jenis,
@@ -32,7 +35,6 @@ async function listPeriode({ isActive } = {}) {
      FROM periode p
      ${whereClause}
      ORDER BY p.tanggal_mulai DESC`,
-    params,
   );
 
   return result.rows;
