@@ -397,6 +397,16 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 
 ### Tasks
 
+- [ ] Auth hardening: move JWT from localStorage to HttpOnly cookie
+  - [ ] Backend set `auth_token` HttpOnly cookie saat `/auth/google` dan `/auth/dev-login`
+  - [ ] Backend `authenticate` baca token dari cookie
+  - [ ] Backend `POST /auth/logout` clear cookie
+  - [ ] Frontend `apiClient` pakai `credentials: 'include'`
+  - [ ] AuthContext restore session via `/auth/me`, tidak simpan token di localStorage
+- [ ] Frontend advisory check untuk bentrok jadwal saat mahasiswa pilih kelas
+  - [ ] Deteksi overlap hari + jam antar kelas yang dipilih dalam FRS
+  - [ ] Tampilkan warning non-blocking di checkout / tambah matkul
+  - [ ] Backend tetap tidak hard-validate bentrok jadwal sesuai filosofi blueprint
 - [ ] Standardize error handling
 - [ ] Tambahkan request validation
 - [ ] Tambahkan logging dasar
