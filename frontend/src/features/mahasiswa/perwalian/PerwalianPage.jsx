@@ -123,8 +123,11 @@ function PerwalianPage() {
     }
   };
 
+  // Pass `frs` ke TambahMatkulPage juga, supaya halaman itu bisa cek bentrok
+  // jadwal antara kelas baru yg dipilih + kelas yg sudah ada di FRS — tanpa
+  // perlu fetch ulang. Fallback ke pure-new check kalau state hilang (F5/direct URL).
   const handleTambah = () => navigate('/dashboard/perwalian/tambah', {
-    state: { frsId: frs?.id, periodeId: activePeriodeId, periodeNama },
+    state: { frsId: frs?.id, periodeId: activePeriodeId, periodeNama, frs },
   });
 
   const handleJadwal = () => navigate('/dashboard/perwalian/jadwal', { state: { frs } });

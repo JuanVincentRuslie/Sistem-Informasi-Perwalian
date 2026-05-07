@@ -403,7 +403,12 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 ### Tasks
 
 - [ ] Auth hardening: move JWT from localStorage to HttpOnly cookie - tanya detail ke user
-- [ ] Frontend advisory check untuk bentrok jadwal saat mahasiswa pilih kelas - tanya detail ke user
+- [x] Frontend advisory check untuk bentrok jadwal saat mahasiswa pilih kelas
+  - Pure frontend, zero backend changes. Cek pairwise sesi (hari sama + waktu overlap)
+    saat klik Checkout di TambahMatkulPage.
+  - Scope: kelas baru yang dipilih + kelas yang sudah di FRS (dari router state). Dedup by kelas_id.
+  - Dialog `JadwalBentrokDialog` baru dengan tombol "Kembali" (tutup dialog, tidak navigate keluar).
+  - Spec: `docs/superpowers/specs/2026-05-08-frontend-jadwal-bentrok-advisory-design.md`
 - [ ] Standardize error handling
   - [x] Priority 2: audit controller yang expose `err.message` internal
   - [x] Priority 2: friendly response untuk PostgreSQL constraint errors umum (`23505`, `23503`, `23502`, `23514`)
@@ -417,6 +422,14 @@ Sebelum mulai implementasi backend, pegang keputusan ini sebagai source of truth
 - [ ] Audit migration + seed untuk setup ulang dari nol
 - [ ] Siapkan `.env.example`
 - [ ] Siapkan dokumentasi run lokal backend
+
+### Hotfix saat testing M10
+
+- [x] **Rencana studi state machine — APPROVED edit → DRAFT** (sebelumnya SUBMITTED).
+  - Bug user: setelah dosen approve, mahasiswa reset & submit ulang → ditolak "FRS tidak bisa di-submit dari status SUBMITTED".
+  - Root cause: `nextStatusOnEdit` di `rencana-studi.service.js` flip APPROVED → SUBMITTED tiap kali delete/add item, sehingga loop reset bikin status auto-SUBMITTED tanpa user klik Submit.
+  - Fix: APPROVED → DRAFT (bukan SUBMITTED). Mahasiswa wajib submit ulang manual setelah edit FRS yang sudah di-decided dosen. Catatan_dosen lama dibiarkan (dibersihkan saat submit ulang via existing logic).
+  - Regression test ditambah di `backend/scripts/test-m6.js` step 14 + 14b.
 
 ### Deliverable
 

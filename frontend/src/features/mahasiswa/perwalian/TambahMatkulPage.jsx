@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useFetch from '../../../hooks/useFetch.js';
 import { addRencanaStudiItem, getKelas } from '../../../api/rencanaStudi.js';
+import JadwalBentrokDialog from './components/JadwalBentrokDialog.jsx';
 import MatkulAccordionItem from './components/MatkulAccordionItem.jsx';
 import TambahBottomBar from './components/TambahBottomBar.jsx';
 
@@ -27,10 +28,31 @@ function groupByMatkul(kelasList) {
   return Array.from(map.values());
 }
 
+// Cek bentrok jadwal antar kelas (pairwise). Hari sama + waktu overlap = bentrok.
+// Format jam_mulai/jam_selesai dijamin "HH:MM" zero-padded oleh backend (TO_CHAR),
+// jadi string compare aman tanpa parse tanggal.
+function findJadwalBentrok(kelasArr) {
+  const bentrok = [];
+  for (let i = 0; i < kelasArr.length; i++) {
+    for (let j = i + 1; j < kelasArr.length; j++) {
+      for (const sa of kelasArr[i].sesi ?? []) {
+        for (const sb of kelasArr[j].sesi ?? []) {
+          if (sa.hari === sb.hari
+              && sa.jam_mulai < sb.jam_selesai
+              && sb.jam_mulai < sa.jam_selesai) {
+            bentrok.push({ a: kelasArr[i], sesiA: sa, b: kelasArr[j], sesiB: sb });
+          }
+        }
+      }
+    }
+  }
+  return bentrok;
+}
+
 function TambahMatkulPage() {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { frsId, periodeId, periodeNama } = state ?? {};
+  const { frsId, periodeId, periodeNama, frs } = state ?? {};
 
   // useState: Map dari kode_matkul → kelas_id yang dipilih.
   // Map memastikan per matkul hanya bisa pilih 1 kelas (seperti FRS nyata).
@@ -41,6 +63,9 @@ function TambahMatkulPage() {
   // useState: kunci tombol checkout selama item FRS dikirim satu per satu,
   // supaya double-click tidak membuat request duplikat.
   const [submitting, setSubmitting] = useState(false);
+  // useState: hasil cek bentrok jadwal saat checkout. Non-empty array = buka dialog
+  // warning. User klik "Kembali" → kosongkan array → dialog tertutup.
+  const [bentrokList, setBentrokList] = useState([]);
 
   // useFetch: ambil list kelas tersedia untuk periode ini.
   // [periodeId] di deps: refetch kalau user navigasi ulang dengan periodeId berbeda.
@@ -80,6 +105,31 @@ function TambahMatkulPage() {
     if (submitting) return;
     if (!frsId) { navigate('/dashboard/perwalian'); return; }
     setSubmitError('');
+
+    // Resolve kelas_id terpilih → object kelas lengkap (dengan sesi) dari kelasList.
+    const selectedKelasObjects = [];
+    for (const [kode, kelasId] of selectedKelas) {
+      const group = matkulGroups.find((m) => m.kode_matkul === kode);
+      const kelas = group?.kelas_list.find((k) => k.id === kelasId);
+      if (kelas) selectedKelasObjects.push(kelas);
+    }
+
+    // Gabung dengan kelas yang sudah di FRS (dari router state). Dedup by kelas_id
+    // supaya kelas yang sama tidak compare dengan dirinya sendiri (false positive).
+    const existingKelas = (frs?.items ?? []).map((item) => item.kelas);
+    const seen = new Set();
+    const checkInput = [...existingKelas, ...selectedKelasObjects].filter((k) => {
+      if (seen.has(k.id)) return false;
+      seen.add(k.id);
+      return true;
+    });
+
+    const bentrok = findJadwalBentrok(checkInput);
+    if (bentrok.length > 0) {
+      setBentrokList(bentrok);
+      return; // tidak panggil API, tidak navigate — tunggu user perbaiki pilihan
+    }
+
     setSubmitting(true);
     try {
       for (const kelasId of selectedKelas.values()) {
@@ -119,6 +169,12 @@ function TambahMatkulPage() {
         onCheckout={handleCheckout}
         disabled={selectedKelas.size === 0 || submitting}
         loading={submitting}
+      />
+
+      <JadwalBentrokDialog
+        open={bentrokList.length > 0}
+        onClose={() => setBentrokList([])}
+        bentrok={bentrokList}
       />
     </Box>
   );
