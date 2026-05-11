@@ -40,6 +40,9 @@ function PeriodePerwalianCard({ periodeAktif, dosenWali }) {
   }
 
   const rentangTanggal = `${formatTanggal(periodeAktif.tanggal_mulai)} - ${formatTanggal(periodeAktif.tanggal_selesai)}`;
+  const judulPeriode = periodeAktif.nama
+    ? `Periode Perwalian ${periodeAktif.nama}`
+    : 'Periode Perwalian';
   const jadwalLines = splitJadwalPerwalianLines(dosenWali?.jadwal_perwalian);
 
   return (
@@ -47,7 +50,7 @@ function PeriodePerwalianCard({ periodeAktif, dosenWali }) {
       {/* Header abu-abu */}
       <Box sx={{ bgcolor: 'grey.200', px: 3, py: 2 }}>
         <Typography variant="h6" fontWeight="bold">
-          Periode Perwalian
+          {judulPeriode}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {rentangTanggal}
@@ -55,13 +58,13 @@ function PeriodePerwalianCard({ periodeAktif, dosenWali }) {
       </Box>
 
       <Box sx={{ px: 3 }}>
-        <InfoRow label="Jadwal FRS">
+        <InfoRow label="Jadwal Pengisian Rencana Studi">
           <Typography variant="body2">{rentangTanggal}</Typography>
         </InfoRow>
 
         <Divider />
 
-        <InfoRow label="Jadwal Dosen Wali">
+        <InfoRow label="Jadwal Konseling Dosen Wali">
           {jadwalLines.length > 0 ? (
             <Stack spacing={0.5} sx={{ alignItems: 'flex-end' }}>
               {jadwalLines.map((line) => (
@@ -72,7 +75,7 @@ function PeriodePerwalianCard({ periodeAktif, dosenWali }) {
             </Stack>
           ) : (
             <Typography variant="body2" color="text.secondary">
-              Belum ada jadwal perwalian
+              Belum ada jadwal konseling
             </Typography>
           )}
         </InfoRow>

@@ -40,7 +40,7 @@ function KaprodiDashboardPage() {
   return (
     <PageContainer>
       <PageHeader
-        title="Dashboard Kaprodi"
+        title="Dashboard Kepala Program Studi"
         subtitle={`Halo, ${user?.nama}`}
       />
 

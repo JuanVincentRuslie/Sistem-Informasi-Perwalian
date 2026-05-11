@@ -15,7 +15,7 @@ const DEV_LOGIN_OPTIONS = [
 const DEV_EMAILS = {
   mahasiswa: '6180000001@student.unpar.ac.id',
   dosen_wali: 'rosad5@unpar.ac.id',
-  kaprodi: 'kaprodi@unpar.ac.id',
+  kaprodi: 'ruslie.vincent@gmail.com',
 };
 
 function DevLoginFallback({ disabled, onError, onSuccess }) {
