@@ -9,7 +9,7 @@ import { alpha } from '@mui/material/styles';
 const SUMMARY_ITEMS = [
   {
     key: 'total_dosen_wali',
-    label: 'Dosen Wali Aktif',
+    label: 'Total Dosen Wali',
     icon: PeopleAltIcon,
     accent: 'primary.main',
   },
@@ -21,7 +21,7 @@ const SUMMARY_ITEMS = [
   },
   {
     key: 'mahasiswa_tanpa_dosen_wali',
-    label: 'Belum Punya Dosen Wali',
+    label: 'Mahasiswa tanpa Dosen Wali',
     icon: PersonSearchIcon,
     accent: 'warning.main',
   },

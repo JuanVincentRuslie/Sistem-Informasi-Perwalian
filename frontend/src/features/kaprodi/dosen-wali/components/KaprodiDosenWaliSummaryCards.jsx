@@ -14,13 +14,13 @@ const SUMMARY_ITEMS = [
   },
   {
     key: 'mahasiswa_dengan_dosen_wali',
-    label: 'Mahasiswa Terassign',
+    label: 'Total Mahasiswa Wali',
     icon: SchoolIcon,
     color: 'success.main',
   },
   {
     key: 'mahasiswa_tanpa_dosen_wali',
-    label: 'Belum Punya Dosen Wali',
+    label: 'Mahasiswa tanpa Dosen Wali',
     icon: PersonAddAlt1Icon,
     color: 'warning.main',
   },

@@ -54,13 +54,13 @@ function JadwalPerwalianOverviewCard({ periodeAktif, jadwalPerwalian, onEdit }) 
       </Box>
 
       <Box sx={{ px: 3 }}>
-        <InfoRow label="Jadwal FRS">
+        <InfoRow label="Pengisian Rencana Studi">
           <Typography variant="body2">{rentangTanggal}</Typography>
         </InfoRow>
 
         <Divider />
 
-        <InfoRow label="Jadwal Saya">
+        <InfoRow label="Jadwal Konseling">
           {jadwalLines.length > 0 ? (
             <Stack spacing={0.5}>
               {jadwalLines.map((line) => (

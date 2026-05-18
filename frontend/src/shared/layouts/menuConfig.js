@@ -20,6 +20,6 @@ export const MENU_BY_ROLE = {
     { label: 'Dashboard', path: '/dashboard', icon: DashboardIcon },
     { label: 'Dosen Wali', path: '/dashboard/dosen-wali', icon: GroupIcon },
     { label: 'Mahasiswa', path: '/dashboard/mahasiswa', icon: PersonIcon },
-    { label: 'Periode', path: '/dashboard/periode', icon: DateRangeIcon },
+    { label: 'Periode Perwalian', path: '/dashboard/periode', icon: DateRangeIcon },
   ],
 };

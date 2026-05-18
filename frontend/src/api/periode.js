@@ -12,6 +12,12 @@ const STATUS_BACKEND_TO_UI = {
   berakhir: 'expired',
 };
 
+const JENIS_LABELS = {
+  ganjil: 'Ganjil',
+  genap: 'Genap',
+  pendek: 'Semester Pendek',
+};
+
 function mapPeriode(row) {
   const status = STATUS_BACKEND_TO_UI[row.status] ?? 'inactive';
   const totalKelas = row.total_kelas ?? 0;
@@ -30,7 +36,7 @@ function mapPeriode(row) {
 
 function buildNamaPeriode(tahunMulai, jenis) {
   const tahunAkhir = Number(tahunMulai) + 1;
-  const jenisLabel = jenis === 'genap' ? 'Genap' : 'Ganjil';
+  const jenisLabel = JENIS_LABELS[jenis] ?? 'Ganjil';
   return `${jenisLabel} ${tahunMulai}/${tahunAkhir}`;
 }
 

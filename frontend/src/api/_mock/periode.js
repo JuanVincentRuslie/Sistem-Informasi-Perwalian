@@ -43,6 +43,12 @@ const defaultUploadsByPeriode = {
 
 const previewStore = new Map();
 
+const JENIS_LABELS = {
+  ganjil: 'Ganjil',
+  genap: 'Genap',
+  pendek: 'Semester Pendek',
+};
+
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
 }
@@ -160,7 +166,7 @@ function buildPeriodeResponse(state) {
 
 function buildNamaPeriode(tahunMulai, jenis) {
   const tahunAkhir = Number(tahunMulai) + 1;
-  const jenisLabel = jenis === 'genap' ? 'Genap' : 'Ganjil';
+  const jenisLabel = JENIS_LABELS[jenis] ?? 'Ganjil';
   return `${jenisLabel} ${tahunMulai}/${tahunAkhir}`;
 }
 
@@ -224,6 +230,10 @@ export async function mockCreatePeriode(payload = {}) {
 
   if (!tahunMulai || !jenis || !tanggalMulai || !tanggalSelesai) {
     throw createMockError(422, 'Lengkapi semua field periode.');
+  }
+
+  if (!Object.keys(JENIS_LABELS).includes(jenis)) {
+    throw createMockError(422, 'Jenis semester harus ganjil, genap, atau pendek.');
   }
 
   if (tanggalSelesai < tanggalMulai) {

@@ -70,7 +70,7 @@ function JadwalPerwalianPage() {
     <PageContainer>
       <PageHeader
         title="Jadwal Perwalian"
-        subtitle="Atur jadwal perwalian pribadi yang akan ditampilkan ke mahasiswa bimbingan"
+        subtitle="Atur jadwal konseling pribadi yang akan ditampilkan ke mahasiswa bimbingan"
       />
 
       {successMessage && (

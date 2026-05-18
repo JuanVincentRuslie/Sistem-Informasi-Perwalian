@@ -62,7 +62,7 @@ function MahasiswaPage() {
   return (
     <PageContainer>
       <PageHeader
-        title="Mahasiswa"
+        title="Mahasiswa Wali"
         subtitle="Lihat seluruh mahasiswa terdaftar dan status dosen walinya"
       />
 
@@ -81,7 +81,7 @@ function MahasiswaPage() {
           value={searchQuery}
           onChange={(event) => setSearchQuery(event.target.value)}
           size="small"
-          placeholder="Cari nama atau NIM"
+          placeholder="Cari nama atau NPM"
           slotProps={{
             input: {
               startAdornment: (

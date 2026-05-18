@@ -40,12 +40,12 @@ function KaprodiMahasiswaTable({ items, onSelect }) {
       <Table aria-label="Daftar mahasiswa">
         <TableHead>
           <TableRow>
-            <TableCell>NIM</TableCell>
+            <TableCell>NPM</TableCell>
             <TableCell>Nama</TableCell>
             <TableCell>Angkatan</TableCell>
             <TableCell>IPK</TableCell>
             <TableCell>Dosen Wali</TableCell>
-            <TableCell>Status FRS</TableCell>
+            <TableCell>Status Rencana Studi</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

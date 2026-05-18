@@ -13,14 +13,17 @@ import Typography from '@mui/material/Typography';
 const JENIS_OPTIONS = [
   { value: 'ganjil', label: 'Ganjil' },
   { value: 'genap', label: 'Genap' },
+  { value: 'pendek', label: 'Semester Pendek' },
 ];
 
-
+function getJenisLabel(jenis) {
+  return JENIS_OPTIONS.find((option) => option.value === jenis)?.label ?? 'Ganjil';
+}
 
 function buildPreviewName(tahunMulai, jenis) {
   if (!tahunMulai || !jenis) return '-';
   const tahunAkhir = Number(tahunMulai) + 1;
-  const jenisLabel = jenis === 'genap' ? 'Genap' : 'Ganjil';
+  const jenisLabel = getJenisLabel(jenis);
   return `${jenisLabel} ${tahunMulai}/${tahunAkhir}`;
 }
 
@@ -95,7 +98,7 @@ function PeriodeCreateDialog({ open, saving, submitError, onClose, onSubmit, ini
 
   return (
     <Dialog open={open} onClose={saving ? undefined : onClose} fullWidth maxWidth="sm">
-      <DialogTitle>{isEdit ? 'Edit Periode' : 'Tambah Periode Baru'}</DialogTitle>
+      <DialogTitle>{isEdit ? 'Edit Periode' : 'Tambah Periode Perwalian Baru'}</DialogTitle>
 
       <DialogContent>
         <Stack spacing={2} sx={{ pt: 1 }}>

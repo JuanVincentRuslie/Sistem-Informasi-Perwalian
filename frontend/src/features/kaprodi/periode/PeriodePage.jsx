@@ -131,7 +131,7 @@ function PeriodePage() {
   return (
     <PageContainer>
       <PageHeader
-        title="Manajemen Periode"
+        title="Manajemen Periode Perwalian"
         subtitle="Kelola periode perwalian aktif dan upload jadwal kelas per periode"
       />
 
@@ -143,7 +143,7 @@ function PeriodePage() {
         }}
         sx={{ mb: 3 }}
       >
-        <Tab value="periode" label="Periode" />
+        <Tab value="periode" label="Periode Perwalian" />
         <Tab value="upload-jadwal" label="Upload Jadwal Kelas" />
       </Tabs>
 

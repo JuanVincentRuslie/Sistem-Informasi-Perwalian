@@ -13,6 +13,12 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import { formatTanggal } from '../../../../utils/formatDate.js';
 
+const JENIS_LABELS = {
+  ganjil: 'Semester ganjil',
+  genap: 'Semester genap',
+  pendek: 'Semester pendek',
+};
+
 function PeriodeHistoryTable({ periods, activatingId, deletingId, onActivate, onDelete, onEdit }) {
   return (
     <TableContainer sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1 }}>
@@ -32,7 +38,7 @@ function PeriodeHistoryTable({ periods, activatingId, deletingId, onActivate, on
               <TableCell>
                 <Typography fontWeight={700}>{periode.nama}</Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {periode.jenis === 'genap' ? 'Semester genap' : 'Semester ganjil'}
+                  {JENIS_LABELS[periode.jenis] ?? 'Semester ganjil'}
                 </Typography>
               </TableCell>
               <TableCell>

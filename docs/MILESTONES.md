@@ -256,6 +256,7 @@ feat: complete dosen wali feature pages (milestone 4.B)
 
 #### 4.C.2 — Periode
 - [x] Periode (tambah auto-aktif, histori, aktivasi manual untuk periode nonaktif yang belum berakhir, hapus untuk koreksi input)
+- [x] Tambah dukungan jenis periode Semester Pendek (`pendek`) end-to-end
 - [x] Upload Excel jadwal kelas (preview + confirm) — dalam halaman Periode
 - [x] Upload Excel master matkul — dibatalkan, master matkul akan di-hardcode di sistem
 

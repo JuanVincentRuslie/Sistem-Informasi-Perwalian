@@ -336,6 +336,8 @@ Get periode aktif saat ini (helper endpoint). Jika semua periode yang pernah dib
 
 Membuat periode baru sekaligus menjadikannya periode aktif. Backend harus otomatis menonaktifkan periode aktif sebelumnya.
 
+**Nilai `jenis`:** `ganjil`, `genap`, atau `pendek` (Semester Pendek).
+
 **Request:**
 ```json
 {

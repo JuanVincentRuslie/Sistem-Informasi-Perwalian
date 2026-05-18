@@ -1,6 +1,9 @@
 const service = require('./periode.service');
 const { ok, created, fail, failFromError } = require('../../utils/respond');
 
+const JENIS_PERIODE = ['ganjil', 'genap', 'pendek'];
+const JENIS_PERIODE_MESSAGE = 'Field jenis harus "ganjil", "genap", atau "pendek"';
+
 async function list(req, res) {
   try {
     const { is_active } = req.query;
@@ -32,8 +35,8 @@ async function create(req, res) {
     return fail(res, 'Field nama, tahun_mulai, jenis, tanggal_mulai, dan tanggal_selesai wajib diisi');
   }
 
-  if (!['ganjil', 'genap'].includes(jenis)) {
-    return fail(res, 'Field jenis harus "ganjil" atau "genap"');
+  if (!JENIS_PERIODE.includes(jenis)) {
+    return fail(res, JENIS_PERIODE_MESSAGE);
   }
 
   try {
@@ -47,8 +50,8 @@ async function create(req, res) {
 async function update(req, res) {
   const { nama, tahun_mulai, jenis, tanggal_mulai, tanggal_selesai } = req.body;
 
-  if (jenis && !['ganjil', 'genap'].includes(jenis)) {
-    return fail(res, 'Field jenis harus "ganjil" atau "genap"');
+  if (jenis && !JENIS_PERIODE.includes(jenis)) {
+    return fail(res, JENIS_PERIODE_MESSAGE);
   }
 
   try {

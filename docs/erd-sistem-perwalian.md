@@ -98,7 +98,7 @@ erDiagram
         bigserial id PK
         varchar nama UK
         smallint tahun_mulai
-        varchar jenis "ganjil/genap"
+        varchar jenis "ganjil/genap/pendek"
         date tanggal_mulai
         date tanggal_selesai
         boolean is_active
@@ -253,7 +253,7 @@ CREATE TABLE periode (
     id BIGSERIAL PRIMARY KEY,
     nama VARCHAR(50) NOT NULL UNIQUE,
     tahun_mulai SMALLINT NOT NULL,
-    jenis VARCHAR(10) NOT NULL CHECK (jenis IN ('ganjil', 'genap')),
+    jenis VARCHAR(10) NOT NULL CHECK (jenis IN ('ganjil', 'genap', 'pendek')),
     tanggal_mulai DATE NOT NULL,
     tanggal_selesai DATE NOT NULL,
     is_active BOOLEAN NOT NULL DEFAULT FALSE,
