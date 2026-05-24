@@ -4,6 +4,7 @@ import PageContainer from '../../../shared/components/PageContainer.jsx';
 import PageErrorState from '../../../shared/components/PageErrorState.jsx';
 import useFetch from '../../../hooks/useFetch.js';
 import { getRingkasanAkademik } from '../../../api/akademik.js';
+import DpsUploadPanel from './components/DpsUploadPanel.jsx';
 import IpkCard from './components/IpkCard.jsx';
 import PeriodePerwalianCard from './components/PeriodePerwalianCard.jsx';
 import SksMetricRow from './components/SksMetricRow.jsx';
@@ -44,6 +45,8 @@ function DashboardPage() {
         periodeAktif={data.periode_aktif}
         dosenWali={data.dosen_wali}
       />
+      {/* Panel upload DPS: setelah confirm, refetch ringkasan supaya IPK & SKS langsung ter-update. */}
+      <DpsUploadPanel onConfirmed={refetch} />
     </PageContainer>
   );
 }

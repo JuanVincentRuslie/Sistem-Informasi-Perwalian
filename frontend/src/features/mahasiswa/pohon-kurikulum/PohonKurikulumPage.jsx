@@ -1,26 +1,19 @@
-import { useState } from 'react';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
+import { Link as RouterLink } from 'react-router-dom';
 import PageContainer from '../../../shared/components/PageContainer.jsx';
 import PageErrorState from '../../../shared/components/PageErrorState.jsx';
 import PageHeader from '../../../shared/components/PageHeader.jsx';
 import { useAuth } from '../../../contexts/AuthContext.jsx';
 import useFetch from '../../../hooks/useFetch.js';
 import { getPohonKurikulum } from '../../../api/akademik.js';
-import DpsUploadPanel from './components/DpsUploadPanel.jsx';
 import PohonKurikulumFlow from './components/PohonKurikulumFlow.jsx';
 
 function PohonKurikulumPage() {
   // useContext via custom hook: dapet user yang lagi login (butuh user.id untuk fetch)
   const { user } = useAuth();
-
-  // useState [activeTab]: simpan tab aktif supaya user bisa pindah antara
-  // visualisasi pohon dan upload DPS tanpa pindah route.
-  const [activeTab, setActiveTab] = useState(0);
 
   // custom hook kita sendiri: handle fetch state otomatis (loading/error/data)
   // fetcher di-wrap lambda supaya getPohonKurikulum dipanggil ulang saat user.id berubah.
@@ -28,10 +21,6 @@ function PohonKurikulumPage() {
     () => getPohonKurikulum(user.id),
     [user.id],
   );
-
-  function handleTabChange(_event, nextTab) {
-    setActiveTab(nextTab);
-  }
 
   const summary = data?.summary ?? {};
   const hasDpsData = summary.ipk != null
@@ -60,32 +49,24 @@ function PohonKurikulumPage() {
     <PageContainer>
       <PageHeader
         title="Pohon Kurikulum"
-        subtitle="Visualisasi mata kuliah, prasyarat, dan upload DPS"
+        subtitle="Visualisasi mata kuliah dan prasyarat"
       />
 
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
-        <Tabs value={activeTab} onChange={handleTabChange} aria-label="Tab pohon kurikulum">
-          <Tab label="Pohon Kurikulum" />
-          <Tab label="Upload DPS" />
-        </Tabs>
-      </Box>
-
-      {!hasDpsData && activeTab === 0 && (
+      {!hasDpsData && (
         <Alert
           severity="info"
           sx={{ mb: 3 }}
           action={(
-            <Button color="inherit" size="small" onClick={() => setActiveTab(1)}>
-              Upload DPS
+            <Button component={RouterLink} to="/dashboard" color="inherit" size="small">
+              Ke Dashboard
             </Button>
           )}
         >
-          Data riwayat nilai belum tersedia. Upload DPS agar IPK, IPS, dan warna progres mata kuliah muncul.
+          Data riwayat nilai belum tersedia. Upload DPS di Dashboard agar IPK, IPS, dan warna progres mata kuliah muncul.
         </Alert>
       )}
 
-      {activeTab === 0 ? <PohonKurikulumFlow data={data} /> : null}
-      {activeTab === 1 ? <DpsUploadPanel onConfirmed={refetch} /> : null}
+      <PohonKurikulumFlow data={data} />
     </PageContainer>
   );
 }
