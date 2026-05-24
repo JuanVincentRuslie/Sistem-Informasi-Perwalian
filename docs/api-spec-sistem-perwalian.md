@@ -928,7 +928,7 @@ Upload PDF DPS.
 
 ### `POST /api/v1/riwayat-nilai/upload-dps/confirm`
 
-Konfirmasi (mahasiswa boleh edit row sebelum simpan).
+Konfirmasi simpan hasil parser DPS. Mahasiswa hanya bisa menerima atau membatalkan — tidak ada edit per row (keputusan dosen pembimbing, agar data riwayat nilai mengikuti hasil parser apa adanya).
 
 **Request:**
 ```json

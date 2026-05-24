@@ -10,11 +10,7 @@ import DpsFileControls from './DpsFileControls.jsx';
 import DpsPreviewTable from './DpsPreviewTable.jsx';
 import DpsReplaceConfirmDialog from './DpsReplaceConfirmDialog.jsx';
 import DpsSummaryGrid from './DpsSummaryGrid.jsx';
-import {
-  calculatePreviewSummary,
-  toConfirmItems,
-  validatePreviewRow,
-} from './dps-preview-utils.js';
+import { calculatePreviewSummary, toConfirmItems } from './dps-preview-utils.js';
 
 function isPdfFile(file) {
   return file?.type === 'application/pdf' || file?.name?.toLowerCase().endsWith('.pdf');
@@ -47,44 +43,47 @@ function DpsUploadPanel({ onConfirmed }) {
   const [replaceDialogOpen, setReplaceDialogOpen] = useState(false);
 
   const previewRows = previewData?.preview ?? [];
-  const invalidRows = previewRows.filter((row) => !row.valid);
-  const canConfirm = Boolean(previewData) && invalidRows.length === 0 && loadingAction === null && !successMessage;
+  const canConfirm = Boolean(previewData) && loadingAction === null && !successMessage;
   const resetDisabled = !selectedFile && !previewData && !errorMessage && !successMessage;
 
-  function handleFileChange(event) {
+  async function handleFileChange(event) {
     const file = event.target.files?.[0] ?? null;
 
     setErrorMessage('');
     setSuccessMessage('');
     setPreviewData(null);
-    setSelectedFile(file);
 
-    if (file && !isPdfFile(file)) {
+    if (!file) {
+      setSelectedFile(null);
+      return;
+    }
+
+    if (!isPdfFile(file)) {
       setErrorMessage('File DPS harus berupa PDF.');
       setSelectedFile(null);
       setInputKey((currentKey) => currentKey + 1);
+      return;
     }
+
+    setSelectedFile(file);
+    await runUploadPreview(file);
   }
 
-  async function handleUploadPreview() {
-    if (!selectedFile) return;
-
+  async function runUploadPreview(file) {
     setLoadingAction('upload');
     setErrorMessage('');
     setSuccessMessage('');
 
     try {
-      const response = await uploadDps(selectedFile);
+      const response = await uploadDps(file);
 
       if (!response.success) {
         throw new Error(response.message);
       }
 
-      const preview = response.data.preview.map(validatePreviewRow);
       setPreviewData({
         ...response.data,
-        preview,
-        summary: calculatePreviewSummary(preview),
+        summary: calculatePreviewSummary(response.data.preview),
       });
     } catch (err) {
       setPreviewData(null);
@@ -94,30 +93,13 @@ function DpsUploadPanel({ onConfirmed }) {
     }
   }
 
-  function handlePreviewRowChange(rowIndex, field, value) {
-    setSuccessMessage('');
-    setPreviewData((currentData) => {
-      if (!currentData) return currentData;
-
-      const preview = currentData.preview.map((row, index) => (
-        index === rowIndex ? validatePreviewRow({ ...row, [field]: value }) : row
-      ));
-
-      return {
-        ...currentData,
-        preview,
-        summary: calculatePreviewSummary(preview),
-      };
-    });
-  }
-
   function handleConfirmRequest() {
     if (!canConfirm) return;
     setReplaceDialogOpen(true);
   }
 
   async function handleConfirmReplace() {
-    if (!previewData || invalidRows.length > 0) return;
+    if (!previewData) return;
 
     setLoadingAction('confirm');
     setErrorMessage('');
@@ -173,13 +155,9 @@ function DpsUploadPanel({ onConfirmed }) {
         {successMessage ? <Alert severity="success">{successMessage}</Alert> : null}
 
         <DpsFileControls
-          selectedFile={selectedFile}
           loadingAction={loadingAction}
           inputKey={inputKey}
-          resetDisabled={resetDisabled}
           onFileChange={handleFileChange}
-          onUploadPreview={handleUploadPreview}
-          onReset={handleReset}
         />
 
         {selectedFile && (
@@ -197,14 +175,7 @@ function DpsUploadPanel({ onConfirmed }) {
         {previewData && (
           <>
             <DpsSummaryGrid previewData={previewData} />
-
-            {invalidRows.length > 0 && (
-              <Alert severity="warning">
-                Ada {invalidRows.length} baris belum valid. Edit baris tersebut sebelum konfirmasi.
-              </Alert>
-            )}
-
-            <DpsPreviewTable rows={previewRows} onRowChange={handlePreviewRowChange} />
+            <DpsPreviewTable rows={previewRows} />
           </>
         )}
 

@@ -26,14 +26,11 @@ function SummaryItem({ label, value }) {
 function DpsSummaryGrid({ previewData }) {
   return (
     <Grid container spacing={1.5}>
-      <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+      <Grid size={{ xs: 12, sm: 6 }}>
         <SummaryItem label="Periode Terdeteksi" value={previewData.periode_terdeteksi.nama} />
       </Grid>
-      <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+      <Grid size={{ xs: 12, sm: 6 }}>
         <SummaryItem label="Total Baris" value={previewData.summary.total_rows} />
-      </Grid>
-      <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-        <SummaryItem label="Baris Valid" value={previewData.summary.valid_rows} />
       </Grid>
     </Grid>
   );
