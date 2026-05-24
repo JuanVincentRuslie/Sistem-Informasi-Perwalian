@@ -50,11 +50,26 @@ function PerwalianPage() {
   // is_active untuk tab terpilih) supaya tidak collision.
   const { data: periodeAktifInfo } = useFetch(getPeriodeAktif, []);
 
-  // useMemo: tampilkan histori secara kronologis (lama -> baru) supaya tab
-  // dibaca natural dari kiri ke kanan, tanpa mengubah data asli dari API/mock.
+  // useMemo: gabungkan riwayat FRS dengan periode aktif. Kalau mahasiswa belum
+  // punya FRS di periode aktif, tab periode tetap muncul agar bisa klik "Buat FRS Baru".
   const sortedRiwayat = useMemo(() => (
-    [...(riwayat ?? [])].sort((a, b) => a.periode.id - b.periode.id)
-  ), [riwayat]);
+    [
+      ...(riwayat ?? []),
+      ...(
+        periodeAktifInfo && !(riwayat ?? []).some((item) => String(item.periode.id) === String(periodeAktifInfo.id))
+          ? [{
+              id: `periode-${periodeAktifInfo.id}`,
+              periode: { ...periodeAktifInfo, is_active: true },
+              status: 'DRAFT',
+              total_sks: 0,
+              submitted_at: null,
+              reviewed_at: null,
+              catatan_dosen: null,
+            }]
+          : []
+      ),
+    ].sort((a, b) => Number(a.periode.id) - Number(b.periode.id))
+  ), [periodeAktifInfo, riwayat]);
 
   // Derive info periode yang aktif dari tab index + riwayat yang sudah diload.
   const activePeriodeId = sortedRiwayat?.[activeTabIndex]?.periode?.id ?? null;

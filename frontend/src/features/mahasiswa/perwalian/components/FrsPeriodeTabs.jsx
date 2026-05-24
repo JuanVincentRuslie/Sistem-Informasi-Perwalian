@@ -15,7 +15,7 @@ function FrsPeriodeTabs({ riwayat, activeTabIndex, onChange }) {
       sx={{ borderBottom: 1, borderColor: 'divider', mb: 1 }}
     >
       {riwayat.map((item, idx) => (
-        <Tab key={item.id} label={item.periode.nama} value={idx} />
+        <Tab key={item.id ?? `periode-${item.periode.id}`} label={item.periode.nama} value={idx} />
       ))}
     </Tabs>
   );
