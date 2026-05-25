@@ -60,7 +60,7 @@ function JadwalPerwalianOverviewCard({ periodeAktif, jadwalPerwalian, onEdit }) 
 
         <Divider />
 
-        <InfoRow label="Jadwal Konseling">
+        <InfoRow label="Jadwal Perwalian">
           {jadwalLines.length > 0 ? (
             <Stack spacing={0.5}>
               {jadwalLines.map((line) => (

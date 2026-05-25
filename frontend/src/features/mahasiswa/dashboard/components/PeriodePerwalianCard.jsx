@@ -64,7 +64,7 @@ function PeriodePerwalianCard({ periodeAktif, dosenWali }) {
 
         <Divider />
 
-        <InfoRow label="Jadwal Konseling Dosen Wali">
+        <InfoRow label="Jadwal Perwalian Dosen Wali">
           {jadwalLines.length > 0 ? (
             <Stack spacing={0.5} sx={{ alignItems: 'flex-end' }}>
               {jadwalLines.map((line) => (
@@ -75,7 +75,7 @@ function PeriodePerwalianCard({ periodeAktif, dosenWali }) {
             </Stack>
           ) : (
             <Typography variant="body2" color="text.secondary">
-              Belum ada jadwal konseling
+              Belum ada jadwal perwalian
             </Typography>
           )}
         </InfoRow>

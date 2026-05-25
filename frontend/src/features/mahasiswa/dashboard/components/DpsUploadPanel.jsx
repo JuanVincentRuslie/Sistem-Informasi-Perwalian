@@ -140,7 +140,7 @@ function DpsUploadPanel({ onConfirmed }) {
   }
 
   return (
-    <Paper elevation={0} sx={{ p: 2.5, border: '1px solid', borderColor: 'divider', borderRadius: 1 }}>
+    <Paper elevation={0} sx={{ mt: 2, p: 2.5, border: '1px solid', borderColor: 'divider', borderRadius: 1 }}>
       <Stack spacing={2.5}>
         <Box>
           <Typography variant="h6" fontWeight={700}>
