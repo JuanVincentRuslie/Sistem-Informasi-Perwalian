@@ -511,11 +511,17 @@ List kelas yang ditawarkan di periode tertentu.
           "dosen_utama": "Husnul Hakim S.Kom., M.T.",
           "ruangan": "Lab IF 9016"
         }
+      ],
+      "jadwal_ujian": [
+        { "jenis": "UTS", "shift": 1, "tanggal": "2025-10-27", "jam_mulai": "11:00", "jam_selesai": "13:00" },
+        { "jenis": "UAS", "shift": 1, "tanggal": "2026-01-12", "jam_mulai": "11:00", "jam_selesai": "13:00" }
       ]
     }
   ]
 }
 ```
+
+> `jadwal_ujian` di-attach per kelas, tapi datanya **sama untuk semua kelas dari `kode_matkul` yang sama** (jadwal ujian hidup per matkul+periode, bukan per kelas). Frontend boleh ambil dari kelas pertama saat group by matkul.
 
 ### `GET /api/v1/kelas/:id`
 
@@ -523,10 +529,10 @@ Detail kelas + sesi.
 
 ### `POST /api/v1/kelas/upload`
 
-Upload Excel jadwal kelas. **Auth:** kaprodi
+Upload Excel jadwal kelas + jadwal ujian. **Auth:** kaprodi
 
 **Request:** `multipart/form-data`
-- `file`: Excel file (.xlsx)
+- `file`: Excel file (.xlsx) — wajib punya 3 sheet: `Jadwal Kelas`, `Jadwal UTS`, `Jadwal UAS`
 - `periode_id`: ID periode target
 
 **Response 200 — preview:**
@@ -541,6 +547,7 @@ Upload Excel jadwal kelas. **Auth:** kaprodi
         "sks": 4,
         "nama_kelas": "A",
         "sesi_count": 3,
+        "jadwal_ujian_status": "lengkap",
         "valid": true
       },
       {
@@ -554,12 +561,26 @@ Upload Excel jadwal kelas. **Auth:** kaprodi
       "total_rows": 250,
       "total_kelas": 45,
       "valid_kelas": 44,
-      "invalid_kelas": 1
+      "invalid_kelas": 1,
+      "total_ujian": 78
     },
+    "warnings": [
+      {
+        "sheet": "Jadwal UTS",
+        "row": 41,
+        "type": "missing_jadwal_kelas",
+        "kode_matkul": "AIF232111",
+        "message": "kode_matkul \"AIF232111\" tidak ada di sheet \"Jadwal Kelas\", baris ujian dilewati."
+      }
+    ],
     "upload_token": "abc123"
   }
 }
 ```
+
+Tipe warning yang mungkin muncul: `skipped_row` (field wajib kosong), `missing_jadwal_kelas` (matkul ujian tidak ada di sheet Jadwal Kelas), `duplicate_ujian` (matkul+shift duplikat di sheet UTS/UAS), `sheet_missing` (sheet UTS/UAS hilang).
+
+Field `jadwal_ujian_status` per preview row berisi salah satu: `"lengkap"` (matkul punya UTS + UAS), `"uts_only"`, `"uas_only"`, atau `"belum"` (belum ada jadwal ujian). Frontend kaprodi pakai ini untuk render badge per-matkul.
 
 ### `POST /api/v1/kelas/upload/confirm`
 
@@ -571,7 +592,20 @@ Upload Excel jadwal kelas. **Auth:** kaprodi
 }
 ```
 
-> **Replace mode**: hapus semua kelas + sesi periode_id, terus insert ulang.
+**Response 200:**
+```json
+{
+  "success": true,
+  "data": {
+    "periode_id": 3,
+    "inserted_kelas": 45,
+    "inserted_sesi": 110,
+    "inserted_ujian": 78
+  }
+}
+```
+
+> **Replace mode**: hapus semua `kelas` + `sesi_kelas` + `jadwal_ujian` untuk periode_id, lalu insert ulang dalam 1 transaction.
 
 ### `GET /api/v1/kelas/template`
 

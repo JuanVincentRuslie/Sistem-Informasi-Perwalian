@@ -20,6 +20,9 @@ function groupByMatkul(kelasList) {
         kode_matkul: kelas.kode_matkul,
         nama_matkul: kelas.nama_matkul,
         sks: kelas.sks,
+        // Jadwal ujian sama untuk semua kelas dari matkul yang sama → cukup ambil
+        // dari kelas pertama yang muncul. Backend sudah jamin konsistensi datanya.
+        jadwal_ujian: kelas.jadwal_ujian ?? [],
         kelas_list: [],
       });
     }
@@ -28,10 +31,10 @@ function groupByMatkul(kelasList) {
   return Array.from(map.values());
 }
 
-// Cek bentrok jadwal antar kelas (pairwise). Hari sama + waktu overlap = bentrok.
+// Cek bentrok sesi kuliah antar kelas (pairwise). Hari sama + waktu overlap = bentrok.
 // Format jam_mulai/jam_selesai dijamin "HH:MM" zero-padded oleh backend (TO_CHAR),
 // jadi string compare aman tanpa parse tanggal.
-function findJadwalBentrok(kelasArr) {
+function findSesiBentrok(kelasArr) {
   const bentrok = [];
   for (let i = 0; i < kelasArr.length; i++) {
     for (let j = i + 1; j < kelasArr.length; j++) {
@@ -40,7 +43,34 @@ function findJadwalBentrok(kelasArr) {
           if (sa.hari === sb.hari
               && sa.jam_mulai < sb.jam_selesai
               && sb.jam_mulai < sa.jam_selesai) {
-            bentrok.push({ a: kelasArr[i], sesiA: sa, b: kelasArr[j], sesiB: sb });
+            bentrok.push({ type: 'sesi', a: kelasArr[i], sesiA: sa, b: kelasArr[j], sesiB: sb });
+          }
+        }
+      }
+    }
+  }
+  return bentrok;
+}
+
+// Cek bentrok jadwal ujian (UTS/UAS) antar matkul terpilih. Tanggal sama + waktu overlap = bentrok.
+// Multi-shift di-check per shift; matkul yang sama (kelas A vs kelas B) di-skip karena
+// share jadwal ujian yang identik (akan jadi false positive kalau dibandingkan).
+function findUjianBentrok(kelasArr) {
+  const bentrok = [];
+  for (let i = 0; i < kelasArr.length; i++) {
+    for (let j = i + 1; j < kelasArr.length; j++) {
+      if (kelasArr[i].kode_matkul === kelasArr[j].kode_matkul) continue;
+
+      for (const ua of kelasArr[i].jadwal_ujian ?? []) {
+        for (const ub of kelasArr[j].jadwal_ujian ?? []) {
+          if (ua.tanggal === ub.tanggal
+              && ua.jam_mulai < ub.jam_selesai
+              && ub.jam_mulai < ua.jam_selesai) {
+            bentrok.push({
+              type: 'ujian',
+              a: kelasArr[i], ujianA: ua,
+              b: kelasArr[j], ujianB: ub,
+            });
           }
         }
       }
@@ -124,7 +154,7 @@ function TambahMatkulPage() {
       return true;
     });
 
-    const bentrok = findJadwalBentrok(checkInput);
+    const bentrok = [...findSesiBentrok(checkInput), ...findUjianBentrok(checkInput)];
     if (bentrok.length > 0) {
       setBentrokList(bentrok);
       return; // tidak panggil API, tidak navigate — tunggu user perbaiki pilihan

@@ -16,6 +16,7 @@ import {
   submitRencanaStudi,
 } from '../../../api/rencanaStudi.js';
 import { getPeriodeAktif } from '../../../api/periode.js';
+import { getRingkasanAkademik } from '../../../api/akademik.js';
 import CatatanDosenModal from './components/CatatanDosenModal.jsx';
 import EmptyRencanaStudi from './components/EmptyRencanaStudi.jsx';
 import FrsContentPanel from './components/FrsContentPanel.jsx';
@@ -49,6 +50,10 @@ function PerwalianPage() {
   // Diberi nama beda dari variable `periodeAktif` di bawah (yang isinya boolean
   // is_active untuk tab terpilih) supaya tidak collision.
   const { data: periodeAktifInfo } = useFetch(getPeriodeAktif, []);
+
+  // useFetch: ringkasan akademik untuk dapat ips_terakhir (jatah SKS max).
+  // [] deps: fetch sekali, tidak per tab/periode karena IPS bersifat global.
+  const { data: ringkasanAkademik } = useFetch(getRingkasanAkademik, []);
 
   // useMemo: gabungkan riwayat FRS dengan periode aktif. Kalau mahasiswa belum
   // punya FRS di periode aktif, tab periode tetap muncul agar bisa klik "Buat FRS Baru".
@@ -261,6 +266,7 @@ function PerwalianPage() {
           frs={frs}
           periodeNama={periodeNama}
           periodeAktif={periodeAktif}
+          ipsTerakhir={ringkasanAkademik?.ips_terakhir ?? null}
           onCatatan={() => setCatatanOpen(true)}
           onTambah={handleTambah}
           onJadwal={handleJadwal}

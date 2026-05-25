@@ -1,5 +1,7 @@
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorOutlinedIcon from '@mui/icons-material/ErrorOutlined';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import EventBusyIcon from '@mui/icons-material/EventBusy';
 import Chip from '@mui/material/Chip';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,6 +9,18 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+
+const UJIAN_STATUS_CONFIG = {
+  lengkap: { color: 'success', icon: <EventAvailableIcon />, label: 'UTS + UAS' },
+  uts_only: { color: 'warning', icon: <EventAvailableIcon />, label: 'UTS only' },
+  uas_only: { color: 'warning', icon: <EventAvailableIcon />, label: 'UAS only' },
+  belum: { color: 'default', icon: <EventBusyIcon />, label: 'Belum' },
+};
+
+function JadwalUjianChip({ status }) {
+  const config = UJIAN_STATUS_CONFIG[status] ?? UJIAN_STATUS_CONFIG.belum;
+  return <Chip size="small" color={config.color} icon={config.icon} label={config.label} variant="outlined" />;
+}
 
 function JadwalKelasPreviewTable({ rows }) {
   return (
@@ -19,6 +33,7 @@ function JadwalKelasPreviewTable({ rows }) {
             <TableCell align="right">SKS</TableCell>
             <TableCell>Kelas</TableCell>
             <TableCell align="right">Jumlah Sesi</TableCell>
+            <TableCell>Jadwal Ujian</TableCell>
             <TableCell>Validasi</TableCell>
           </TableRow>
         </TableHead>
@@ -30,6 +45,9 @@ function JadwalKelasPreviewTable({ rows }) {
               <TableCell align="right">{row.sks}</TableCell>
               <TableCell>{row.nama_kelas}</TableCell>
               <TableCell align="right">{row.sesi_count}</TableCell>
+              <TableCell>
+                {row.valid ? <JadwalUjianChip status={row.jadwal_ujian_status} /> : '—'}
+              </TableCell>
               <TableCell>
                 {row.valid ? (
                   <Chip

@@ -13,7 +13,7 @@ const jwt = require('jsonwebtoken');
 const BASE = 'http://localhost:4000';
 const TEMPLATE_XLSX = path.resolve(
   __dirname,
-  '../../parser_for_backend/Jadwal_excel_parser/Template_Jadwal Ganjil 2025-2026-Prodi Informatika.xlsx',
+  '../../parser_for_backend/Jadwal_excel_parser/Template_jadwal_kelas.xlsx',
 );
 
 const tokenKaprodi = jwt.sign(

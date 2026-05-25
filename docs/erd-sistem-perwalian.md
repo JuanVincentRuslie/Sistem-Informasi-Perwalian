@@ -144,6 +144,17 @@ erDiagram
         varchar ruangan
     }
 
+    JADWAL_UJIAN {
+        bigserial id PK
+        bigint periode_id FK
+        varchar kode_matkul "soft ref, NO FK"
+        varchar jenis "UTS|UAS"
+        smallint shift
+        date tanggal
+        time jam_mulai
+        time jam_selesai
+    }
+
     RENCANA_STUDI {
         bigserial id PK
         bigint mahasiswa_id FK
@@ -387,6 +398,29 @@ CREATE TABLE sesi_kelas (
 );
 
 CREATE INDEX idx_sesi_kelas ON sesi_kelas(kelas_id);
+```
+
+#### `jadwal_ujian`
+
+Jadwal UTS & UAS, **per matkul + periode** (bukan per kelas). Semua kelas dari matkul yang sama share jadwal ujian. `shift` mendukung kasus 1 matkul punya beberapa slot ujian (mis. shift 1 pagi, shift 2 siang).
+
+```sql
+CREATE TABLE jadwal_ujian (
+    id BIGSERIAL PRIMARY KEY,
+    periode_id BIGINT NOT NULL REFERENCES periode(id) ON DELETE RESTRICT,
+
+    kode_matkul VARCHAR(20) NOT NULL,        -- soft ref, NO FK ke master_matkul/kelas
+    jenis VARCHAR(5) NOT NULL CHECK (jenis IN ('UTS','UAS')),
+    shift SMALLINT NOT NULL DEFAULT 1,
+    tanggal DATE NOT NULL,
+    jam_mulai TIME NOT NULL,
+    jam_selesai TIME NOT NULL,
+
+    UNIQUE (periode_id, kode_matkul, jenis, shift),
+    CHECK (jam_selesai > jam_mulai)
+);
+
+CREATE INDEX idx_jadwal_ujian_periode_kode ON jadwal_ujian(periode_id, kode_matkul);
 ```
 
 ---

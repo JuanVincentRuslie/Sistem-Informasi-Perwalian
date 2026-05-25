@@ -1,7 +1,9 @@
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { getMaxSks } from '../../../../utils/sksRules.js';
 import FrsActionButtons from './FrsActionButtons.jsx';
 import FrsStatusBar from './FrsStatusBar.jsx';
 import JadwalFrsList from './JadwalFrsList.jsx';
@@ -25,6 +27,7 @@ function FrsContentPanel({
   frs,
   periodeNama,
   periodeAktif,
+  ipsTerakhir = null,
   onCatatan,
   onTambah,
   onJadwal,
@@ -37,6 +40,14 @@ function FrsContentPanel({
   const canSubmit = periodeAktif && items.length > 0 && frs.status !== 'APPROVED' && !resetting && !submitting;
   const canReset = periodeAktif && items.length > 0 && !resetting && !submitting;
   const submitLabel = frs.status === 'SUBMITTED' ? 'Kirim Ulang' : 'Kirim';
+
+  // Soft warning kalau total SKS melebihi jatah berdasarkan IPS terakhir.
+  // Tidak block submit — dosen wali yang verifikasi.
+  const maxSks = getMaxSks(ipsTerakhir);
+  const overLimit = frs.total_sks > maxSks;
+  const ipsSuffix = ipsTerakhir != null
+    ? ` berdasarkan IPS terakhir ${Number(ipsTerakhir).toFixed(2)}`
+    : ' — IPS terakhir belum tersedia';
 
   return (
     <>
@@ -53,6 +64,12 @@ function FrsContentPanel({
           periodeAktif={periodeAktif}
         />
       </Box>
+
+      {overLimit ? (
+        <Alert severity="warning" sx={{ mb: 2 }}>
+          Total SKS FRS ({frs.total_sks}) melebihi jatah maksimal ({maxSks} SKS{ipsSuffix}).
+        </Alert>
+      ) : null}
 
       <MatkulFrsList items={items} />
 

@@ -20,6 +20,9 @@ function groupByMatkul(kelasList) {
         kode_matkul: kelas.kode_matkul,
         nama_matkul: kelas.nama_matkul,
         sks: kelas.sks,
+        // Jadwal ujian sama untuk semua kelas dari matkul yang sama → cukup ambil
+        // dari kelas pertama yang muncul. Backend sudah jamin konsistensi datanya.
+        jadwal_ujian: kelas.jadwal_ujian ?? [],
         kelas_list: [],
       });
     }

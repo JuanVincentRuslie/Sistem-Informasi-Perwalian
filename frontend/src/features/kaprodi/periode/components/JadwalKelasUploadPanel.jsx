@@ -64,6 +64,14 @@ function JadwalKelasUploadPanel({ periods, activePeriode, onUploaded }) {
   const previewRows = previewData?.preview ?? [];
   const canConfirm = Boolean(previewData) && previewData.summary.invalid_kelas === 0 && loadingAction === null;
 
+  // Hitung warning ujian dari backend supaya kaprodi sadar baris ujian yang dilewati.
+  const ujianWarnings = (previewData?.warnings ?? []).filter(
+    (w) => w.type === 'missing_jadwal_kelas' || w.type === 'duplicate_ujian',
+  );
+  const missingJadwalKelasCount = ujianWarnings.filter((w) => w.type === 'missing_jadwal_kelas').length;
+  const duplicateUjianCount = ujianWarnings.filter((w) => w.type === 'duplicate_ujian').length;
+  const totalUjianSkipped = ujianWarnings.length;
+
   function handleFileChange(event) {
     const file = event.target.files?.[0] ?? null;
 
@@ -254,6 +262,22 @@ function JadwalKelasUploadPanel({ periods, activePeriode, onUploaded }) {
             {previewData.summary.invalid_kelas > 0 ? (
               <Alert severity="warning">
                 Preview masih memiliki baris tidak valid. Perbaiki file sumber lalu upload ulang.
+              </Alert>
+            ) : null}
+
+            {totalUjianSkipped > 0 ? (
+              <Alert severity="warning">
+                <Typography variant="body2" component="div" sx={{ mb: 0.5 }}>
+                  Ada {totalUjianSkipped} baris ujian tidak dibaca: {missingJadwalKelasCount} kode matkul tidak ada di dalam Jadwal Kelas, {duplicateUjianCount} duplikat pada jadwal ujian.
+                </Typography>
+                <Box component="ul" sx={{ m: 0, pl: 2.5, fontSize: '0.85rem' }}>
+                  {ujianWarnings.map((w, i) => (
+                    <li key={`${w.sheet}-${w.row}-${i}`}>
+                      <strong>{w.sheet} baris {w.row}</strong>
+                      {w.kode_matkul ? ` (${w.kode_matkul})` : ''} — {w.message}
+                    </li>
+                  ))}
+                </Box>
               </Alert>
             ) : null}
 

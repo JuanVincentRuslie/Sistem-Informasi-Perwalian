@@ -4,14 +4,15 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import JadwalUjianSection from './JadwalUjianSection.jsx';
 import KelasJadwalTable from './KelasJadwalTable.jsx';
 
 /**
  * Accordion row untuk satu matakuliah di halaman Tambah Matkul.
  * Collapsed: tampil nama matkul + status terpilih.
- * Expanded: tampil KelasJadwalTable per kelas yang tersedia.
+ * Expanded: tampil KelasJadwalTable per kelas + section Jadwal Ujian per matkul.
  *
- * @param {{ kode_matkul, nama_matkul, sks, kelas_list }} matkul
+ * @param {{ kode_matkul, nama_matkul, sks, kelas_list, jadwal_ujian }} matkul
  * @param {number|null} selectedKelasId - id kelas yang dipilih, null jika belum pilih
  * @param {Function} onPilih - callback(kelasId)
  * @param {boolean} [readonly] - kalau true, mode lihat-saja: tombol Pilih + indicator tersembunyi
@@ -61,6 +62,8 @@ function MatkulAccordionItem({ matkul, selectedKelasId, onPilih, readonly = fals
             readonly={readonly}
           />
         ))}
+
+        <JadwalUjianSection ujian={matkul.jadwal_ujian} />
       </AccordionDetails>
     </Accordion>
   );
