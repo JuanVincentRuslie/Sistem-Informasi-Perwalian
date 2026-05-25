@@ -17,7 +17,7 @@ import KelasJadwalTable from './KelasJadwalTable.jsx';
  * @param {Function} onPilih - callback(kelasId)
  * @param {boolean} [readonly] - kalau true, mode lihat-saja: tombol Pilih + indicator tersembunyi
  */
-function MatkulAccordionItem({ matkul, selectedKelasId, onPilih, readonly = false }) {
+function MatkulAccordionItem({ matkul, selectedKelasId, pendingKelasId = null, onPilih, readonly = false }) {
   const isSelected = selectedKelasId !== null;
 
   return (
@@ -58,6 +58,7 @@ function MatkulAccordionItem({ matkul, selectedKelasId, onPilih, readonly = fals
             key={kelas.id}
             kelas={kelas}
             isSelected={selectedKelasId === kelas.id}
+            pending={pendingKelasId === kelas.id}
             onPilih={() => onPilih?.(kelas.id)}
             readonly={readonly}
           />

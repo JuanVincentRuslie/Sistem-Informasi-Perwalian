@@ -5,7 +5,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useFetch from '../../../hooks/useFetch.js';
-import { addRencanaStudiItem, getKelas } from '../../../api/rencanaStudi.js';
+import {
+  addRencanaStudiItem,
+  deleteRencanaStudiItem,
+  getKelas,
+} from '../../../api/rencanaStudi.js';
 import JadwalBentrokDialog from './components/JadwalBentrokDialog.jsx';
 import MatkulAccordionItem from './components/MatkulAccordionItem.jsx';
 import TambahBottomBar from './components/TambahBottomBar.jsx';
@@ -84,9 +88,25 @@ function TambahMatkulPage() {
   const { state } = useLocation();
   const { frsId, periodeId, periodeNama, frs } = state ?? {};
 
-  // useState: Map dari kode_matkul → kelas_id yang dipilih.
-  // Map memastikan per matkul hanya bisa pilih 1 kelas (seperti FRS nyata).
-  const [selectedKelas, setSelectedKelas] = useState(new Map());
+  // useState: Map dari kode_matkul → { kelas_id, item_id, fromFrs }.
+  // Pre-seed dari frs.items supaya kelas yang sudah di FRS langsung tampil "terpilih".
+  // fromFrs=true berarti kelas itu sudah committed di backend → untuk un-toggle
+  // perlu DELETE API call. fromFrs=false = pilihan session ini, akan POST di checkout.
+  const [selectedKelas, setSelectedKelas] = useState(() => {
+    const map = new Map();
+    for (const item of frs?.items ?? []) {
+      map.set(item.kelas.kode_matkul, {
+        kelas_id: item.kelas.id,
+        item_id: item.id,
+        fromFrs: true,
+      });
+    }
+    return map;
+  });
+
+  // useState [pendingKelasId]: kelas_id yang sedang di-DELETE ke backend.
+  // Tombol kelas itu disabled + spinner sampai response selesai (anti double-click).
+  const [pendingKelasId, setPendingKelasId] = useState(null);
   // useState: error checkout disimpan supaya user bisa baca dan koreksi,
   // tanpa terganggu popup alert native browser.
   const [submitError, setSubmitError] = useState('');
@@ -121,12 +141,60 @@ function TambahMatkulPage() {
     return { totalCount: selectedKelas.size, totalSks: sks };
   }, [selectedKelas, matkulGroups]);
 
-  const handlePilih = (kodeMatkul, kelasId) => {
-    // Toggle: klik "Pilih" di kelas yang sama = batal pilih
+  const handlePilih = async (kodeMatkul, kelasId) => {
+    if (pendingKelasId) return; // anti double-click selama DELETE berjalan
+    setSubmitError('');
+
+    const current = selectedKelas.get(kodeMatkul);
+
+    // Case 1: klik kelas yang sama = toggle off (batal pilih).
+    // Kalau kelas itu sudah di FRS, harus DELETE dulu di backend baru hapus dari Map.
+    if (current && current.kelas_id === kelasId) {
+      if (current.fromFrs) {
+        setPendingKelasId(kelasId);
+        try {
+          await deleteRencanaStudiItem(frsId, current.item_id);
+        } catch (err) {
+          setSubmitError(err instanceof Error ? err.message : 'Gagal menghapus kelas dari FRS.');
+          setPendingKelasId(null);
+          return;
+        }
+        setPendingKelasId(null);
+      }
+      setSelectedKelas((prev) => {
+        const next = new Map(prev);
+        next.delete(kodeMatkul);
+        return next;
+      });
+      return;
+    }
+
+    // Case 2: ganti kelas dari matkul yang sama (kode sama, kelas_id beda).
+    // Kalau kelas lama dari FRS, hapus dulu di backend. Kelas baru jadi session-pick.
+    if (current && current.kelas_id !== kelasId) {
+      if (current.fromFrs) {
+        setPendingKelasId(current.kelas_id);
+        try {
+          await deleteRencanaStudiItem(frsId, current.item_id);
+        } catch (err) {
+          setSubmitError(err instanceof Error ? err.message : 'Gagal mengganti kelas di FRS.');
+          setPendingKelasId(null);
+          return;
+        }
+        setPendingKelasId(null);
+      }
+      setSelectedKelas((prev) => {
+        const next = new Map(prev);
+        next.set(kodeMatkul, { kelas_id: kelasId, item_id: null, fromFrs: false });
+        return next;
+      });
+      return;
+    }
+
+    // Case 3: matkul belum di-select sama sekali → tambah sebagai session-pick.
     setSelectedKelas((prev) => {
       const next = new Map(prev);
-      if (next.get(kodeMatkul) === kelasId) next.delete(kodeMatkul);
-      else next.set(kodeMatkul, kelasId);
+      next.set(kodeMatkul, { kelas_id: kelasId, item_id: null, fromFrs: false });
       return next;
     });
   };
@@ -136,25 +204,19 @@ function TambahMatkulPage() {
     if (!frsId) { navigate('/dashboard/perwalian'); return; }
     setSubmitError('');
 
-    // Resolve kelas_id terpilih → object kelas lengkap (dengan sesi) dari kelasList.
-    const selectedKelasObjects = [];
-    for (const [kode, kelasId] of selectedKelas) {
+    // Resolve semua kelas terpilih → object lengkap (FRS-existing + session) untuk cek bentrok.
+    // Sekalian pisahkan session-picks yang perlu di-POST saat checkout.
+    const allKelasObjects = [];
+    const sessionPicks = [];
+    for (const [kode, entry] of selectedKelas) {
       const group = matkulGroups.find((m) => m.kode_matkul === kode);
-      const kelas = group?.kelas_list.find((k) => k.id === kelasId);
-      if (kelas) selectedKelasObjects.push(kelas);
+      const kelas = group?.kelas_list.find((k) => k.id === entry.kelas_id);
+      if (!kelas) continue;
+      allKelasObjects.push(kelas);
+      if (!entry.fromFrs) sessionPicks.push(entry);
     }
 
-    // Gabung dengan kelas yang sudah di FRS (dari router state). Dedup by kelas_id
-    // supaya kelas yang sama tidak compare dengan dirinya sendiri (false positive).
-    const existingKelas = (frs?.items ?? []).map((item) => item.kelas);
-    const seen = new Set();
-    const checkInput = [...existingKelas, ...selectedKelasObjects].filter((k) => {
-      if (seen.has(k.id)) return false;
-      seen.add(k.id);
-      return true;
-    });
-
-    const bentrok = [...findSesiBentrok(checkInput), ...findUjianBentrok(checkInput)];
+    const bentrok = [...findSesiBentrok(allKelasObjects), ...findUjianBentrok(allKelasObjects)];
     if (bentrok.length > 0) {
       setBentrokList(bentrok);
       return; // tidak panggil API, tidak navigate — tunggu user perbaiki pilihan
@@ -162,8 +224,8 @@ function TambahMatkulPage() {
 
     setSubmitting(true);
     try {
-      for (const kelasId of selectedKelas.values()) {
-        await addRencanaStudiItem(frsId, { kelas_id: kelasId });
+      for (const pick of sessionPicks) {
+        await addRencanaStudiItem(frsId, { kelas_id: pick.kelas_id });
       }
       // state.refreshed memberitahu PerwalianPage untuk refetch data FRS
       navigate('/dashboard/perwalian', { state: { refreshed: true } });
@@ -188,7 +250,8 @@ function TambahMatkulPage() {
           <MatkulAccordionItem
             key={matkul.kode_matkul}
             matkul={matkul}
-            selectedKelasId={selectedKelas.get(matkul.kode_matkul) ?? null}
+            selectedKelasId={selectedKelas.get(matkul.kode_matkul)?.kelas_id ?? null}
+            pendingKelasId={pendingKelasId}
             onPilih={(kelasId) => handlePilih(matkul.kode_matkul, kelasId)}
           />
         ))}

@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -16,7 +17,7 @@ function capitalize(str) {
  * @param {Function} onPilih - toggle pilih/batal
  * @param {boolean} [readonly] - kalau true, sembunyikan tombol Pilih (mode lihat-saja)
  */
-function KelasJadwalTable({ kelas, isSelected, onPilih, readonly = false }) {
+function KelasJadwalTable({ kelas, isSelected, pending = false, onPilih, readonly = false }) {
   return (
     <Box sx={{ mb: 1 }}>
       <Box sx={{ px: 2, py: 1, bgcolor: 'grey.100' }}>
@@ -45,10 +46,11 @@ function KelasJadwalTable({ kelas, isSelected, onPilih, readonly = false }) {
           <Button
             variant={isSelected ? 'contained' : 'outlined'}
             size="small"
-            startIcon={<AddIcon />}
+            startIcon={pending ? <CircularProgress size={14} color="inherit" /> : <AddIcon />}
             onClick={onPilih}
+            disabled={pending}
           >
-            Pilih
+            {pending ? 'Memproses...' : 'Pilih'}
           </Button>
         </Box>
       )}
